@@ -154,7 +154,8 @@
 .toc a:hover { color: var(--text-dim); text-decoration: none; }
 .toc a.active { color: var(--accent); border-inline-start-color: var(--accent); font-weight: 700; }
 @media (max-width: 960px) {
-  .layout { grid-template-columns: 1fr; }
+  .layout { grid-template-columns: minmax(0, 1fr); }
+  .layout > *, #content { min-width: 0; }
   .toc { display: none; }
 }
 

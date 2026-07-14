@@ -135,3 +135,31 @@ kbd {
 /* skip link for a11y */
 .skip { position: absolute; inset-inline-start: -9999px; top: 8px; z-index: 200; background: var(--accent); color: #10131c; padding: 8px 14px; border-radius: var(--r-sm); font-weight: 700; }
 .skip:focus { inset-inline-start: 12px; }
+
+/* ============================================================
+   Mobile responsiveness (phones / small tablets)
+   ============================================================ */
+html, body { max-width: 100%; overflow-x: clip; }
+img, svg, video, canvas, iframe { max-width: 100%; height: auto; }
+/* wide media/tables scroll inside their own box, never the page */
+.tbl-wrap { max-width: 100%; }
+pre, code { overflow-wrap: anywhere; }
+pre.hl, pre.hl code { overflow-wrap: normal; } /* keep code lines intact (they scroll) */
+
+@media (max-width: 700px) {
+  .wrap { width: min(100% - 24px, var(--maxw)); }
+  h1 { font-size: clamp(1.55rem, 7.5vw, 2.1rem); line-height: 1.2; }
+  h2 { font-size: clamp(1.25rem, 5.6vw, 1.6rem); }
+  h3 { font-size: 1.06rem; }
+  .lead { font-size: 1rem; }
+  .page { padding-block: var(--sp-5) var(--sp-6); }
+  /* let every grid/flex child shrink so nothing forces horizontal scroll */
+  .layout, .layout > *, #content, #content > * { min-width: 0; }
+  /* interactive widgets never exceed the viewport; scroll internally if needed */
+  .anim, .playground, .stepper, .livedemo, .challenge, .code-block { max-width: 100%; }
+  .anim { overflow-x: auto; }
+  /* stacked panes (code + live result) must shrink to the viewport */
+  .livedemo .ld-body, .playground .pg-body { grid-template-columns: 1fr; }
+  .livedemo .ld-body > *, .playground .pg-body > * { min-width: 0; }
+  .livedemo .ld-result iframe, .playground .pg-preview { width: 100%; }
+}

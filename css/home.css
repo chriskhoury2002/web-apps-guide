@@ -14,7 +14,7 @@
 .hero-stats { display: flex; gap: var(--sp-5); margin-top: var(--sp-5); flex-wrap: wrap; }
 .hero-stat b { font-family: var(--font-display); font-size: 1.9rem; color: var(--accent); display: block; line-height: 1; }
 .hero-stat span { font-size: .82rem; color: var(--text-mute); }
-@media (max-width: 860px) { .home-hero { grid-template-columns: 1fr; } .hero-code { transform: none; } }
+@media (max-width: 860px) { .home-hero { grid-template-columns: minmax(0, 1fr); } .home-hero > * { min-width: 0; } .hero-code { transform: none; } }
 
 /* --- dashboard --- */
 .dash { display: grid; grid-template-columns: auto 1fr; gap: var(--sp-5); align-items: center; padding: var(--sp-5); border: 1px solid var(--border); border-radius: var(--r-lg); background: linear-gradient(160deg, var(--panel-2), var(--panel)); }
