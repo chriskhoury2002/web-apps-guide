@@ -1,0 +1,222 @@
+{
+  "slug": "09-js-deep",
+  "title": "תרגול: JavaScript מעמיק",
+  "questions": [
+    {
+      "id": 1, "type": "knowledge", "topic": "משתנים",
+      "question": "מה נכון בנוגע ל-`let` ו-`const`?",
+      "options": [
+        "לשניהם scope של הבלוק, אבל את הערך של const אי אפשר להחליף",
+        "לשניהם scope של כל הפונקציה",
+        "const אפשר לשנות ו-let לא",
+        "שניהם זהים ל-var בדיוק"
+      ],
+      "correctIndex": 0,
+      "explanation": "let ו-const שניהם block-scoped (מוכרים רק בתוך ה-{}). ההבדל: ל-const אי אפשר להקצות ערך חדש אחרי ההגדרה.",
+      "source": "מצגת 04, שקף 4"
+    },
+    {
+      "id": 2, "type": "knowledge", "topic": "var",
+      "question": "מה נכון בנוגע ל-`var`?",
+      "options": [
+        "ה-scope שלו הוא כל הפונקציה, והוא נחשב מיושן",
+        "ה-scope שלו הוא הבלוק בלבד",
+        "אי אפשר לשנות את הערך שלו",
+        "הוא חדש יותר מ-let"
+      ],
+      "correctIndex": 0,
+      "explanation": "ל-var יש function scope (לא block scope), והוא נחשב מיושן. עדיף להשתמש ב-let ו-const.",
+      "source": "מצגת 04, שקף 4"
+    },
+    {
+      "id": 3, "type": "output", "topic": "typeof null",
+      "question": "מה יחזיר `typeof null`?",
+      "code": "let a = null;\nconsole.log(typeof a);",
+      "lang": "js",
+      "options": [
+        "\"object\" (זה באג היסטורי מפורסם בשפה)",
+        "\"null\"",
+        "\"undefined\"",
+        "\"number\""
+      ],
+      "correctIndex": 0,
+      "explanation": "`typeof null` מחזיר \"object\", וזה באג ידוע ב-JavaScript שנשאר מסיבות תאימות.",
+      "source": "מצגת 04, שקף 5"
+    },
+    {
+      "id": 4, "type": "knowledge", "topic": "dynamic typing",
+      "question": "מה המשמעות ש-JavaScript היא dynamically typed?",
+      "options": [
+        "טיפוס המשתנה נקבע לפי הערך, ואותו משתנה יכול להחזיק טיפוסים שונים",
+        "חייבים להצהיר על הטיפוס של כל משתנה",
+        "כל המשתנים הם מחרוזות",
+        "אי אפשר לשנות ערך של משתנה"
+      ],
+      "correctIndex": 0,
+      "explanation": "ב-JS הטיפוס דינמי: המשתנה יכול להחזיק מחרוזת, ואז מספר, ואז אובייקט. typeof אומר מה הטיפוס הנוכחי.",
+      "source": "מצגת 04, שקף 3, 5"
+    },
+    {
+      "id": 5, "type": "output", "topic": "== vs ===",
+      "question": "מה יחזיר `5 == \"5\"` ומה יחזיר `5 === \"5\"`?",
+      "code": "console.log(5 == \"5\");\nconsole.log(5 === \"5\");",
+      "lang": "js",
+      "options": [
+        "true ואז false",
+        "false ואז true",
+        "שניהם true",
+        "שניהם false"
+      ],
+      "correctIndex": 0,
+      "explanation": "`==` ממיר טיפוסים לפני ההשוואה, לכן 5 == \"5\" הוא true. `===` בודק גם טיפוס, ומספר לא שווה למחרוזת, לכן false.",
+      "source": "מצגת 04, שקף 7"
+    },
+    {
+      "id": 6, "type": "knowledge", "topic": "template strings",
+      "question": "מה מיוחד במחרוזת שעטופה ב-backticks (`` ` ``)?",
+      "options": [
+        "אפשר לשלב בה משתנים עם `${}` ולפרוס אותה על כמה שורות",
+        "היא לא יכולה להכיל טקסט",
+        "היא רצה מהר יותר",
+        "היא הופכת למספר"
+      ],
+      "correctIndex": 0,
+      "explanation": "מחרוזת template (backticks) תומכת בשילוב ערכים עם `${expr}` ובריבוי שורות. למשל: `` `שלום ${name}` ``.",
+      "source": "מצגת 04, שקף 6"
+    },
+    {
+      "id": 7, "type": "knowledge", "topic": "first-class",
+      "question": "מה נכון בנוגע לפונקציות ב-JavaScript?",
+      "options": [
+        "הן first-class: אפשר לשמור אותן במשתנה, להעביר ולהחזיר אותן כמו כל ערך",
+        "אי אפשר להעביר פונקציה לפונקציה אחרת",
+        "פונקציה חייבת שם",
+        "פונקציה לא יכולה להחזיר ערך"
+      ],
+      "correctIndex": 0,
+      "explanation": "ב-JS פונקציות הן first-class objects: אפשר לשמור במשתנה, להעביר כארגומנט, להחזיר מפונקציה, ואפילו לשמור עליהן תכונות.",
+      "source": "מצגת 04, שקף 11"
+    },
+    {
+      "id": 8, "type": "knowledge", "topic": "callback",
+      "question": "מהי callback function?",
+      "options": [
+        "פונקציה שמעבירים לפונקציה אחרת, ומופעלת על ידי המערכת בתגובה לאירוע",
+        "פונקציה שקוראת לעצמה",
+        "פונקציה שרצה בשרת",
+        "פונקציה בלי פרמטרים"
+      ],
+      "correctIndex": 0,
+      "explanation": "callback היא פונקציה שהמתכנת מגדיר אבל לא קורא בעצמו. המערכת מפעילה אותה כשקורה אירוע (למשל לחיצה או סיום קריאת קובץ).",
+      "source": "מצגת 04, שקף 12"
+    },
+    {
+      "id": 9, "type": "knowledge", "topic": "arrow",
+      "question": "מהי פונקציית חץ (arrow function)?",
+      "options": [
+        "תחביר מקוצר לכתיבת פונקציה, למשל `() => { ... }`",
+        "פונקציה שרצה רק בשרת",
+        "פונקציה שמחזירה חץ",
+        "פונקציה שאסור להשתמש בה"
+      ],
+      "correctIndex": 0,
+      "explanation": "arrow function היא תחביר קצר לפונקציות אנונימיות, נפוץ מאוד ב-callbacks. למשל `button.onclick = () => {...}`.",
+      "source": "מצגת 04, שקף 12"
+    },
+    {
+      "id": 10, "type": "knowledge", "topic": "אובייקט",
+      "question": "מהו אובייקט ב-JavaScript?",
+      "options": [
+        "מיכל (container) של זוגות שם-ערך",
+        "מספר בלבד",
+        "פונקציה בלי שם",
+        "סוג של לולאה"
+      ],
+      "correctIndex": 0,
+      "explanation": "אובייקט הוא אוסף של זוגות name:value. יוצרים אותו בקלות עם `{}`, למשל `{ name: 'דנה', age: 24 }`.",
+      "source": "מצגת 04, שקף 9"
+    },
+    {
+      "id": 11, "type": "knowledge", "topic": "גישה לאובייקט",
+      "question": "אילו אופרטורים משמשים לגישה לחברים של אובייקט?",
+      "options": [
+        "הנקודה `.` והסוגריים המרובעים `[]`",
+        "רק `+`",
+        "רק `=>`",
+        "רק `#`"
+      ],
+      "correctIndex": 0,
+      "explanation": "ניגשים לחברי אובייקט עם `a.x` (מועדף) או `a[\"x\"]`. הצורה עם סוגריים שימושית כשהמפתח נמצא במשתנה.",
+      "source": "מצגת 04, שקף 10"
+    },
+    {
+      "id": 12, "type": "output", "topic": "map",
+      "question": "מה יהיה בתוך `doubled`?",
+      "code": "let nums = [1, 2, 3];\nlet doubled = nums.map(n => n * 2);",
+      "lang": "js",
+      "options": [
+        "[2, 4, 6]",
+        "[1, 2, 3]",
+        "6",
+        "[1, 4, 9]"
+      ],
+      "correctIndex": 0,
+      "explanation": "map יוצר מערך חדש שבו כל איבר עבר טרנספורמציה. כאן כל מספר הוכפל: [2, 4, 6]. המערך המקורי לא משתנה.",
+      "source": "מצגת 04, שקף 13"
+    },
+    {
+      "id": 13, "type": "knowledge", "topic": "filter",
+      "question": "מה עושה `filter` על מערך?",
+      "options": [
+        "מחזיר מערך חדש עם רק האיברים שעברו את התנאי",
+        "מכפיל כל איבר",
+        "ממיין את המערך",
+        "מוחק את המערך"
+      ],
+      "correctIndex": 0,
+      "explanation": "filter מחזיר מערך חדש עם האיברים שהפונקציה החזירה עבורם true. forEach רק עובר, map ממיר, reduce מצמצם לערך אחד.",
+      "source": "מצגת 04, שקף 13"
+    },
+    {
+      "id": 14, "type": "knowledge", "topic": "this",
+      "question": "למה מתייחס `this` בתוך מתודה של אובייקט?",
+      "options": [
+        "לאובייקט שהפעיל את המתודה",
+        "תמיד לאובייקט הגלובלי",
+        "לפונקציה עצמה",
+        "ל-undefined תמיד"
+      ],
+      "correctIndex": 0,
+      "explanation": "`this` מפנה לאובייקט הנוכחי, זה שהפעיל את הפונקציה. בתוך מתודה, this הוא האובייקט שעליו קראנו למתודה.",
+      "source": "מצגת 04, שקף 14"
+    },
+    {
+      "id": 15, "type": "knowledge", "topic": "ECMAScript",
+      "question": "מה הקשר בין JavaScript ל-ECMAScript?",
+      "options": [
+        "ECMAScript הוא התקן של השפה; ES6 (2015) היא גרסה חשובה מאוד",
+        "הם שתי שפות שונות לגמרי",
+        "ECMAScript מחליף את JavaScript",
+        "ECMAScript רץ רק בשרת"
+      ],
+      "correctIndex": 0,
+      "explanation": "ECMAScript הוא התקן הרשמי של השפה (שם מקוצר ES). ES6 / ES2015 הביאה תוספות מרכזיות כמו let/const וחצים.",
+      "source": "מצגת 04, שקף 2"
+    },
+    {
+      "id": 16, "type": "output", "topic": "scope",
+      "question": "מה יקרה בקוד הבא?",
+      "code": "{\n  let x = 5;\n}\nconsole.log(x);",
+      "lang": "js",
+      "options": [
+        "שגיאה: x לא מוגדר מחוץ לבלוק (block scope)",
+        "ידפיס 5",
+        "ידפיס undefined",
+        "ידפיס null"
+      ],
+      "correctIndex": 0,
+      "explanation": "let הוא block-scoped, ולכן x מוכר רק בתוך ה-{}. מחוצה לו הוא לא קיים, וזו שגיאה.",
+      "source": "מצגת 04, שקף 4"
+    }
+  ]
+}

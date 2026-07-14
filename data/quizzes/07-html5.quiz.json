@@ -1,0 +1,201 @@
+{
+  "slug": "07-html5",
+  "title": "תרגול: HTML5 מתקדם",
+  "questions": [
+    {
+      "id": 1, "type": "knowledge", "topic": "HTML5",
+      "question": "מה נכון בנוגע ל-HTML5?",
+      "options": [
+        "הוא פורסם כתקן רשמי ב-2014 ומטרתו להשתמש בדפדפן כפלטפורמה ליישומים",
+        "הוא מחליף את JavaScript",
+        "הוא רץ רק בצד השרת",
+        "הוא לא נתמך בדפדפנים מודרניים"
+      ],
+      "correctIndex": 0,
+      "explanation": "W3C פרסם את HTML5 כתקן רשמי ב-2014. מטרה מרכזית: להפוך את הדפדפן לפלטפורמת הרצה ליישומי ואב.",
+      "source": "מצגת 02, שקף 2"
+    },
+    {
+      "id": 2, "type": "knowledge", "topic": "פשטות",
+      "question": "מה נכון בנוגע להצהרת ה-DOCTYPE ב-HTML5?",
+      "options": [
+        "היא התקצרה מאוד ל-`<!DOCTYPE html>`",
+        "היא ארוכה יותר מאשר ב-HTML4",
+        "היא לא נדרשת בכלל",
+        "היא נכתבת בתוך ה-body"
+      ],
+      "correctIndex": 0,
+      "explanation": "ב-HTML5 ההצהרה פשוטה: `<!DOCTYPE html>`. גם הקידוד התקצר ל-`<meta charset=\"utf-8\">`.",
+      "source": "מצגת 02, שקף 4"
+    },
+    {
+      "id": 3, "type": "knowledge", "topic": "אלמנטים סמנטיים",
+      "question": "איזה מהבאים הוא אלמנט מבנה סמנטי של HTML5?",
+      "options": [
+        "`<nav>`",
+        "`<div>`",
+        "`<span>`",
+        "`<b>`"
+      ],
+      "correctIndex": 0,
+      "explanation": "אלמנטים סמנטיים כמו header, nav, main, article, section, aside, footer, figure נותנים משמעות למבנה. div ו-span הם ניטרליים.",
+      "source": "מצגת 02, שקף 5, 6"
+    },
+    {
+      "id": 4, "type": "knowledge", "topic": "article מול section",
+      "question": "מה ההבדל בין `<article>` ל-`<section>`?",
+      "options": [
+        "article מיועד לתוכן שעומד בפני עצמו, section לחלוקת מסמך לחלקים לוגיים",
+        "section מיועד לתוכן עצמאי, article לחלוקה",
+        "הם זהים לחלוטין",
+        "article הוא לעיצוב בלבד"
+      ],
+      "correctIndex": 0,
+      "explanation": "article הוא תוכן שאפשר להשתמש בו לבדו (כתבה, פוסט). section הוא חלק לוגי במסמך. שניהם יכולים להכיל זה את זה.",
+      "source": "מצגת 02, שקף 7"
+    },
+    {
+      "id": 5, "type": "knowledge", "topic": "div בהמשך",
+      "question": "האם `<div>` עדיין שימושי ב-HTML5?",
+      "options": [
+        "כן, כשאין אלמנט סמנטי מתאים, למשל לחלוקה לאזורי עיצוב או לגישה מ-JS",
+        "לא, אסור להשתמש בו יותר",
+        "כן, אבל רק בתוך article",
+        "לא, הוא הוחלף ב-section תמיד"
+      ],
+      "correctIndex": 0,
+      "explanation": "div עדיין שימושי כשאין אלמנט סמנטי מתאים, למשל לקיבוץ לצורכי עיצוב או כנקודת אחיזה ל-JavaScript.",
+      "source": "מצגת 02, שקף 8"
+    },
+    {
+      "id": 6, "type": "knowledge", "topic": "main",
+      "question": "מה נכון בנוגע לאלמנט `<main>`?",
+      "options": [
+        "הוא מזהה את התוכן הראשי, ויכול להופיע רק פעם אחת בדף",
+        "אפשר לשים כמה main בדף",
+        "הוא חייב להיות בתוך footer",
+        "הוא אלמנט ריק בלי תוכן"
+      ],
+      "correctIndex": 0,
+      "explanation": "main מזהה את התוכן המרכזי של הדף. מותר main אחד בלבד, והוא לא נמצא בתוך article/aside/footer/header/nav.",
+      "source": "מצגת 02, שקף 13"
+    },
+    {
+      "id": 7, "type": "knowledge", "topic": "טפסים",
+      "question": "מה תפקיד המאפיין `action` בטופס (`<form>`)?",
+      "options": [
+        "מגדיר את כתובת התוכנית בשרת שתקבל את הנתונים שנשלחים",
+        "מגדיר את צבע הטופס",
+        "מגדיר את שם המשתמש",
+        "שולח מייל"
+      ],
+      "correctIndex": 0,
+      "explanation": "action מגדיר לאן נשלחים נתוני הטופס (כתובת התוכנית בשרת). כל השדות עם name נשלחים, בלחיצה על submit.",
+      "source": "מצגת 02, שקף 25, 26"
+    },
+    {
+      "id": 8, "type": "knowledge", "topic": "input חדשים",
+      "question": "איזה מהבאים הוא סוג input שנוסף ב-HTML5?",
+      "options": [
+        "email",
+        "text",
+        "password",
+        "checkbox"
+      ],
+      "correctIndex": 0,
+      "explanation": "HTML5 הוסיף סוגים חדשים: email, number, range, color, date, url, tel ועוד. text, password, checkbox קיימים מקדמת דנא.",
+      "source": "מצגת 02, שקף 29"
+    },
+    {
+      "id": 9, "type": "knowledge", "topic": "placeholder",
+      "question": "מה עושה המאפיין `placeholder` בשדה קלט?",
+      "options": [
+        "מציג טקסט תיאור בשדה, שנעלם כשמתחילים להקליד",
+        "קובע את הערך הסופי של השדה",
+        "הופך את השדה לחובה",
+        "מסתיר את השדה"
+      ],
+      "correctIndex": 0,
+      "explanation": "placeholder מציג רמז/תיאור בתוך השדה, שנעלם ברגע שמתחילים להקליד.",
+      "source": "מצגת 02, שקף 32"
+    },
+    {
+      "id": 10, "type": "knowledge", "topic": "ולידציה CSS",
+      "question": "אילו pseudo-classes של CSS נותנים משוב חזותי על תקינות שדה?",
+      "options": [
+        "`:valid` ו-`:invalid`",
+        "`:hover` ו-`:active`",
+        "`:first-child` ו-`:last-child`",
+        "`::before` ו-`::after`"
+      ],
+      "correctIndex": 0,
+      "explanation": "`:valid` ו-`:invalid` (וגם `:required`, `:optional`) מאפשרים לעצב שדות לפי תקינותם, בלי JavaScript.",
+      "source": "מצגת 02, שקף 36"
+    },
+    {
+      "id": 11, "type": "knowledge", "topic": "pattern",
+      "question": "מה מגדיר המאפיין `pattern` בשדה קלט?",
+      "options": [
+        "ביטוי רגולרי (regexp) שקובע אילו ערכים תקינים",
+        "את צבע השדה",
+        "את גודל הגופן",
+        "את שם השדה"
+      ],
+      "correctIndex": 0,
+      "explanation": "pattern מקבל ביטוי רגולרי, והשדה ייחשב תקין רק אם הערך תואם. כדאי להוסיף title שמסביר מה תקין.",
+      "source": "מצגת 02, שקף 34"
+    },
+    {
+      "id": 12, "type": "knowledge", "topic": "validation API",
+      "question": "מה עושה `setCustomValidity` ב-JavaScript?",
+      "options": [
+        "מגדיר הודעת שגיאה מותאמת; מחרוזת ריקה = תקין, מחרוזת לא ריקה = שגוי",
+        "מוחק את השדה",
+        "שולח את הטופס",
+        "צובע את השדה"
+      ],
+      "correctIndex": 0,
+      "explanation": "setCustomValidity מאפשר ולידציה מותאמת (למשל התאמת שתי סיסמאות). מחרוזת ריקה מסמנת שהשדה תקין, מחרוזת עם טקסט מסמנת שגיאה עם ההודעה הזו.",
+      "source": "מצגת 02, שקף 37, 38"
+    },
+    {
+      "id": 13, "type": "knowledge", "topic": "מדיה",
+      "question": "איך מטמיעים סרטון מקומי ב-HTML5?",
+      "options": [
+        "עם אלמנט `<video>` שמכיל אחד או יותר `<source>`",
+        "עם `<img>`",
+        "עם `<audio>` בלבד",
+        "אי אפשר להטמיע וידאו ב-HTML5"
+      ],
+      "correctIndex": 0,
+      "explanation": "`<video>` מטמיע וידאו, ובתוכו `<source>` לפורמטים שונים (mp4, ogg). את יוטיוב מטמיעים דרך iframe.",
+      "source": "מצגת 02, שקף 22"
+    },
+    {
+      "id": 14, "type": "knowledge", "topic": "details",
+      "question": "מה עושים האלמנטים `<details>` ו-`<summary>`?",
+      "options": [
+        "יוצרים אזור מתקפל: לוחצים על ה-summary כדי לפתוח או לסגור את התוכן",
+        "יוצרים טבלה",
+        "מטמיעים וידאו",
+        "בודקים תקינות טופס"
+      ],
+      "correctIndex": 0,
+      "explanation": "details הוא אזור מתקפל. summary הוא הכותרת שלוחצים עליה כדי לחשוף או להסתיר את שאר התוכן, בלי JavaScript.",
+      "source": "מצגת 02, שקף 19"
+    },
+    {
+      "id": 15, "type": "knowledge", "topic": "iframe",
+      "question": "לשם מה משמש אלמנט `<iframe>`?",
+      "options": [
+        "להצגת מסמך HTML נוסף (או וידאו מיוטיוב) בתוך הדף הנוכחי",
+        "לעיצוב טקסט",
+        "ליצירת טופס",
+        "לשמירת נתונים"
+      ],
+      "correctIndex": 0,
+      "explanation": "iframe מטמיע מסמך אחר בתוך הדף. משתמשים בו למשל להטמעת סרטוני יוטיוב, שאי אפשר להטמיע ישירות עם video.",
+      "source": "מצגת 02, שקף 15, 22"
+    }
+  ]
+}

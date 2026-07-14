@@ -1,0 +1,98 @@
+/* ============================================================
+   code.css — highlighted code blocks + token colors + line rows
+   (output produced by js/highlight.js; consumed by stepper too)
+   ============================================================ */
+
+.code-block {
+  position: relative;
+  margin: var(--sp-4) 0;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  background: var(--code-bg);
+  box-shadow: var(--shadow-1);
+}
+.code-head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 7px 12px;
+  background: var(--code-bg-2);
+  border-bottom: 1px solid color-mix(in srgb, #fff 6%, var(--code-bg));
+}
+.code-head .dots { display: flex; gap: 6px; }
+.code-head .dots i { width: 11px; height: 11px; border-radius: 50%; display: block; }
+.code-head .dots i:nth-child(1) { background: #ff5f57; }
+.code-head .dots i:nth-child(2) { background: #febc2e; }
+.code-head .dots i:nth-child(3) { background: #28c840; }
+.code-head .lang {
+  font-family: var(--font-mono); font-size: .72rem; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--text-mute); margin-inline-start: 4px;
+}
+.code-head .file { font-family: var(--font-mono); font-size: .74rem; color: color-mix(in srgb, var(--tok-plain) 70%, transparent); }
+.copy-btn {
+  margin-inline-start: auto; display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--font-body); font-size: .74rem; font-weight: 700;
+  color: var(--text-mute); background: transparent; border: 1px solid transparent;
+  padding: 4px 8px; border-radius: var(--r-xs); cursor: pointer;
+  transition: color var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
+}
+.copy-btn:hover { color: #dfe6f4; background: color-mix(in srgb, #fff 8%, transparent); }
+.copy-btn.done { color: var(--success); }
+.copy-btn svg { width: 14px; height: 14px; }
+
+pre.hl {
+  margin: 0; overflow-x: auto;
+  padding: 14px 0;
+  direction: ltr; unicode-bidi: isolate;
+  font-family: var(--font-mono);
+  font-size: .875rem;
+  line-height: 1.65;
+  tab-size: 2;
+  color: var(--tok-plain);
+  counter-reset: ln;
+}
+pre.hl code { display: block; min-width: max-content; }
+
+.hl .ln {
+  display: block;
+  position: relative;
+  padding: 0 16px;
+  white-space: pre;
+  border-inline-start: 3px solid transparent;
+  transition: background var(--t) var(--ease), border-color var(--t) var(--ease);
+}
+.hl.numbered { padding-inline-start: 0; }
+.hl.numbered .ln { padding-inline-start: 3.4em; }
+.hl.numbered .ln::before {
+  counter-increment: ln;
+  content: counter(ln);
+  position: absolute; inset-inline-start: 0; width: 2.6em;
+  text-align: end; padding-inline-end: .7em;
+  color: color-mix(in srgb, var(--tok-plain) 32%, transparent);
+  user-select: none;
+}
+
+/* stepper active line */
+.hl .ln.active {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  border-inline-start-color: var(--accent);
+}
+.hl .ln.active::after {
+  content: ""; position: absolute; inset: 0; inset-inline-start: 0;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 30%, transparent);
+  pointer-events: none;
+}
+.hl .ln.dim { opacity: .5; }
+
+/* token colors */
+.tok-keyword  { color: var(--tok-keyword); }
+.tok-string   { color: var(--tok-string); }
+.tok-number   { color: var(--tok-number); }
+.tok-comment  { color: var(--tok-comment); font-style: italic; }
+.tok-function { color: var(--tok-function); }
+.tok-tag      { color: var(--tok-tag); }
+.tok-attr     { color: var(--tok-attr); }
+.tok-property { color: var(--tok-property); }
+.tok-punct    { color: var(--tok-punct); }
+.tok-boolean  { color: var(--tok-boolean); }
+.tok-operator { color: var(--tok-operator); }
+.tok-doctype  { color: var(--tok-comment); }

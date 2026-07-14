@@ -1,0 +1,203 @@
+{
+  "slug": "06-node",
+  "title": "תרגול: צד שרת ו-Node.js",
+  "questions": [
+    {
+      "id": 1, "type": "knowledge", "topic": "מה זה Node",
+      "question": "מהו Node.js?",
+      "options": [
+        "סביבת הרצה שמאפשרת להריץ JavaScript מחוץ לדפדפן",
+        "דפדפן חדש",
+        "שפת תכנות חדשה שמחליפה את JavaScript",
+        "עורך קוד"
+      ],
+      "correctIndex": 0,
+      "explanation": "Node.js הוא environment להרצת JavaScript מחוץ לדפדפן, בעיקר לצד השרת (back-end).",
+      "source": "מצגת 05, שקף 2"
+    },
+    {
+      "id": 2, "type": "knowledge", "topic": "full-stack JS",
+      "question": "מה היתרון בשימוש ב-Node.js לצד השרת?",
+      "options": [
+        "אפשר להשתמש באותה שפה, JavaScript, גם בצד הלקוח וגם בצד השרת",
+        "הוא מהיר יותר משפות אחרות בחישובים כבדים",
+        "הוא לא צריך שרת בכלל",
+        "הוא רץ רק על מערכת הפעלה אחת"
+      ],
+      "correctIndex": 0,
+      "explanation": "עם Node אפשר לכתוב JS בשני הצדדים, וזה 'full-stack JS'. חוסך למידה של שפה נוספת.",
+      "source": "מצגת 05, שקף 2"
+    },
+    {
+      "id": 3, "type": "knowledge", "topic": "single thread",
+      "question": "למה Node.js פחות מתאים למשימות עתירות חישוב (CPU intensive)?",
+      "options": [
+        "כי הוא רץ ב-thread יחיד, וחישוב כבד יתקע את כל השרת",
+        "כי אין לו גישה לזיכרון",
+        "כי הוא לא יודע לחשב",
+        "כי הוא רץ רק בדפדפן"
+      ],
+      "correctIndex": 0,
+      "explanation": "Node עובד ב-thread יחיד. משימה שדורשת חישוב ממושך תחסום אותו. הוא מצוין למשימות עם הרבה בקשות ומעט חישוב.",
+      "source": "מצגת 05, שקף 2"
+    },
+    {
+      "id": 4, "type": "knowledge", "topic": "vs browser",
+      "question": "איזה אובייקט גלובלי קיים ב-Node אבל לא בדפדפן?",
+      "options": [
+        "require",
+        "document",
+        "window",
+        "location"
+      ],
+      "correctIndex": 0,
+      "explanation": "בדפדפן יש window, location, document. ב-Node יש global, require, module. אין ב-Node אובייקט document כי אין DOM.",
+      "source": "מצגת 05, שקף 3"
+    },
+    {
+      "id": 5, "type": "knowledge", "topic": "מודול",
+      "question": "מהו מודול ב-Node.js?",
+      "options": [
+        "כל קובץ .js הוא מודול",
+        "רק קובץ בשם module.js",
+        "פונקציה מיוחדת",
+        "סוג של משתנה"
+      ],
+      "correctIndex": 0,
+      "explanation": "ב-Node כל קובץ .js הוא מודול נפרד, עם משתנים משלו.",
+      "source": "מצגת 01-a, שקף 9"
+    },
+    {
+      "id": 6, "type": "knowledge", "topic": "exports",
+      "question": "איך חושפים משתנה או פונקציה החוצה ממודול?",
+      "options": [
+        "מציבים אותם ב-module.exports",
+        "מגדירים אותם עם var",
+        "כותבים export בסוף הקובץ בלבד",
+        "אי אפשר לחשוף כלום"
+      ],
+      "correctIndex": 0,
+      "explanation": "module.exports קובע מה נגיש מבחוץ. משתנים שלא שם נשארים פרטיים למודול.",
+      "source": "מצגת 01-a, שקף 9"
+    },
+    {
+      "id": 7, "type": "knowledge", "topic": "require",
+      "question": "מה עושה `require(\"./app\")`?",
+      "options": [
+        "טוען את המודול app ומחזיר את מה שהוא ייצא (module.exports)",
+        "יוצר קובץ חדש בשם app",
+        "מוחק את app",
+        "מריץ את app בדפדפן"
+      ],
+      "correctIndex": 0,
+      "explanation": "require טוען מודול אחר ומחזיר את האובייקט שהמודול חשף ב-module.exports.",
+      "source": "מצגת 01-a, שקף 9"
+    },
+    {
+      "id": 8, "type": "knowledge", "topic": "מודולים מובנים",
+      "question": "באיזה מודול מובנה משתמשים לבניית שרת HTTP?",
+      "options": [
+        "http",
+        "fs",
+        "os",
+        "events"
+      ],
+      "correctIndex": 0,
+      "explanation": "המודול המובנה http יודע לטפל בבקשות רשת ולבנות שרת. fs לקבצים, os למערכת הפעלה, events ללולאת אירועים.",
+      "source": "מצגת 05, שקף 6"
+    },
+    {
+      "id": 9, "type": "knowledge", "topic": "fs",
+      "question": "לאיזו מטרה משמש המודול המובנה `fs`?",
+      "options": [
+        "עבודה עם קבצים (קריאה וכתיבה)",
+        "בניית שרת",
+        "גישה לרשת",
+        "עיצוב הדף"
+      ],
+      "correctIndex": 0,
+      "explanation": "fs (file system) משמש לקריאה וכתיבה של קבצים.",
+      "source": "מצגת 05, שקף 6"
+    },
+    {
+      "id": 10, "type": "knowledge", "topic": "createServer",
+      "question": "מה מקבלת הפונקציה שנותנים ל-`http.createServer`?",
+      "options": [
+        "req (הבקשה) ו-res (התשובה)",
+        "רק את כתובת השרת",
+        "את מספר הפורט",
+        "את שם הקובץ"
+      ],
+      "correctIndex": 0,
+      "explanation": "הפונקציה שרצה בכל בקשה מקבלת req (פרטי הבקשה) ו-res (אובייקט התשובה שבונים).",
+      "source": "מצגת 05, שקף 7"
+    },
+    {
+      "id": 11, "type": "output", "topic": "listen",
+      "question": "מה עושה `.listen(8080)` בקוד השרת?",
+      "code": "http.createServer(fn).listen(8080);",
+      "lang": "js",
+      "options": [
+        "מפעיל את השרת שיאזין לבקשות על פורט 8080",
+        "שולח בקשה לפורט 8080",
+        "סוגר את השרת",
+        "מדפיס 8080"
+      ],
+      "correctIndex": 0,
+      "explanation": "listen מפעיל את השרת על הפורט הנתון. מכאן השרת ממתין לבקשות נכנסות.",
+      "source": "מצגת 05, שקף 7"
+    },
+    {
+      "id": 12, "type": "knowledge", "topic": "res.end",
+      "question": "מה תפקיד `res.end()` בטיפול בבקשה?",
+      "options": [
+        "מסיים ושולח את התשובה חזרה ללקוח",
+        "מוחק את הבקשה",
+        "פותח בקשה חדשה",
+        "מפעיל מחדש את השרת"
+      ],
+      "correctIndex": 0,
+      "explanation": "res.end מסמן שסיימנו לבנות את התשובה ושולח אותה ללקוח. בלעדיו הבקשה תישאר תלויה.",
+      "source": "מצגת 05, שקף 7"
+    },
+    {
+      "id": 13, "type": "knowledge", "topic": "req.url",
+      "question": "מה מכיל `req.url`?",
+      "options": [
+        "את הנתיב שהמשתמש ביקש, למשל /doIt",
+        "את כתובת השרת",
+        "את גוף התשובה",
+        "את שם הדפדפן"
+      ],
+      "correctIndex": 0,
+      "explanation": "req.url מכיל את הנתיב מהבקשה. אם ניגשים ל-localhost:8080/doIt, אז req.url יהיה '/doIt'.",
+      "source": "מצגת 01-a, שקף 12"
+    },
+    {
+      "id": 14, "type": "knowledge", "topic": "היסטוריה",
+      "question": "מי יצר את Node.js ובאיזו שנה?",
+      "options": [
+        "Ryan Dahl, בשנת 2009",
+        "Tim Berners-Lee, בשנת 1995",
+        "Brendan Eich, בשנת 1995",
+        "Douglas Crockford, בשנת 2001"
+      ],
+      "correctIndex": 0,
+      "explanation": "Node.js נוצר ב-2009 על ידי Ryan Dahl. (Berners-Lee יצר את ה-Web, Eich את JavaScript, Crockford את JSON.)",
+      "source": "מצגת 01-a, שקף 5"
+    },
+    {
+      "id": 15, "type": "predict", "topic": "מתאים ל-Node",
+      "question": "לאיזו משימה Node.js מתאים במיוחד?",
+      "options": [
+        "שירות שמטפל בהרבה בקשות רשת עם מעט חישוב לכל בקשה",
+        "עיבוד וידאו כבד",
+        "חישובים מדעיים מקביליים",
+        "כריית מטבעות"
+      ],
+      "correctIndex": 0,
+      "explanation": "Node מצטיין בהרבה בקשות עם מעט חישוב (chat, real-time, proxy, high I/O). למשימות חישוב כבד הוא פחות מתאים.",
+      "source": "מצגת 05, שקף 19, 20"
+    }
+  ]
+}

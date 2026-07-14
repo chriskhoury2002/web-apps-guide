@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="he" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JavaScript ו-DOM (מבוא) · web·apps</title>
+  <meta name="description" content="מבוא ל-JavaScript ול-DOM: איך JS הופך את הדף לחי, getElementById, אירועים, ו-innerHTML.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../css/theme.css"><link rel="stylesheet" href="../css/base.css"><link rel="stylesheet" href="../css/code.css">
+  <link rel="stylesheet" href="../css/components.css"><link rel="stylesheet" href="../css/widgets.css"><link rel="stylesheet" href="../css/anim.css"><link rel="stylesheet" href="../css/motion.css">
+  <script>(function () { try { document.documentElement.setAttribute('data-theme', localStorage.getItem('wag:theme') || 'dark'); } catch (e) {} })();</script>
+  <style>#content h2[id]{scroll-margin-top:84px}</style>
+</head>
+<body data-slug="04-js-dom">
+  <a class="skip" href="#content">דלג לתוכן</a>
+  <header data-header></header>
+  <main class="wrap page">
+    <div class="layout">
+      <nav class="toc" id="toc" aria-label="תוכן העניינים"></nav>
+      <div id="content">
+
+        <div class="topic-hero" style="--accent:#f2d75a">
+          <span class="t-icon">🌳</span>
+          <div>
+            <div class="t-meta"><span class="badge-num">נושא 4</span><span class="src-tag">מבוסס על מצגת 01</span></div>
+            <h1>JavaScript ו-DOM (מבוא)</h1>
+          </div>
+        </div>
+        <p class="lead">HTML נותן תוכן ו-CSS נותן עיצוב, אבל הדף עדיין "מת". JavaScript הוא מה שהופך אותו לחי: מגיב ללחיצות, משנה טקסט, מוסיף ומסיר אלמנטים. כדי לעשות את זה, JS עובד מול ה-DOM, ייצוג הדף כעץ של אובייקטים בזיכרון.</p>
+
+        <section class="section">
+          <h2 id="what">JavaScript, שפת הדפדפן</h2>
+          <p><strong>JavaScript (JS)</strong> היא שפת התכנות היחידה שכל הדפדפנים יודעים להריץ. כמה עובדות חשובות עליה:</p>
+          <ul>
+            <li>יש לה תחביר דמוי-C (כמו Java), עם סוגריים מסולסלים ונקודה-פסיק.</li>
+            <li>היא <strong>מפורשת (interpreted)</strong>, הדפדפן מריץ אותה ישירות בלי הידור מראש לקובץ הרצה (בפועל המנועים המודרניים גם מהדרים אותה תוך כדי ריצה, JIT).</li>
+            <li>היא <strong>loosely typed</strong>, טיפוס המשתנה נקבע לפי הערך שמכניסים אליו.</li>
+          </ul>
+          <p>כדי לשלב JS בדף, שמים אותו בתוך תגית <code>&lt;script&gt;</code> בכל מקום ב-HTML. שלא כמו HTML, JS היא כן שפת תכנות מלאה, עם משתנים, תנאים, לולאות ופונקציות.</p>
+        </section>
+
+        <section class="section">
+          <h2 id="objects">כל אלמנט הוא אובייקט, וכל אירוע יכול להפעיל קוד</h2>
+          <p>שתי נקודות שהופכות את הכל לאפשרי:</p>
+          <ul>
+            <li>כל אלמנט HTML הוא <strong>אובייקט</strong> ב-JavaScript. אפשר לגשת אליו ולשנות אותו מהקוד.</li>
+            <li>כל <strong>אירוע</strong> בממשק (לחיצה, מעבר עכבר, הקלדה) יכול להפעיל קוד JS.</li>
+          </ul>
+          <p>כדי לגשת לאלמנט משתמשים בפונקציות של אובייקט ה-<code>document</code>. הנפוצה ביותר היא <code>getElementById</code>:</p>
+          <div class="code-block" data-lang="js" data-file="access.js">
+<script type="text/plain">
+// לוקחים את האלמנט עם id="title"
+let el = document.getElementById("title");
+
+// משנים את הסגנון שלו
+el.style.color = "teal";
+el.style.fontSize = "40px";
+</script>
+          </div>
+          <p>נראה את זה חי. לחץ על הכפתור וה-JS יריץ getElementById וישנה את הכותרת:</p>
+          <div class="playground" data-tabs="html,js" data-active="js">
+<script type="text/plain" class="pg-html">
+<h1 id="title">שלום עולם</h1>
+<button onclick="grow()">הגדל אותי</button>
+</script>
+<script type="text/plain" class="pg-js">
+function grow() {
+  let el = document.getElementById("title");
+  el.style.fontSize = "48px";
+  el.style.color = "teal";
+}
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="dom">DOM: הדף כעץ אובייקטים</h2>
+          <p><strong>DOM</strong> (Document Object Model) הוא ייצוג הדף כעץ של אובייקטים בזיכרון. הדפדפן בונה אותו כשהוא קורא את ה-HTML, ומשתמש בו כדי לצייר את הדף. חשוב להבין: ה-DOM הוא "מסמך חי" בזיכרון, וכל שינוי שנעשה בו דרך JavaScript משתקף מיד על המסך.</p>
+          <p>הנה איך הדפדפן בונה את העץ מ-HTML:</p>
+          <div class="anim" data-anim="dom-build" data-title="בניית עץ ה-DOM"></div>
+          <p>דרך מהירה לשנות תוכן של אלמנט היא <code>innerHTML</code>, שמאפשר להחליף את כל התוכן הפנימי שלו ב-HTML חדש:</p>
+          <div class="code-block" data-lang="js" data-file="innerhtml.js">
+<script type="text/plain">
+let box = document.getElementById("box");
+box.innerHTML = "<b>תוכן חדש</b> שנוצר על ידי JavaScript";
+</script>
+          </div>
+          <div class="callout note">
+            <div class="callout-title"><span class="ic">🌳</span> העץ חי</div>
+            <p>כשמשנים אלמנט דרך ה-DOM (למשל <code>innerHTML</code> או <code>style</code>), הדפדפן מצייר מחדש את החלק הרלוונטי מיד. זה מה שמאפשר דפים דינמיים בלי לטעון את הדף מחדש.</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="together">HTML, CSS ו-JS עובדים יחד</h2>
+          <p>נסכם את חלוקת התפקידים: <strong>HTML</strong> הוא התוכן, <strong>CSS</strong> הוא העיצוב, ו-<strong>JavaScript</strong> הוא ההתנהגות. בדוגמה הבאה נראה את שלושתם. שנה את הקוד ונסה:</p>
+          <div class="playground" data-tabs="html,css,js">
+<script type="text/plain" class="pg-html">
+<h2 id="counter">0</h2>
+<button onclick="add()">+1</button>
+</script>
+<script type="text/plain" class="pg-css">
+#counter { color: #4338ca; font-size: 40px; }
+button { padding: 8px 16px; border-radius: 8px; border: none; background: #4338ca; color: white; cursor: pointer; }
+</script>
+<script type="text/plain" class="pg-js">
+let count = 0;
+function add() {
+  count = count + 1;
+  document.getElementById("counter").textContent = count;
+}
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="challenge">נסה בעצמך</h2>
+          <p>השלם את קוד ה-JavaScript כך שהפסקה תציג "שלום עולם".</p>
+          <div class="challenge" data-slug="04-js-dom" data-id="ch-text"
+               data-goal='שנה את טקסט הפסקה ל"שלום עולם" בעזרת getElementById'
+               data-check="text" data-sel="#msg" data-text="שלום עולם"
+               data-tabs="html,js" data-active-tab="js"
+               data-hint="document.getElementById('msg').textContent = 'שלום עולם';">
+<script type="text/plain" class="pg-html">
+<p id="msg">טקסט ישן</p>
+</script>
+<script type="text/plain" class="pg-js">
+// השלם: קח את האלמנט עם id="msg" ושנה את הטקסט שלו
+
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="quiz">בדיקה עצמית</h2>
+          <div class="quiz" data-quiz="04-js-dom"></div>
+        </section>
+
+        <nav class="topic-nav" data-topic-nav aria-label="ניווט בין נושאים"></nav>
+      </div>
+    </div>
+  </main>
+  <footer class="site-footer"><div class="wrap"><span>web·apps · JavaScript ו-DOM</span><span class="muted">מבוסס על מצגת 01</span></div></footer>
+
+  <script defer src="../js/site.js"></script>
+  <script defer src="../js/storage.js"></script>
+  <script defer src="../js/progress.js"></script>
+  <script defer src="../js/motion.js"></script>
+  <script defer src="../js/highlight.js"></script>
+  <script defer src="../js/playground.js"></script>
+  <script defer src="../js/livedemo.js"></script>
+  <script defer src="../js/stepper.js"></script>
+  <script defer src="../js/challenge.js"></script>
+  <script defer src="../js/animations.js"></script>
+  <script defer src="../js/quiz-engine.js"></script>
+  <script defer src="../js/quiz-ui.js"></script>
+</body>
+</html>

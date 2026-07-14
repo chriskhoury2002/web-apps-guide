@@ -1,0 +1,62 @@
+/* ============================================================
+   exam.css — exam guide (מדריך למבחן) accordion + controls
+   ============================================================ */
+.eg-top {
+  position: sticky; top: 62px; z-index: 20;
+  display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap;
+  padding: var(--sp-3); margin-bottom: var(--sp-4);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border); border-radius: var(--r);
+}
+.eg-progress { font-weight: 700; color: var(--text-dim); white-space: nowrap; }
+.eg-progress b { color: var(--accent); font-family: var(--font-display); font-size: 1.2rem; }
+.eg-search-wrap { flex: 1; min-width: 180px; }
+#eg-search { width: 100%; padding: 9px 14px; border: 1px solid var(--border); border-radius: var(--r-sm); background: var(--panel); color: var(--text); font-family: var(--font-body); font-size: .95rem; }
+#eg-search:focus { outline: none; border-color: var(--accent); }
+.eg-actions { display: flex; gap: 6px; }
+
+.eg-list { display: flex; flex-direction: column; gap: var(--sp-3); }
+.eg-card { border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--panel); overflow: hidden; transition: border-color var(--t) var(--ease); }
+.eg-card.open { border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); box-shadow: var(--shadow-1); }
+.eg-head { display: flex; align-items: center; gap: 14px; width: 100%; text-align: start; padding: 16px 18px; background: transparent; border: none; cursor: pointer; color: var(--text); transition: background var(--t-fast) var(--ease); }
+.eg-head:hover { background: var(--panel-2); }
+.eg-num { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; font-family: var(--font-mono); font-weight: 700; font-size: .95rem; background: color-mix(in srgb, var(--accent) 16%, var(--panel-2)); color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border)); transition: all var(--t-fast) var(--ease); }
+.eg-num.done { background: var(--success); color: #06210f; border-color: var(--success); }
+.eg-q { flex: 1; font-weight: 700; font-size: 1.08rem; line-height: 1.4; }
+.eg-caret { flex: none; color: var(--text-mute); transition: transform var(--t) var(--ease); font-size: 1rem; }
+.eg-card.open .eg-caret { transform: rotate(180deg); color: var(--accent); }
+
+.eg-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--t) var(--ease); }
+.eg-card.open .eg-body { grid-template-rows: 1fr; }
+.eg-body-in { overflow: hidden; }
+.eg-card.open .eg-body-in { padding: 4px 18px 18px; }
+
+.eg-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+.eg-chip { display: inline-flex; align-items: center; gap: 5px; font-size: .8rem; font-weight: 700; padding: 4px 11px; border-radius: 100px; background: color-mix(in srgb, var(--accent) 10%, var(--panel-2)); color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border)); }
+.eg-chip:hover { text-decoration: none; background: color-mix(in srgb, var(--accent) 20%, var(--panel-2)); }
+
+.eg-fh { font-size: .88rem; font-weight: 800; margin: 16px 0 8px; display: flex; align-items: center; gap: 7px; }
+.eg-fh.ok { color: var(--success); }
+.eg-fh.bad { color: var(--error); }
+.eg-facts, .eg-traps { border-radius: var(--r); padding: 4px 2px; }
+.fact-list, .trap-list { list-style: none; padding: 0; margin: 0; }
+.fact-list li, .trap-list li { position: relative; padding-inline-start: 26px; margin-bottom: 9px; line-height: 1.55; color: var(--text-dim); }
+.fact-list li::before { content: '✓'; position: absolute; inset-inline-start: 0; top: 0; color: var(--success); font-weight: 900; }
+.trap-list li { color: var(--text-mute); }
+.trap-list li::before { content: '✗'; position: absolute; inset-inline-start: 0; top: 0; color: var(--error); font-weight: 900; }
+
+.eg-fh.code { color: var(--accent); }
+.eg-examples { margin-bottom: 6px; }
+.eg-examples .eg-code { margin: 0 0 6px; }
+.eg-cap { font-size: .86rem; color: var(--text-mute); line-height: 1.55; margin: 0 0 14px; padding-inline-start: 2px; }
+.eg-cap code { font-size: .82em; }
+
+.eg-practice { margin-top: 16px; }
+.eg-practice .quiz { margin-top: 8px; }
+.eg-review { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; font-size: .9rem; font-weight: 600; color: var(--text-dim); cursor: pointer; padding: 8px 12px; border: 1px dashed var(--border-strong); border-radius: var(--r-sm); }
+.eg-review input { accent-color: var(--accent); width: 17px; height: 17px; }
+
+.eg-hero { text-align: center; max-width: 720px; margin: 0 auto var(--sp-6); }
+.eg-hero .eyebrow { display: inline-block; font-weight: 800; color: var(--accent); letter-spacing: .04em; margin-bottom: 8px; }
+@media (max-width: 600px) { .eg-top { top: 62px; } .eg-actions { width: 100%; } .eg-actions .btn { flex: 1; } }

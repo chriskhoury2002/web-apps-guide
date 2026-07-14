@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="he" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>אסינכרוניות, Fetch ו-JSON · web·apps</title>
+  <meta name="description" content="event loop, blocking מול non-blocking, callbacks, promises, async/await, fetch ו-JSON, עם אנימציות ודמו חי.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../css/theme.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/code.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/widgets.css">
+  <link rel="stylesheet" href="../css/anim.css">
+  <link rel="stylesheet" href="../css/motion.css">
+  <script>(function () { try { document.documentElement.setAttribute('data-theme', localStorage.getItem('wag:theme') || 'dark'); } catch (e) {} })();</script>
+  <style>#content h2[id]{scroll-margin-top:84px}</style>
+</head>
+<body data-slug="10-async">
+  <a class="skip" href="#content">דלג לתוכן</a>
+  <header data-header></header>
+
+  <main class="wrap page">
+    <div class="layout">
+      <nav class="toc" id="toc" aria-label="תוכן העניינים"></nav>
+      <div id="content">
+
+        <div class="topic-hero" style="--accent:#c98bff">
+          <span class="t-icon">🔄</span>
+          <div>
+            <div class="t-meta"><span class="badge-num">נושא 10</span><span class="src-tag">מבוסס על מצגת 05</span></div>
+            <h1>אסינכרוניות, Fetch ו-JSON</h1>
+          </div>
+        </div>
+        <p class="lead">JavaScript רץ ב-thread יחיד, אז איך הוא מטפל בהמון משתמשים בו-זמנית בלי להיתקע? התשובה היא תכנות אסינכרוני. בנושא הזה נבין את ה-event loop, נראה את ההבדל בין קוד חוסם ללא חוסם, ונלמד callbacks, promises, async/await, fetch ופורמט JSON. זה אחד הנושאים החשובים ביותר בקורס.</p>
+
+        <section class="section">
+          <h2 id="single-thread">Thread יחיד ו-Event Loop</h2>
+          <p>JavaScript הוא <strong>single-threaded</strong>: רק דבר אחד יכול לקרות בכל רגע. אם פעולה אחת נתקעת, הכל נתקע. אז איך Node.js משרת אלפי משתמשים? במקום ליצור thread לכל משתמש (כמו PHP או Java, וזה יקר), Node עובד עם <strong>Event Loop</strong>.</p>
+          <p>הרעיון: פעולות איטיות (קריאת קובץ, פנייה למסד נתונים, בקשת רשת) לא מבוצעות ב-thread הראשי. הן נמסרות ל-Web API שמטפל בהן ברקע, ורק כשהן מסתיימות ה-callback שלהן נכנס לתור וממתין לתורו. ה-Event Loop הוא הלולאה שבודקת מתי המחסנית ריקה ומכניסה אליה את ה-callback הבא.</p>
+          <div class="callout why">
+            <div class="callout-title"><span class="ic">💡</span> למה זה חכם?</div>
+            <p>רוב הזמן בשרת עובר בהמתנה (לדיסק, לרשת, ל-DB), לא בחישוב. במקום ש-thread ישב ויחכה, Node משחרר אותו לטפל בבקשות אחרות, וחוזר ל-callback רק כשהתוצאה מוכנה. ככה thread יחיד משרת המון בקשות.</p>
+          </div>
+          <p>הדוגמה הקלאסית: מה סדר ההדפסות בקוד הבא? התשובה מפתיעה. הפעל את האנימציה וראה בדיוק איך ה-Event Loop עובד עם המחסנית והתורים:</p>
+          <div class="anim" data-anim="event-loop" data-title="Event Loop, המחסנית והתורים"></div>
+          <div class="callout note">
+            <div class="callout-title"><span class="ic">⚡</span> חוק הזהב</div>
+            <p>אחרי שהמחסנית מתרוקנת, ה-Event Loop מרוקן קודם את כל ה-Microtask Queue (של Promises) ורק אחר כך לוקח פריט אחד מה-Callback Queue (של setTimeout ואירועים). לכן `Promise.then` תמיד ירוץ לפני `setTimeout`, גם אם ה-setTimeout היה עם 0 מילי-שניות.</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="blocking">חוסם מול לא חוסם (Blocking vs Non-Blocking)</h2>
+          <p>נניח שרוצים לקרוא קובץ ואז להציג אותו. יש שתי דרכים. בגרסה החוסמת (סינכרונית) ה-thread ממתין עד שהקובץ נקרא, ורק אז ממשיך. בגרסה הלא-חוסמת (אסינכרונית) שולחים בקשה לקרוא, ממשיכים לעבוד, וכשהקובץ מוכן רץ ה-callback.</p>
+          <div class="code-block" data-lang="js" data-file="blocking.js">
+<script type="text/plain">
+// חוסם: ה-thread נעצר עד שהקובץ נקרא
+let data = fs.readFileSync("test.txt");
+console.log(data);
+console.log("משימות אחרות");
+</script>
+          </div>
+          <div class="code-block" data-lang="js" data-file="non-blocking.js">
+<script type="text/plain">
+// לא חוסם: ממשיכים מיד, ה-callback ירוץ כשהקובץ מוכן
+fs.readFile("test.txt", function (err, data) {
+  console.log(data);
+});
+console.log("משימות אחרות"); // ירוץ קודם!
+</script>
+          </div>
+          <p>הפעל את האנימציה כדי לראות למה הגרסה הלא-חוסמת מסיימת מהר יותר:</p>
+          <div class="anim" data-anim="blocking-nonblocking" data-title="חוסם מול לא חוסם, על ציר הזמן"></div>
+        </section>
+
+        <section class="section">
+          <h2 id="callbacks">Callbacks</h2>
+          <p>Callback היא פונקציה שמעבירים לפונקציה אחרת, כדי שתופעל מאוחר יותר כשמשהו קורה. הרבה פעולות אסינכרוניות מבוססות על callbacks:</p>
+          <div class="code-block" data-lang="js" data-file="timers.js">
+<script type="text/plain">
+// מפעיל את הפונקציה פעם אחת אחרי 1000ms
+setTimeout(() => console.log("עברה שנייה"), 1000);
+
+// מפעיל את הפונקציה כל 2000ms
+const id = setInterval(() => console.log("טיק"), 2000);
+
+// עוצר את ה-interval
+clearInterval(id);
+</script>
+          </div>
+          <h3>Callback Hell</h3>
+          <p>הבעיה: כשפעולה אסינכרונית תלויה בקודמת, נכנסים callbacks בתוך callbacks, והקוד הופך למדרגות בלתי-קריאות. זה נקרא "גיהינום ה-callbacks":</p>
+          <div class="code-block" data-lang="js" data-file="callback-hell.js">
+<script type="text/plain">
+getData(function (a) {
+  getMoreData(a, function (b) {
+    getMoreData(b, function (c) {
+      getMoreData(c, function (d) {
+        // ... נכנסים עמוק ועמוק
+      });
+    });
+  });
+});
+</script>
+          </div>
+          <p>הפתרון לבעיה הזו הוא Promises ו-async/await, שנראה עכשיו.</p>
+        </section>
+
+        <section class="section">
+          <h2 id="promises">Promises ו-then</h2>
+          <p>פונקציה <code>async</code> מחזירה אובייקט <strong>Promise</strong> (הבטחה). ל-Promise יש מתודה <code>.then</code> שמקבלת פונקציה שתרוץ כשההבטחה מתקיימת, עם הערך שהוחזר. אפשר לשרשר כמה <code>.then</code> אחד אחרי השני, וזה הרבה יותר קריא ממדרגות של callbacks:</p>
+          <div class="code-block" data-lang="js" data-file="promise-chain.js">
+<script type="text/plain">
+async function myWork() {
+  return { name: "First", index: 77 };
+}
+
+myWork()
+  .then((result) => {
+    console.log(result.name); // First
+    return { name: "Second", index: 111 };
+  })
+  .then((result) => {
+    console.log(result.name); // Second
+  });
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="async-await">async / await</h2>
+          <p><code>await</code> הוא תחביר נוח יותר במקום <code>.then</code>. הכלל: <code>await</code> אפשר להשתמש רק בתוך פונקציית <code>async</code>. כשמגיעים ל-<code>await</code>, הפונקציה הנוכחית "נעצרת" ומחזירה שליטה, וממשיכה משם ברגע שהפעולה האסינכרונית שאחרי ה-<code>await</code> מסתיימת.</p>
+          <div class="code-block" data-lang="js" data-file="await.js">
+<script type="text/plain">
+async function myWork() {
+  return { name: "First" };
+}
+async function doMoreWork(result) {
+  console.log(result.name);
+  return { name: "Second" };
+}
+
+async function run() {
+  let res1 = await myWork();      // מחכים לתוצאה
+  let res2 = await doMoreWork(res1);
+  return res2;
+}
+run();
+</script>
+          </div>
+          <p>הנקודה הכי מבלבלת ב-await היא סדר ההרצה. בוא נראה בדיוק מה קורה, צעד אחר צעד. שים לב איך B מודפס לפני C:</p>
+          <div class="stepper" data-title="async / await, צעד אחר צעד">
+<script type="application/json">
+{
+  "lang": "js",
+  "code": "async function main() {\n  console.log(\"A\");\n  await wait();\n  console.log(\"C\");\n}\n\nconsole.log(\"start\");\nmain();\nconsole.log(\"B\");",
+  "steps": [
+    { "line": 7, "stack": ["global"], "output": ["start"], "note": "הקוד רץ מלמעלה למטה. קודם מודפס **start**." },
+    { "line": 8, "stack": ["global", "main()"], "output": ["start"], "note": "קוראים ל-**main()**. היא נכנסת למחסנית ומתחילה לרוץ." },
+    { "line": 2, "stack": ["global", "main()"], "output": ["start", "A"], "note": "בתוך main מודפס **A**." },
+    { "line": 3, "stack": ["global"], "output": ["start", "A"], "note": "מגיעים ל-**await**. כאן main נעצרת, מחזירה שליטה לקוד שקרא לה, ויוצאת מהמחסנית לבינתיים." },
+    { "line": 9, "stack": ["global"], "output": ["start", "A", "B"], "note": "בזמן ש-main מחכה, השורה האחרונה רצה ומדפיסה **B**. שים לב: B הודפס לפני C!" },
+    { "line": 4, "stack": ["main()"], "output": ["start", "A", "B", "C"], "note": "כשהפעולה האסינכרונית הסתיימה, main ממשיכה בדיוק מהנקודה שבה עצרה ומדפיסה **C**. הסדר הסופי: start, A, B, C." }
+  ]
+}
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="fetch">Fetch: להביא נתונים מהשרת</h2>
+          <p><code>fetch</code> היא הדרך המודרנית לשלוח ולקבל נתונים מהשרת בעזרת JavaScript, בלי לטעון מחדש את הדף. היא מחליפה שיטות ישנות כמו AJAX ו-XMLHttpRequest. דוגמאות מוכרות: הצעות ההשלמה של גוגל בזמן הקלדה, וטעינת חלקים חדשים במפה של Google Maps כשגוררים אותה.</p>
+          <div class="code-block" data-lang="js" data-file="fetch-get.js">
+<script type="text/plain">
+fetch("https://jsonplaceholder.typicode.com/posts/1")
+  .then((response) => response.json()) // הופכים את התשובה ל-JSON
+  .then((data) => console.log(data));
+</script>
+          </div>
+          <p>אובייקט ה-<code>response</code> שחוזר מ-fetch כולל כמה תכונות שימושיות:</p>
+          <div class="tbl-wrap">
+            <table class="data">
+              <thead><tr><th>תכונה</th><th>מה היא</th></tr></thead>
+              <tbody>
+                <tr><td><code>response.status</code></td><td>קוד הסטטוס (למשל 200, 404)</td></tr>
+                <tr><td><code>response.ok</code></td><td>האם הבקשה הצליחה (סטטוס בטווח 2xx)</td></tr>
+                <tr><td><code>response.statusText</code></td><td>טקסט הסטטוס (למשל "OK")</td></tr>
+                <tr><td><code>response.json()</code></td><td>מפענח את גוף התשובה כ-JSON</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>נסה בעצמך: fetch חי</h3>
+          <p>זה קוד אמיתי. לחץ "הרץ" (או ערוך אותו) וראה בקונסול את התשובה שמגיעה משרת אמיתי באינטרנט:</p>
+          <div class="playground" data-tabs="js" data-console="true" data-preview-label="הרץ וראה בקונסול">
+<script type="text/plain" class="pg-js">
+fetch("https://jsonplaceholder.typicode.com/todos/1")
+  .then((res) => res.json())
+  .then((data) => {
+    console.log("קיבלנו מהשרת:");
+    console.log(data);
+    console.log("הכותרת היא:", data.title);
+  })
+  .catch((err) => console.log("שגיאה:", err));
+</script>
+          </div>
+
+          <h3>טיפול בשגיאות</h3>
+          <p>fetch לא זורק שגיאה על סטטוס 404. צריך לבדוק את <code>response.ok</code> בעצמנו, ולתפוס שגיאות רשת עם <code>catch</code>:</p>
+          <div class="code-block" data-lang="js" data-file="fetch-error.js">
+<script type="text/plain">
+fetch("https://jsonplaceholder.typicode.com/invalid-url")
+  .then((response) => {
+    if (!response.ok) throw new Error("התשובה לא תקינה");
+    return response.json();
+  })
+  .then((data) => console.log(data))
+  .catch((error) => console.error("שגיאת fetch:", error));
+</script>
+          </div>
+
+          <h3>לשלוח נתונים לשרת (POST)</h3>
+          <p>כדי לשלוח נתונים מוסיפים אובייקט הגדרות עם <code>method</code>, <code>headers</code> ו-<code>body</code>. את הגוף הופכים למחרוזת JSON:</p>
+          <div class="code-block" data-lang="js" data-file="fetch-post.js">
+<script type="text/plain">
+fetch("https://jsonplaceholder.typicode.com/posts", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ title: "foo", body: "bar", userId: 1 })
+})
+  .then((res) => res.json())
+  .then((data) => console.log(data));
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="json">JSON</h2>
+          <p><strong>JSON</strong> (JavaScript Object Notation) הוא פורמט טקסט קליל להעברת נתונים, קל לקריאה גם לאדם וגם למחשב. הוא עצמאי משפה, אבל התחביר שלו לקוח מ-JavaScript. היום הוא הפורמט הכי נפוץ להעברת מידע ברשת, והוא החליף את XML.</p>
+          <p>JSON הוא תת-קבוצה של תחביר האובייקטים של JS, עם שני הבדלים חשובים: מחרוזות חייבות מרכאות <strong>כפולות</strong>, וגם שמות השדות חייבים מרכאות.</p>
+          <div class="code-block" data-lang="json" data-file="person.json">
+<script type="text/plain">
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "address": {
+    "city": "New York",
+    "postalCode": "10021"
+  },
+  "phoneNumbers": ["212 732-1234", "646 123-4567"]
+}
+</script>
+          </div>
+          <p>שתי הפונקציות החשובות להמרה בין מחרוזת JSON לאובייקט JS:</p>
+          <ul>
+            <li><code>JSON.parse()</code>, ממחרוזת JSON לאובייקט.</li>
+            <li><code>JSON.stringify()</code>, מאובייקט למחרוזת JSON.</li>
+          </ul>
+          <div class="playground" data-tabs="js" data-console="true" data-preview-label="הרץ וראה בקונסול">
+<script type="text/plain" class="pg-js">
+// ממחרוזת לאובייקט
+let obj = JSON.parse('{ "name": "דנה", "age": 24 }');
+console.log("השם:", obj.name);
+console.log("הגיל:", obj.age);
+
+// מאובייקט חזרה למחרוזת
+let str = JSON.stringify(obj);
+console.log("בחזרה למחרוזת:", str);
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="quiz">בדיקה עצמית</h2>
+          <p>זה נושא מאתגר. ענה על השאלות וקרא היטב את ההסברים, במיוחד בשאלות על סדר ההרצה.</p>
+          <div class="quiz" data-quiz="10-async"></div>
+        </section>
+
+        <nav class="topic-nav" data-topic-nav aria-label="ניווט בין נושאים"></nav>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap"><span>web·apps · אסינכרוניות, Fetch ו-JSON</span><span class="muted">מבוסס על מצגת 05</span></div>
+  </footer>
+
+  <script defer src="../js/site.js"></script>
+  <script defer src="../js/storage.js"></script>
+  <script defer src="../js/progress.js"></script>
+  <script defer src="../js/motion.js"></script>
+  <script defer src="../js/highlight.js"></script>
+  <script defer src="../js/playground.js"></script>
+  <script defer src="../js/livedemo.js"></script>
+  <script defer src="../js/stepper.js"></script>
+  <script defer src="../js/challenge.js"></script>
+  <script defer src="../js/animations.js"></script>
+  <script defer src="../js/quiz-engine.js"></script>
+  <script defer src="../js/quiz-ui.js"></script>
+</body>
+</html>

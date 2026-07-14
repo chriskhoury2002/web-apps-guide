@@ -1,0 +1,149 @@
+{
+  "slug": "11-express",
+  "title": "תרגול: Express.js",
+  "questions": [
+    {
+      "id": 1, "type": "knowledge", "topic": "npm",
+      "question": "מהו npm?",
+      "options": [
+        "מנהל החבילות של Node, להתקנת מודולים מהמאגר המקוון",
+        "עורך קוד",
+        "מסד נתונים",
+        "דפדפן"
+      ],
+      "correctIndex": 0,
+      "explanation": "npm (Node Package Manager) הוא כלי שורת פקודה להתקנת חבילות מהמאגר npmjs.org. מתקינים עם `npm install <name>`.",
+      "source": "מצגת 06, שקף 2, 3"
+    },
+    {
+      "id": 2, "type": "knowledge", "topic": "express",
+      "question": "מה נכון בנוגע ל-Express?",
+      "options": [
+        "הוא שרת HTTP פופולרי ל-Node.js",
+        "הוא מסד נתונים",
+        "הוא שפת תכנות",
+        "הוא דפדפן"
+      ],
+      "correctIndex": 0,
+      "explanation": "Express הוא framework/שרת HTTP פופולרי ל-Node. הוא תומך במנועי תבניות (Pug, EJS) ובחיבור למסדי נתונים.",
+      "source": "מצגת 06, שקף 4"
+    },
+    {
+      "id": 3, "type": "knowledge", "topic": "init",
+      "question": "מה עושים כדי להתחיל פרויקט Express חדש?",
+      "options": [
+        "יוצרים תיקייה, מריצים npm init -y, ואז npm install express",
+        "פותחים קובץ HTML בלבד",
+        "מתקינים דפדפן חדש",
+        "כותבים CSS"
+      ],
+      "correctIndex": 0,
+      "explanation": "יוצרים תיקייה, npm init -y מאתחל פרויקט, ו-npm install express מתקין את Express.",
+      "source": "מצגת 06, שקף 5"
+    },
+    {
+      "id": 4, "type": "knowledge", "topic": "route",
+      "question": "מה עושה `app.get('/', (req, res) => { res.send('Hello') })`?",
+      "options": [
+        "מגדיר טיפול בבקשת GET לנתיב '/', ומחזיר 'Hello'",
+        "מוחק את השרת",
+        "מתחבר למסד נתונים",
+        "יוצר קובץ HTML"
+      ],
+      "correctIndex": 0,
+      "explanation": "app.get מגדיר ניתוב (route): כשמגיעה בקשת GET לנתיב '/', הפונקציה רצה ו-res.send מחזיר תשובה.",
+      "source": "מצגת 06, שקף 6"
+    },
+    {
+      "id": 5, "type": "knowledge", "topic": "listen",
+      "question": "מה עושה `app.listen(3000, ...)`?",
+      "options": [
+        "מפעיל את השרת שיאזין לבקשות על פורט 3000",
+        "עוצר את השרת",
+        "שולח בקשה",
+        "מדפיס 3000 בלבד"
+      ],
+      "correctIndex": 0,
+      "explanation": "app.listen מפעיל את השרת על הפורט הנתון, וממנו הוא מתחיל לקבל בקשות.",
+      "source": "מצגת 06, שקף 6"
+    },
+    {
+      "id": 6, "type": "knowledge", "topic": "static",
+      "question": "איך מגישים קבצים סטטיים (HTML, תמונות) ב-Express?",
+      "options": [
+        "עם app.use(express.static('public')) ושמים את הקבצים בתיקיית public",
+        "עם con.query",
+        "עם res.cookie",
+        "אי אפשר להגיש קבצים סטטיים"
+      ],
+      "correctIndex": 0,
+      "explanation": "app.use(express.static('public')) מגיש אוטומטית את הקבצים מתיקיית public (HTML, gif וכו').",
+      "source": "מצגת 06, שקף 8"
+    },
+    {
+      "id": 7, "type": "knowledge", "topic": "restart",
+      "question": "למה משמש `node --watch index.js` (או nodemon)?",
+      "options": [
+        "להפעיל מחדש את השרת אוטומטית בכל שינוי קוד, בזמן פיתוח",
+        "להתקין חבילות",
+        "למחוק קבצים",
+        "להריץ CSS"
+      ],
+      "correctIndex": 0,
+      "explanation": "שרת לא מרענן קוד עד שמפעילים אותו מחדש. `node --watch` (או nodemon הישן) מפעיל מחדש אוטומטית בכל שינוי, נוח בפיתוח.",
+      "source": "מצגת 06, שקף 9"
+    },
+    {
+      "id": 8, "type": "knowledge", "topic": "template engines",
+      "question": "אילו מנועי תבניות Express תומך בהם?",
+      "options": [
+        "Pug, EJS, Mustache, Handlebars ועוד",
+        "רק HTML רגיל",
+        "רק CSS",
+        "רק SQL"
+      ],
+      "correctIndex": 0,
+      "explanation": "Express תומך במנועי תבניות רבים. הנפוצים שנלמדים בקורס הם Pug ו-EJS, שמאפשרים HTML דינמי.",
+      "source": "מצגת 06, שקף 4"
+    },
+    {
+      "id": 9, "type": "knowledge", "topic": "require express",
+      "question": "איך יוצרים אפליקציית Express בקוד?",
+      "options": [
+        "const express = require('express'); const app = express();",
+        "const app = new Server();",
+        "import app from 'html';",
+        "app = express.html();"
+      ],
+      "correctIndex": 0,
+      "explanation": "טוענים את express עם require, ואז יוצרים אפליקציה עם express(). מכאן משתמשים ב-app.get, app.use וכו'.",
+      "source": "מצגת 06, שקף 6"
+    },
+    {
+      "id": 10, "type": "knowledge", "topic": "res.send",
+      "question": "מה עושה `res.send`?",
+      "options": [
+        "שולח תשובה ללקוח",
+        "שולח בקשה לשרת אחר",
+        "מוחק את הבקשה",
+        "פותח קובץ"
+      ],
+      "correctIndex": 0,
+      "explanation": "res.send שולח את התשובה חזרה ללקוח (טקסט, HTML, או JSON).",
+      "source": "מצגת 06, שקף 6, 7"
+    },
+    {
+      "id": 11, "type": "predict", "topic": "restart needed",
+      "question": "הוספת route חדש לקובץ index.js אבל הוא לא עובד בדפדפן. למה?",
+      "options": [
+        "צריך להפעיל מחדש את השרת (או להשתמש ב---watch)",
+        "צריך לכבות את המחשב",
+        "Express לא תומך ב-routes",
+        "צריך לכתוב את זה ב-CSS"
+      ],
+      "correctIndex": 0,
+      "explanation": "שרת לא מרענן שינויי קוד עד הפעלה מחדש. אחרי הוספת route צריך להריץ מחדש, או להשתמש ב-node --watch שעושה זאת אוטומטית.",
+      "source": "מצגת 06, שקף 7, 9"
+    }
+  ]
+}

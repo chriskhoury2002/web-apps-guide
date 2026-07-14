@@ -1,0 +1,205 @@
+{
+  "slug": "04-js-dom",
+  "title": "תרגול: JavaScript ו-DOM",
+  "questions": [
+    {
+      "id": 1, "type": "knowledge", "topic": "מהו JS",
+      "question": "מה נכון לגבי JavaScript?",
+      "options": [
+        "היא שפת התכנות היחידה שכל הדפדפנים יודעים להריץ",
+        "היא שפת סימון כמו HTML",
+        "היא רצה רק על השרת",
+        "היא צריכה הידור לפני הרצה בדפדפן"
+      ],
+      "correctIndex": 0,
+      "explanation": "JavaScript היא שפת התכנות של הדפדפן, והיחידה שכל הדפדפנים מריצים. היא מפורשת (interpreted) ולא דורשת הידור מוקדם בדפדפן.",
+      "source": "מצגת 01, שקף 42"
+    },
+    {
+      "id": 2, "type": "knowledge", "topic": "שילוב JS",
+      "question": "באיזו תגית משלבים קוד JavaScript בדף HTML?",
+      "options": [
+        "`<script>`",
+        "`<js>`",
+        "`<style>`",
+        "`<code>`"
+      ],
+      "correctIndex": 0,
+      "explanation": "קוד JS נכנס בתוך תגית `<script>`, שאפשר לשים בכל מקום ב-HTML.",
+      "source": "מצגת 01, שקף 42"
+    },
+    {
+      "id": 3, "type": "knowledge", "topic": "loosely typed",
+      "question": "מה המשמעות ש-JavaScript היא loosely typed?",
+      "options": [
+        "טיפוס המשתנה נקבע לפי הערך שמכניסים אליו, לא צריך להצהיר עליו מראש",
+        "אסור לשנות ערך של משתנה",
+        "כל המשתנים הם מספרים",
+        "חייבים להצהיר על הטיפוס של כל משתנה"
+      ],
+      "correctIndex": 0,
+      "explanation": "ב-JS הטיפוס דינמי: אותו משתנה יכול להחזיק מחרוזת ואז מספר. הטיפוס נקבע לפי הערך.",
+      "source": "מצגת 01, שקף 42"
+    },
+    {
+      "id": 4, "type": "knowledge", "topic": "אלמנט כאובייקט",
+      "question": "מה נכון לגבי אלמנטים של HTML מבחינת JavaScript?",
+      "options": [
+        "כל אלמנט הוא אובייקט שאפשר לגשת אליו ולשנות אותו מהקוד",
+        "אי אפשר לגשת לאלמנטים מ-JavaScript",
+        "רק אלמנט אחד בדף נגיש",
+        "אלמנטים נגישים רק ב-CSS"
+      ],
+      "correctIndex": 0,
+      "explanation": "כל אלמנט HTML מיוצג כאובייקט ב-JS, וניתן לקרוא ולשנות את התכונות והתוכן שלו.",
+      "source": "מצגת 01, שקף 43, 45"
+    },
+    {
+      "id": 5, "type": "output", "topic": "getElementById",
+      "question": "מה עושה הקוד הבא?",
+      "code": "let el = document.getElementById(\"title\");\nel.style.color = \"red\";",
+      "lang": "js",
+      "options": [
+        "מוצא את האלמנט עם id=\"title\" וצובע את הטקסט שלו באדום",
+        "יוצר אלמנט חדש בשם title",
+        "מוחק את האלמנט",
+        "משנה את כל האלמנטים בדף לאדום"
+      ],
+      "correctIndex": 0,
+      "explanation": "getElementById מחזיר את האלמנט עם ה-id הנתון. אחר כך משנים את הסגנון שלו דרך המאפיין style.",
+      "source": "מצגת 01, שקף 44"
+    },
+    {
+      "id": 6, "type": "knowledge", "topic": "document",
+      "question": "דרך איזה אובייקט ניגשים לאלמנטים בדף?",
+      "options": [
+        "`document`",
+        "`window.style`",
+        "`html`",
+        "`body.get`"
+      ],
+      "correctIndex": 0,
+      "explanation": "אובייקט ה-`document` מייצג את הדף ומספק פונקציות גישה כמו getElementById.",
+      "source": "מצגת 01, שקף 44"
+    },
+    {
+      "id": 7, "type": "knowledge", "topic": "DOM",
+      "question": "מהו ה-DOM?",
+      "options": [
+        "ייצוג הדף כעץ של אובייקטים בזיכרון, שהדפדפן בונה מה-HTML",
+        "שפת עיצוב",
+        "מסד נתונים בצד השרת",
+        "פרוטוקול תקשורת"
+      ],
+      "correctIndex": 0,
+      "explanation": "DOM (Document Object Model) הוא עץ אובייקטים שמייצג את הדף בזיכרון. דרכו JS קורא ומשנה את הדף.",
+      "source": "מצגת 01, שקף 45"
+    },
+    {
+      "id": 8, "type": "predict", "topic": "DOM חי",
+      "question": "מה קורה כשמשנים אלמנט דרך ה-DOM ב-JavaScript?",
+      "options": [
+        "הדפדפן מצייר מחדש את החלק הרלוונטי מיד, בלי לטעון את הדף מחדש",
+        "צריך לרענן את הדף ידנית כדי לראות שינוי",
+        "השינוי נשמר רק בשרת",
+        "כלום לא קורה"
+      ],
+      "correctIndex": 0,
+      "explanation": "ה-DOM הוא 'מסמך חי'. שינוי בו משתקף מיד על המסך, וזה מה שמאפשר דפים דינמיים.",
+      "source": "מצגת 01, שקף 45"
+    },
+    {
+      "id": 9, "type": "knowledge", "topic": "innerHTML",
+      "question": "מה עושה `element.innerHTML = \"...\"`?",
+      "options": [
+        "מחליף את כל התוכן הפנימי של האלמנט ב-HTML חדש",
+        "מוחק את האלמנט",
+        "משנה רק את הצבע",
+        "מוסיף אלמנט חדש אחרי האלמנט"
+      ],
+      "correctIndex": 0,
+      "explanation": "innerHTML מקבל מחרוזת ומחליף בה את כל התוכן הפנימי של האלמנט, כולל תגיות HTML.",
+      "source": "מצגת 01, שקף 45"
+    },
+    {
+      "id": 10, "type": "knowledge", "topic": "אירועים",
+      "question": "מה יכול להפעיל קוד JavaScript?",
+      "options": [
+        "אירוע בממשק, כמו לחיצה או מעבר עכבר",
+        "רק טעינת הדף",
+        "רק שינוי CSS",
+        "אי אפשר להפעיל JS מאירועים"
+      ],
+      "correctIndex": 0,
+      "explanation": "כל אירוע UI (click, mouseover, keydown ועוד) יכול להפעיל פונקציית JavaScript. כך הדף מגיב למשתמש.",
+      "source": "מצגת 01, שקף 43, 44"
+    },
+    {
+      "id": 11, "type": "output", "topic": "onclick",
+      "question": "מה יקרה כשלוחצים על הכפתור?",
+      "code": "<button onclick=\"go()\">לחץ</button>\n\n// ובקוד:\nfunction go() {\n  document.getElementById(\"t\").textContent = \"נלחץ!\";\n}",
+      "lang": "js",
+      "options": [
+        "הטקסט של האלמנט עם id=\"t\" ישתנה ל'נלחץ!'",
+        "כלום, כי onclick לא קיים",
+        "הכפתור ייעלם",
+        "הדף ייטען מחדש"
+      ],
+      "correctIndex": 0,
+      "explanation": "המאפיין onclick מקשר לחיצה לפונקציה go, שמשנה את הטקסט של האלמנט t. זו הדגמה של אירוע שמפעיל קוד.",
+      "source": "מצגת 01, שקף 44"
+    },
+    {
+      "id": 12, "type": "knowledge", "topic": "חלוקת תפקידים",
+      "question": "בחלוקת התפקידים, מה תפקידו של JavaScript?",
+      "options": [
+        "התנהגות ואינטראקטיביות",
+        "תוכן ומבנה",
+        "עיצוב וצבעים",
+        "אחסון נתונים"
+      ],
+      "correctIndex": 0,
+      "explanation": "HTML לתוכן, CSS לעיצוב, JavaScript להתנהגות (behavior). JS מגיב לפעולות המשתמש ומשנה את הדף.",
+      "source": "מצגת 01, שקף 46"
+    },
+    {
+      "id": 13, "type": "error", "topic": "getElementById",
+      "question": "רוצים לשנות טקסט של אלמנט. איזו שורה נכונה?",
+      "options": [
+        "`document.getElementById(\"x\").textContent = \"שלום\";`",
+        "`document.getElement(\"x\").text = \"שלום\";`",
+        "`getElementById(x).innerHTML;`",
+        "`document.x.textContent = \"שלום\";`"
+      ],
+      "correctIndex": 0,
+      "explanation": "התחביר הנכון: `document.getElementById(\"x\")` להשגת האלמנט, ואז שינוי `textContent` (או `innerHTML`).",
+      "source": "מצגת 01, שקף 44, 45"
+    },
+    {
+      "id": 14, "type": "knowledge", "topic": "מפורשת",
+      "question": "מה המשמעות ש-JavaScript היא 'מפורשת' (interpreted)?",
+      "options": [
+        "הדפדפן מריץ אותה ישירות, בלי שלב הידור מוקדם",
+        "צריך להדר אותה לקובץ הרצה לפני השימוש",
+        "היא רצה רק אחרי שמתרגמים אותה ל-Java",
+        "היא לא רצה בדפדפן"
+      ],
+      "correctIndex": 0,
+      "explanation": "שפה מפורשת מורצת ישירות על ידי הדפדפן, שורה אחרי שורה, בלי קובץ הרצה שנוצר מראש.",
+      "source": "מצגת 01, שקף 42"
+    },
+    {
+      "id": 15, "type": "predict", "topic": "דינמיות",
+      "question": "אתר מציג מונה לחיצות שגדל בכל לחיצה בלי לטעון את הדף מחדש. מה מאפשר זאת?",
+      "options": [
+        "JavaScript שמשנה את ה-DOM בתגובה לאירוע הלחיצה",
+        "CSS בלבד",
+        "HTML בלבד",
+        "רענון אוטומטי של הדף בכל שנייה"
+      ],
+      "correctIndex": 0,
+      "explanation": "JS מאזין לאירוע הלחיצה, מעדכן משתנה, ומשנה את ה-DOM. הדפדפן מצייר מחדש מיד, בלי טעינה מחדש.",
+      "source": "מצגת 01, שקף 43, 45"
+    }
+  ]
+}

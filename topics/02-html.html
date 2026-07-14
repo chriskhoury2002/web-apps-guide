@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="he" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>יסודות HTML · web·apps</title>
+  <meta name="description" content="יסודות HTML: תגיות, אלמנטים, מאפיינים, מבנה מסמך, כותרות, רשימות וקישורים, עם דוגמאות חיות ותרגול.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../css/theme.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/code.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/widgets.css">
+  <link rel="stylesheet" href="../css/anim.css">
+  <link rel="stylesheet" href="../css/motion.css">
+  <script>(function () { try { document.documentElement.setAttribute('data-theme', localStorage.getItem('wag:theme') || 'dark'); } catch (e) {} })();</script>
+  <style>#content h2[id]{scroll-margin-top:84px}</style>
+</head>
+<body data-slug="02-html">
+  <a class="skip" href="#content">דלג לתוכן</a>
+  <header data-header></header>
+
+  <main class="wrap page">
+    <div class="layout">
+      <nav class="toc" id="toc" aria-label="תוכן העניינים"></nav>
+
+      <div id="content">
+
+        <div class="topic-hero" style="--accent:#ff8f5a">
+          <span class="t-icon">🏷️</span>
+          <div>
+            <div class="t-meta"><span class="badge-num">נושא 2</span><span class="src-tag">מבוסס על מצגת 01</span></div>
+            <h1>יסודות HTML</h1>
+          </div>
+        </div>
+        <p class="lead">HTML הוא השלד של כל דף באינטרנט. בנושא הזה נבין מה זה HTML, איך בנויה תגית ואלמנט, איך מרכיבים מסמך שלם, ואיך הדפדפן קורא את הקוד והופך אותו לדף שרואים על המסך.</p>
+
+        <section class="section">
+          <h2 id="what">מה זה HTML ולמה הוא קיים</h2>
+          <p><strong>HTML</strong> הוא ראשי תיבות של <strong>HyperText Markup Language</strong>, כלומר "שפת סימון של היפר-טקסט". חשוב להבין: HTML היא לא שפת תכנות, היא שפת <em>סימון</em>. אנחנו לא כותבים בה תנאים ולולאות, אלא מתארים לדפדפן מה יש בדף: כאן כותרת, כאן פסקה, כאן תמונה, כאן קישור.</p>
+          <p>הדפדפן קורא את קובץ ה-HTML (שהוא טקסט רגיל בלבד) ומעבד אותו כדי לבנות את ממשק המשתמש שאנחנו רואים. המצגת מדגישה כמה עובדות חשובות:</p>
+          <ul>
+            <li>HTML היא השפה הכי נפוצה בעולם ה-IT. כל אתר באינטרנט מבוסס עליה.</li>
+            <li>HTML היא פשוטה מאוד ללמידה.</li>
+            <li>HTML היא כמעט השפה היחידה שסלחנית לשגיאות (error tolerance). אם תשכח לסגור תגית, הדפדפן ינסה בכל זאת להציג משהו הגיוני ולא יקרוס.</li>
+            <li>קובץ ה-HTML עצמו הוא טקסט בלבד, אבל אחרי שהדפדפן מעבד אותו (rendering) הוא יכול להכיל תמונות, וידאו ואודיו.</li>
+          </ul>
+          <div class="callout why">
+            <div class="callout-title"><span class="ic">💡</span> למה זה סלחני לשגיאות דווקא?</div>
+            <p>כי HTML נועד לכל אחד, גם למי שאינו מתכנת. אם דף היה קורס בגלל תו אחד חסר, האינטרנט לא היה נבנה כל כך מהר. המחיר הוא שקל לכתוב HTML "מבולגן" שעדיין עובד. לכן חשוב ללמוד לכתוב קוד נקי ומסודר.</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="syntax">תחביר: תגית, אלמנט ומאפיין</h2>
+          <p>שלושה מושגים שחייבים להכיר. נפרק אותם אחד-אחד.</p>
+
+          <h3>תגית (Tag)</h3>
+          <p>תגית נבנית עם הסימנים <code>&lt;</code> ו-<code>&gt;</code> ויש לה שם. שם התגית מוגדר מראש על ידי השפה והוא בעצם פקודה לדפדפן. רוב התגיות מגיעות בזוג: <strong>תגית פתיחה</strong> ו<strong>תגית סגירה</strong> (עם לוכסן). HTML אינה רגישה לאותיות גדולות או קטנות, אבל מקובל לכתוב באותיות קטנות.</p>
+          <div class="code-block" data-lang="markup" data-file="tag.html">
+<script type="text/plain">
+<h1>שלום</h1>
+</script>
+          </div>
+          <p><code>&lt;h1&gt;</code> היא תגית הפתיחה, <code>&lt;/h1&gt;</code> היא תגית הסגירה, והמילה "שלום" היא התוכן.</p>
+
+          <h3>אלמנט (Element)</h3>
+          <p>אלמנט הוא הכל ביחד: תגית הפתיחה, תגית הסגירה, וכל מה שביניהן. אלמנט יכול להכיל אלמנטים אחרים בתוכו, וזה נקרא <strong>אלמנטים מקוננים</strong> (nested). יש גם אלמנטים ריקים שאין להם תגית סגירה, כמו <code>&lt;br&gt;</code> (מעבר שורה), <code>&lt;hr&gt;</code>, <code>&lt;img&gt;</code> ו-<code>&lt;input&gt;</code>. בנקודה הזו HTML שונה מ-XML: ב-XML כל תגית חייבת סגירה, וגם <strong>HTML עצמה אינה מבוססת על XML</strong>.</p>
+          <div class="code-block" data-lang="markup" data-file="nested.html">
+<script type="text/plain">
+<p>שורה ראשונה<br>שורה שנייה בתוך אותה פסקה</p>
+</script>
+          </div>
+
+          <h3>מאפיין (Attribute)</h3>
+          <p>אלמנט יכול לכלול מאפיינים. מאפיין הוא זוג של <strong>שם</strong> ו<strong>ערך</strong>, והוא נמצא רק בתגית הפתיחה. המאפיינים מספרים לדפדפן איך להריץ או להציג את האלמנט. סדר המאפיינים לא משנה, וערך אפשר לעטוף במרכאות כפולות, בודדות, או להשאיר <strong>בלי מרכאות בכלל</strong> (זו לא שגיאה).</p>
+          <div class="code-block" data-lang="markup" data-file="attr.html">
+<script type="text/plain">
+<img src="1.gif" alt="תמונת פרח" width="100">
+</script>
+          </div>
+          <p>כאן ל-<code>img</code> יש שלושה מאפיינים: <code>src</code> (הנתיב לתמונה), <code>alt</code> (טקסט חלופי אם התמונה לא נטענת) ו-<code>width</code> (הרוחב בפיקסלים). ה-<code>src</code> יכול להיות שם קובץ מקומי או כתובת <code>URL</code> מלאה, והתמונה יכולה להיות בכל פורמט (gif, png, jpg ועוד), לא רק gif.</p>
+        </section>
+
+        <section class="section">
+          <h2 id="document">מבנה מסמך HTML</h2>
+          <p>לכל דף HTML יש שלד קבוע. נכיר את האלמנטים המרכזיים:</p>
+          <ul>
+            <li><code>&lt;html&gt;</code> - אלמנט השורש, עוטף את כל המסמך.</li>
+            <li><code>&lt;head&gt;</code> - מכיל מידע על הדף (כותרת, קידוד, קישורים לקבצי CSS). התוכן שלו לא מוצג ישירות בגוף הדף.</li>
+            <li><code>&lt;title&gt;</code> - הכותרת שמופיעה בלשונית הדפדפן. נמצא בתוך ה-<code>head</code>.</li>
+            <li><code>&lt;body&gt;</code> - הגוף. כאן נמצא כל התוכן שהמשתמש רואה.</li>
+          </ul>
+          <p>הערות בקוד נכתבות כך: <code>&lt;!-- הערה --&gt;</code>. הדפדפן מתעלם מהן, והן נועדו למתכנתים.</p>
+          <p>ב-HTML5 הצהרת סוג המסמך התקצרה מאוד. במקום שורה ארוכה, פשוט כותבים בתחילת הקובץ:</p>
+          <div class="code-block" data-lang="markup" data-file="doctype.html">
+<script type="text/plain">
+<!DOCTYPE html>
+</script>
+          </div>
+          <p>הנה מסמך HTML שלם. אפשר לראות את הקוד לצד התוצאה, וגם ללחוץ על "ערוך" ולשחק:</p>
+          <div class="livedemo" data-title="מסמך HTML שלם" data-editable="true">
+<script type="text/plain">
+<!-- זה מסמך מלא, בדיוק כמו קובץ index.html -->
+<h1>המסמך הראשון שלי</h1>
+<p>שלום לכולם, זה הדף הראשון שבניתי.</p>
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="dom-read">איך הדפדפן קורא HTML ובונה את הדף</h2>
+          <p>כשהדפדפן מקבל את קובץ ה-HTML, הוא קורא אותו מלמעלה למטה ובונה בזיכרון "עץ" של אובייקטים שנקרא <strong>DOM</strong> (Document Object Model). כל תגית הופכת ל-node (צומת) בעץ. בעץ הזה הדפדפן משתמש כדי לצייר את הדף. נראה את זה בפעולה, צעד אחר צעד:</p>
+          <div class="anim" data-anim="dom-build" data-title="בניית ה-DOM מתוך קוד HTML"></div>
+          <div class="callout note">
+            <div class="callout-title"><span class="ic">🔎</span> קשר לנושאים הבאים</div>
+            <p>העץ הזה הוא בדיוק מה ש-JavaScript ישנה בהמשך כדי להפוך את הדף לדינמי. נעמיק בזה בנושא "JavaScript ו-DOM".</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="text">כותרות, פסקאות ומעברים</h2>
+          <p>אלה האלמנטים הבסיסיים להצגת טקסט:</p>
+          <ul>
+            <li><code>&lt;h1&gt;</code> עד <code>&lt;h6&gt;</code> - שש רמות של כותרות. <code>h1</code> הכי גדולה, <code>h6</code> הכי קטנה.</li>
+            <li><code>&lt;p&gt;</code> - פסקה. מתחילה בשורה חדשה.</li>
+            <li><code>&lt;br&gt;</code> - מעבר שורה (אלמנט ריק, בלי תגית סגירה).</li>
+            <li><code>&lt;hr&gt;</code> - קו אופקי שמפריד בין חלקים.</li>
+          </ul>
+          <div class="livedemo" data-title="כותרות ופסקאות" data-editable="true">
+<script type="text/plain">
+<h1>כותרת ראשית</h1>
+<h2>כותרת משנה</h2>
+<p>פסקה עם טקסט רגיל.</p>
+<hr>
+<p>פסקה נוספת אחרי קו מפריד.</p>
+</script>
+          </div>
+
+          <div class="challenge" data-slug="02-html" data-id="ch-h1"
+               data-goal='הוסף כותרת מסוג h1 שמכילה את המילה "שלום"'
+               data-check="text" data-sel="h1" data-text="שלום"
+               data-tabs="html"
+               data-hint="כתוב &lt;h1&gt;שלום עולם&lt;/h1&gt;">
+<script type="text/plain" class="pg-html">
+<p>הדף שלי עדיין בלי כותרת...</p>
+<!-- הוסף כאן כותרת h1 -->
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="lists">רשימות</h2>
+          <p>שני סוגי רשימות עיקריים:</p>
+          <ul>
+            <li><code>&lt;ol&gt;</code> - רשימה ממוספרת (Ordered List). אפשר לשלוט בסוג המספור עם המאפיין <code>type</code> (למשל 1, a, A, i, I).</li>
+            <li><code>&lt;ul&gt;</code> - רשימה לא ממוספרת (Unordered List), עם נקודות. המאפיין <code>type</code> יכול להיות disc, square או circle.</li>
+            <li><code>&lt;li&gt;</code> - פריט ברשימה (List Item). נמצא בתוך <code>ol</code> או <code>ul</code>.</li>
+          </ul>
+          <div class="livedemo" data-title="רשימה ממוספרת ולא ממוספרת" data-editable="true">
+<script type="text/plain">
+<ol>
+  <li>נרשמים לקורס</li>
+  <li>לומדים HTML</li>
+  <li>בונים אתר</li>
+</ol>
+
+<ul>
+  <li>תפוח</li>
+  <li>בננה</li>
+</ul>
+</script>
+          </div>
+
+          <div class="challenge" data-slug="02-html" data-id="ch-ol"
+               data-goal="צור רשימה ממוספרת (ol) עם לפחות 3 פריטים (li)"
+               data-check="count" data-sel="ol li" data-min="3"
+               data-tabs="html"
+               data-hint="עטוף שלושה &lt;li&gt; בתוך &lt;ol&gt; ... &lt;/ol&gt;">
+<script type="text/plain" class="pg-html">
+<!-- בנה כאן רשימה ממוספרת עם שלושה פריטים -->
+
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="links">קישורים</h2>
+          <p>אלמנט הקישור <code>&lt;a&gt;</code> (anchor) יוצר אזור שאפשר ללחוץ עליו כדי לעבור לדף אחר. המאפיין החשוב שלו הוא <code>href</code> (הכתובת). מאפיין <code>target</code> קובע איפה הקישור ייפתח, למשל <code>_blank</code> פותח בלשונית חדשה. אפשר גם לקפוץ למקום מסוים באותו דף בעזרת <code>#</code> ו-id.</p>
+          <div class="code-block" data-lang="markup" data-file="links.html">
+<script type="text/plain">
+<a href="https://www.google.com" target="_blank">לגוגל (בלשונית חדשה)</a>
+<a href="#section2">קפיצה למקטע 2 באותו דף</a>
+</script>
+          </div>
+          <div class="livedemo" data-title="קישור חי">
+<script type="text/plain">
+<a href="https://developer.mozilla.org" target="_blank">לתיעוד של MDN</a>
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="div-span">div, span, וסמנטיקה מול עיצוב</h2>
+          <p>למה בכלל להשתמש באלמנט מסוים? יש שתי סיבות:</p>
+          <ul>
+            <li>כדי להוסיף <strong>משמעות (semantics)</strong>. למשל, <code>&lt;h1&gt;</code> אומר "זו הכותרת הראשית", וזה עוזר למשתמש, לגוגל ולתוכנות קריאה.</li>
+            <li>כדי לשנות <strong>עיצוב</strong> (בעזרת CSS).</li>
+          </ul>
+          <p>שני אלמנטים חשובים שאין להם משמעות מיוחדת, והם קיימים בעיקר לצורכי עיצוב וקיבוץ: <code>&lt;div&gt;</code> (בלוק שתופס שורה שלמה) ו-<code>&lt;span&gt;</code> (מקטע קטן בתוך שורה). נשתמש בהם הרבה כשנלמד CSS ו-JavaScript.</p>
+          <div class="callout tip">
+            <div class="callout-title"><span class="ic">✅</span> טיפ</div>
+            <p>אם יש אלמנט סמנטי שמתאים (כמו <code>&lt;nav&gt;</code> לתפריט), עדיף להשתמש בו. משתמשים ב-<code>div</code> רק כשאין אלמנט מתאים יותר.</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="not-pl">HTML הוא לא שפת תכנות</h2>
+          <p>כדי ששפה תיחשב שפת תכנות (Programming Language), היא צריכה לתמוך ב:</p>
+          <ol>
+            <li>משתנים (Variables)</li>
+            <li>תנאים (if)</li>
+            <li>לולאות (loops)</li>
+            <li>הגדרת פונקציות</li>
+          </ol>
+          <p>ל-HTML אין אף אחד מאלה, ולכן היא שפת סימון ולא שפת תכנות. את החלק ה"חכם" והדינמי נוסיף בעזרת JavaScript, ואת העיצוב בעזרת CSS. שלושתם עובדים יחד: HTML לתוכן, CSS לעיצוב, JavaScript להתנהגות.</p>
+        </section>
+
+        <section class="section">
+          <h2 id="play">מגרש משחקים חופשי</h2>
+          <p>עכשיו תורך. שלב כותרות, פסקאות, רשימות וקישורים. שנה את הקוד ותראה מיד את התוצאה. אם התבלבלת, לחץ "אפס".</p>
+          <div class="playground" data-tabs="html">
+<script type="text/plain" class="pg-html">
+<h1>הדף שלי</h1>
+<p>נסה לשנות אותי, להוסיף רשימה, קישור וכותרת נוספת.</p>
+
+<ul>
+  <li>פריט ראשון</li>
+  <li>פריט שני</li>
+</ul>
+
+<a href="#">קישור לדוגמה</a>
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="quiz">בדיקה עצמית</h2>
+          <p>ענה על השאלות. אחרי כל תשובה תקבל הסבר. בסוף תראה את הציון שלך.</p>
+          <div class="quiz" data-quiz="02-html"></div>
+        </section>
+
+        <nav class="topic-nav" data-topic-nav aria-label="ניווט בין נושאים"></nav>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap"><span>web·apps · יסודות HTML</span><span class="muted">מבוסס על מצגת 01</span></div>
+  </footer>
+
+  <script defer src="../js/site.js"></script>
+  <script defer src="../js/storage.js"></script>
+  <script defer src="../js/progress.js"></script>
+  <script defer src="../js/motion.js"></script>
+  <script defer src="../js/highlight.js"></script>
+  <script defer src="../js/playground.js"></script>
+  <script defer src="../js/livedemo.js"></script>
+  <script defer src="../js/stepper.js"></script>
+  <script defer src="../js/challenge.js"></script>
+  <script defer src="../js/animations.js"></script>
+  <script defer src="../js/quiz-engine.js"></script>
+  <script defer src="../js/quiz-ui.js"></script>
+</body>
+</html>

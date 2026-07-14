@@ -1,0 +1,145 @@
+{
+  "course": "פיתוח יישומי אינטרנט",
+  "topics": [
+    {
+      "num": 1,
+      "slug": "01-intro",
+      "titleHe": "מבוא לקורס ולפיתוח ואב",
+      "subtitle": "מה זה אתר, איך עובד הדפדפן והשרת, ומה ההבדל בין צד לקוח לצד שרת",
+      "icon": "🚀",
+      "accent": "#f5b64a",
+      "source": "מצגות 00, 01",
+      "status": "ready"
+    },
+    {
+      "num": 2,
+      "slug": "02-html",
+      "titleHe": "יסודות HTML",
+      "subtitle": "תגיות, אלמנטים, מאפיינים ומבנה מסמך. השלד של כל אתר באינטרנט",
+      "icon": "🏷️",
+      "accent": "#ff8f5a",
+      "source": "מצגת 01",
+      "status": "ready"
+    },
+    {
+      "num": 3,
+      "slug": "03-css",
+      "titleHe": "יסודות CSS",
+      "subtitle": "סלקטורים, מודל הקופסה ותכונות עיצוב. איך הופכים HTML למשהו יפה",
+      "icon": "🎨",
+      "accent": "#5ad1e6",
+      "source": "מצגת 01",
+      "status": "ready"
+    },
+    {
+      "num": 4,
+      "slug": "04-js-dom",
+      "titleHe": "JavaScript ו-DOM (מבוא)",
+      "subtitle": "איך JS הופך את הדף לחי, מה זה DOM ואיך משנים אלמנטים",
+      "icon": "🌳",
+      "accent": "#f2d75a",
+      "source": "מצגת 01",
+      "status": "ready"
+    },
+    {
+      "num": 5,
+      "slug": "05-vscode",
+      "titleHe": "סביבת פיתוח VS Code",
+      "subtitle": "עורך הקוד, תוספים שימושיים, Emmet וקיצורי דרך שחוסכים זמן",
+      "icon": "🧰",
+      "accent": "#7aa2f7",
+      "source": "מצגת 01-b",
+      "status": "ready"
+    },
+    {
+      "num": 6,
+      "slug": "06-node",
+      "titleHe": "צד שרת ו-Node.js",
+      "subtitle": "מה זה back-end, מה זה Node, מודולים ושרת HTTP ראשון",
+      "icon": "🖥️",
+      "accent": "#57d38c",
+      "source": "מצגות 01-a, 05",
+      "status": "ready"
+    },
+    {
+      "num": 7,
+      "slug": "07-html5",
+      "titleHe": "HTML5 מתקדם",
+      "subtitle": "אלמנטים סמנטיים, טפסים, ולידציה, מדיה וטבלאות",
+      "icon": "🧩",
+      "accent": "#ff7a90",
+      "source": "מצגת 02",
+      "status": "ready"
+    },
+    {
+      "num": 8,
+      "slug": "08-css3",
+      "titleHe": "CSS3 מתקדם",
+      "subtitle": "סלקטורים מתקדמים, position, Flexbox, Grid ועיצוב רספונסיבי",
+      "icon": "📐",
+      "accent": "#4fd1c5",
+      "source": "מצגת 03",
+      "status": "ready"
+    },
+    {
+      "num": 9,
+      "slug": "09-js-deep",
+      "titleHe": "JavaScript מעמיק",
+      "subtitle": "scope, טיפוסים, אובייקטים, פונקציות, callbacks, מערכים ו-this",
+      "icon": "⚙️",
+      "accent": "#f5c542",
+      "source": "מצגת 04",
+      "status": "ready"
+    },
+    {
+      "num": 10,
+      "slug": "10-async",
+      "titleHe": "אסינכרוניות, Fetch ו-JSON",
+      "subtitle": "event loop, callbacks, promises, async/await, fetch ופורמט JSON",
+      "icon": "🔄",
+      "accent": "#c98bff",
+      "source": "מצגת 05",
+      "status": "ready"
+    },
+    {
+      "num": 11,
+      "slug": "11-express",
+      "titleHe": "Express.js",
+      "subtitle": "npm, בניית שרת, ניתובים (routes), קבצים סטטיים ו-nodemon",
+      "icon": "🚂",
+      "accent": "#68d391",
+      "source": "מצגת 06",
+      "status": "ready"
+    },
+    {
+      "num": 12,
+      "slug": "12-db-rest",
+      "titleHe": "מסד נתונים MySQL ו-REST",
+      "subtitle": "חיבור ל-DB, שאילתות, פרמטרים בבקשה, REST, CRUD ומיקרו-שירותים",
+      "icon": "🗄️",
+      "accent": "#63b3ed",
+      "source": "מצגת 07",
+      "status": "ready"
+    },
+    {
+      "num": 13,
+      "slug": "13-cookies-session",
+      "titleHe": "Cookies וניהול Session",
+      "subtitle": "הבעיה של HTTP חסר-מצב, איך עוגיות עובדות ואיך מנהלים session",
+      "icon": "🍪",
+      "accent": "#f6a35c",
+      "source": "מצגת 08",
+      "status": "ready"
+    },
+    {
+      "num": 14,
+      "slug": "14-ejs",
+      "titleHe": "EJS תבניות",
+      "subtitle": "מנועי תבניות, scriptlets, render ו-include לבניית HTML דינמי",
+      "icon": "📑",
+      "accent": "#a3d977",
+      "source": "מצגת 09",
+      "status": "ready"
+    }
+  ]
+}

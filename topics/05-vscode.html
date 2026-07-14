@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="he" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>סביבת פיתוח VS Code · web·apps</title>
+  <meta name="description" content="VS Code: תוספים שימושיים, Emmet וקיצורי דרך שמאיצים את הכתיבה.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../css/theme.css"><link rel="stylesheet" href="../css/base.css"><link rel="stylesheet" href="../css/code.css">
+  <link rel="stylesheet" href="../css/components.css"><link rel="stylesheet" href="../css/widgets.css"><link rel="stylesheet" href="../css/anim.css"><link rel="stylesheet" href="../css/anim2.css"><link rel="stylesheet" href="../css/motion.css">
+  <script>(function () { try { document.documentElement.setAttribute('data-theme', localStorage.getItem('wag:theme') || 'dark'); } catch (e) {} })();</script>
+  <style>#content h2[id]{scroll-margin-top:84px}</style>
+</head>
+<body data-slug="05-vscode">
+  <a class="skip" href="#content">דלג לתוכן</a>
+  <header data-header></header>
+  <main class="wrap page">
+    <div class="layout">
+      <nav class="toc" id="toc" aria-label="תוכן העניינים"></nav>
+      <div id="content">
+
+        <div class="topic-hero" style="--accent:#7aa2f7">
+          <span class="t-icon">🧰</span>
+          <div>
+            <div class="t-meta"><span class="badge-num">נושא 5</span><span class="src-tag">מבוסס על מצגת 01-b</span></div>
+            <h1>סביבת פיתוח: VS Code</h1>
+          </div>
+        </div>
+        <p class="lead">כלי טוב חוסך המון זמן. בנושא הזה נכיר את VS Code, את התוספים שכדאי להתקין, את Emmet שכותב HTML במהירות, ואת קיצורי הדרך שיהפכו אתכם למהירים יותר.</p>
+
+        <section class="section">
+          <h2 id="editors">עורכי קוד</h2>
+          <p>יש הרבה עורכים לפיתוח ואב: VS Code, Brackets, Atom, Sublime Text, Notepad++, NetBeans, PHPStorm ועוד. הפופולרי ביותר היום, וזה שנשתמש בו, הוא <strong>Visual Studio Code (VS Code)</strong> של מיקרוסופט. הוא חינמי, מהיר, וניתן להרחבה בעזרת תוספים (extensions).</p>
+        </section>
+
+        <section class="section">
+          <h2 id="extensions">תוספים מומלצים</h2>
+          <p>הכוח האמיתי של VS Code הוא בתוספים. הנה החשובים:</p>
+          <div class="tbl-wrap">
+            <table class="data">
+              <thead><tr><th>תוסף</th><th>מה הוא עושה</th></tr></thead>
+              <tbody>
+                <tr><td>Live Server</td><td>מריץ שרת מקומי עם רענון אוטומטי בכל שמירה</td></tr>
+                <tr><td>Prettier</td><td>מסדר ומעצב את הקוד אוטומטית (עם "Format on Save")</td></tr>
+                <tr><td>Auto Close Tag / Auto Rename Tag</td><td>סוגר תגיות אוטומטית, ומשנה תגית פתיחה וסגירה יחד</td></tr>
+                <tr><td>JavaScript (ES6) code snippets</td><td>קטעי קוד מוכנים ל-JS מודרני</td></tr>
+                <tr><td>CSS Peek / HTML CSS Support</td><td>קפיצה והשלמה בין HTML ל-CSS</td></tr>
+                <tr><td>Bracket Pair Colorizer</td><td>צובע סוגריים תואמים בצבעים</td></tr>
+                <tr><td>Material Icon Theme / Material Theme</td><td>אייקונים וערכת נושא יפים</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout tip">
+            <div class="callout-title"><span class="ic">✅</span> Format on Save</div>
+            <p>שווה להפעיל את "Format on Save" בהגדרות. ככה בכל שמירה הקוד מסתדר לבד, ואתם לא מבזבזים זמן על רווחים והזחות.</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="ai">כלי AI לקוד</h2>
+          <p>כיום יש תוספי בינה מלאכותית שמשלימים קוד ומציעים פתרונות תוך כדי כתיבה, למשל <strong>GitHub Copilot</strong> ו-<strong>Tabnine</strong>. הם עוזרים לכתוב מהר יותר, אבל חשוב להבין את הקוד שהם מציעים ולא להעתיק בעיוורון.</p>
+        </section>
+
+        <section class="section">
+          <h2 id="emmet">Emmet: לכתוב HTML במהירות</h2>
+          <p><strong>Emmet</strong> מובנה ב-VS Code ומאפשר לכתוב HTML שלם בעזרת קיצורים קצרים. כותבים אבּרוויאציה ולוחצים Tab, וזה מתרחב ל-HTML מלא. הכללים העיקריים:</p>
+          <ul>
+            <li><code>&gt;</code> לאלמנט בן (child). למשל <code>ul&gt;li</code></li>
+            <li><code>*</code> לשכפול. למשל <code>li*3</code></li>
+            <li><code>.class</code> ו-<code>#id</code>. למשל <code>div#app.box</code></li>
+            <li><code>+</code> לאלמנטים באותה רמה (siblings). למשל <code>input+button</code></li>
+            <li><code>$</code> למספור. למשל <code>li#item$*3</code></li>
+          </ul>
+          <p>נסה בעצמך. הקלד אבּרוויאציה או לחץ על אחת הדוגמאות, וראה מיד את ה-HTML שנוצר:</p>
+          <div class="anim" data-anim="emmet" data-title="מרחיב Emmet אינטראקטיבי"></div>
+        </section>
+
+        <section class="section">
+          <h2 id="shortcuts">קיצורי דרך שימושיים</h2>
+          <div class="tbl-wrap">
+            <table class="data">
+              <thead><tr><th>קיצור</th><th>מה עושה</th></tr></thead>
+              <tbody>
+                <tr><td><kbd>Ctrl</kbd> + <kbd>/</kbd></td><td>הפיכת שורות להערה וחזרה</td></tr>
+                <tr><td><kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>↓</kbd></td><td>שכפול השורה למטה</td></tr>
+                <tr><td><kbd>Alt</kbd> + <kbd>↓</kbd> / <kbd>↑</kbd></td><td>הזזת שורה למעלה או למטה</td></tr>
+                <tr><td><kbd>F2</kbd></td><td>שינוי שם משתנה בכל המקומות</td></tr>
+                <tr><td><kbd>F12</kbd></td><td>קפיצה להגדרת המשתנה או הפונקציה</td></tr>
+                <tr><td><kbd>Alt</kbd> + <kbd>Z</kbd></td><td>הפעלה וכיבוי של גלישת שורות ארוכות</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="quiz">בדיקה עצמית</h2>
+          <div class="quiz" data-quiz="05-vscode"></div>
+        </section>
+
+        <nav class="topic-nav" data-topic-nav aria-label="ניווט בין נושאים"></nav>
+      </div>
+    </div>
+  </main>
+  <footer class="site-footer"><div class="wrap"><span>web·apps · VS Code</span><span class="muted">מבוסס על מצגת 01-b</span></div></footer>
+
+  <script defer src="../js/site.js"></script>
+  <script defer src="../js/storage.js"></script>
+  <script defer src="../js/progress.js"></script>
+  <script defer src="../js/motion.js"></script>
+  <script defer src="../js/highlight.js"></script>
+  <script defer src="../js/playground.js"></script>
+  <script defer src="../js/livedemo.js"></script>
+  <script defer src="../js/stepper.js"></script>
+  <script defer src="../js/challenge.js"></script>
+  <script defer src="../js/animations.js"></script>
+  <script defer src="../js/animations-extra.js"></script>
+  <script defer src="../js/quiz-engine.js"></script>
+  <script defer src="../js/quiz-ui.js"></script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+{
+  "slug": "03-css",
+  "title": "תרגול: יסודות CSS",
+  "questions": [
+    {
+      "id": 1, "type": "knowledge", "topic": "מהו CSS",
+      "question": "מה תפקידו של CSS?",
+      "options": [
+        "להגדיר איך אלמנטים של HTML נראים (עיצוב ופריסה)",
+        "להגדיר את התוכן והמבנה של הדף",
+        "להריץ לוגיקה ותנאים בצד הלקוח",
+        "לשמור נתונים במסד נתונים"
+      ],
+      "correctIndex": 0,
+      "explanation": "CSS (Cascading Style Sheets) אחראי על העיצוב: צבעים, גדלים, מרווחים ומיקום. התוכן הוא HTML, והלוגיקה היא JavaScript.",
+      "source": "מצגת 01, שקף 23"
+    },
+    {
+      "id": 2, "type": "knowledge", "topic": "מבנה כלל",
+      "question": "משלושת החלקים של כלל CSS, מה נכון?",
+      "options": [
+        "selector קובע על מי הכלל חל, property היא התכונה ו-value הערך",
+        "selector הוא הערך, property היא התגית ו-value הוא הצבע",
+        "אין selector ב-CSS, רק property ו-value",
+        "selector ו-property הם אותו דבר"
+      ],
+      "correctIndex": 0,
+      "explanation": "מבנה כלל: `selector { property: value; }`. ה-selector בוחר את האלמנטים, וכל הצהרה היא זוג של תכונה וערך.",
+      "source": "מצגת 01, שקף 27"
+    },
+    {
+      "id": 3, "type": "error", "topic": "סלקטורים",
+      "question": "איזה סלקטור בוחר אלמנטים לפי ה-class שלהם?",
+      "options": [
+        "`.center` (מתחיל בנקודה)",
+        "`#center` (מתחיל בסולמית)",
+        "`center` (בלי סימן)",
+        "`*center`"
+      ],
+      "correctIndex": 0,
+      "explanation": "class selector מתחיל בנקודה, למשל `.center`. סולמית (`#`) היא ל-id, ושם בלי סימן הוא element selector (שם תגית).",
+      "source": "מצגת 01, שקף 29"
+    },
+    {
+      "id": 4, "type": "knowledge", "topic": "id מול class",
+      "question": "מה ההבדל העיקרי בין id selector ל-class selector?",
+      "options": [
+        "id חייב להיות ייחודי וחל על אלמנט אחד, class יכול לחול על הרבה אלמנטים",
+        "class חייב להיות ייחודי, id יכול לחזור",
+        "אין הבדל, הם שקולים",
+        "id הוא לעיצוב ו-class הוא לתוכן"
+      ],
+      "correctIndex": 0,
+      "explanation": "id חייב להיות ייחודי בדף ולכן חל על אלמנט אחד בלבד. אותה class אפשר לשים על אלמנטים רבים.",
+      "source": "מצגת 01, שקף 31"
+    },
+    {
+      "id": 5, "type": "output", "topic": "סלקטור element",
+      "question": "על אילו אלמנטים יחול הכלל `p { color: red; }`?",
+      "code": "p { color: red; }",
+      "lang": "css",
+      "options": [
+        "על כל הפסקאות (`<p>`) בדף",
+        "רק על הפסקה הראשונה",
+        "על אלמנט עם class בשם p",
+        "על אף אלמנט, כי חסר נקודה"
+      ],
+      "correctIndex": 0,
+      "explanation": "element selector (שם תגית בלי סימן) חל על כל האלמנטים מאותו סוג. `p` יצבע את כל הפסקאות באדום.",
+      "source": "מצגת 01, שקף 29"
+    },
+    {
+      "id": 6, "type": "knowledge", "topic": "מקומות CSS",
+      "question": "איזו דרך להגדרת CSS נחשבת הכי טובה לשימוש חוזר?",
+      "options": [
+        "קובץ CSS חיצוני שמקשרים אליו עם `<link>`",
+        "inline בתוך מאפיין style של כל אלמנט",
+        "פנימי בתוך `<style>` בכל דף בנפרד",
+        "לכתוב CSS בתוך קובץ JavaScript"
+      ],
+      "correctIndex": 0,
+      "explanation": "קובץ CSS חיצוני מאפשר שימוש חוזר בין הרבה דפים ממקום אחד, ולכן הוא הדרך המומלצת. inline הכי פחות מומלץ.",
+      "source": "מצגת 01, שקף 24, 25"
+    },
+    {
+      "id": 7, "type": "predict", "topic": "Cascade",
+      "question": "לאלמנט יש גם עיצוב inline וגם עיצוב מקובץ חיצוני שסותרים זה את זה. מי ינצח?",
+      "options": [
+        "ה-inline, כי לו הקדימות הגבוהה ביותר",
+        "החיצוני, כי הוא נטען ראשון",
+        "ברירת המחדל של הדפדפן",
+        "שניהם מבוטלים והאלמנט נשאר בלי עיצוב"
+      ],
+      "correctIndex": 0,
+      "explanation": "סדר הקדימות מהנמוך לגבוה: ברירת מחדל של הדפדפן, חיצוני, פנימי, ואז inline. לכן inline מנצח את כולם.",
+      "source": "מצגת 01, שקף 26"
+    },
+    {
+      "id": 8, "type": "knowledge", "topic": "מודל הקופסה",
+      "question": "מהן ארבע השכבות של מודל הקופסה, מבפנים החוצה?",
+      "options": [
+        "content, padding, border, margin",
+        "margin, border, padding, content",
+        "border, content, margin, padding",
+        "padding, content, margin, border"
+      ],
+      "correctIndex": 0,
+      "explanation": "מבפנים החוצה: content (התוכן), padding (ריפוד פנימי), border (מסגרת), margin (מרווח חיצוני).",
+      "source": "מצגת 01, שקף 39"
+    },
+    {
+      "id": 9, "type": "knowledge", "topic": "padding מול margin",
+      "question": "מה ההבדל בין padding ל-margin?",
+      "options": [
+        "padding הוא המרווח הפנימי בין התוכן למסגרת, margin הוא המרווח החיצוני מסביב לקופסה",
+        "padding הוא המרווח החיצוני, margin הוא הפנימי",
+        "שניהם אותו דבר בדיוק",
+        "padding הוא הצבע ו-margin הוא הגודל"
+      ],
+      "correctIndex": 0,
+      "explanation": "padding נמצא בתוך המסגרת (בין התוכן ל-border), ו-margin נמצא מחוץ למסגרת ומרחיק את הקופסה מאלמנטים אחרים.",
+      "source": "מצגת 01, שקף 38"
+    },
+    {
+      "id": 10, "type": "output", "topic": "חישוב גודל",
+      "question": "לקופסה יש width של 100px, padding של 10px וborder של 5px (מכל צד). מה הרוחב הכולל של הקופסה (בלי margin)?",
+      "code": "width: 100px;\npadding: 10px;\nborder: 5px solid black;",
+      "lang": "css",
+      "options": [
+        "130px (100 + 10 + 10 + 5 + 5)",
+        "100px",
+        "115px",
+        "120px"
+      ],
+      "correctIndex": 0,
+      "explanation": "כברירת מחדל הרוחב הכולל = width + padding משני הצדדים + border משני הצדדים = 100 + 20 + 10 = 130px.",
+      "source": "מצגת 01, שקף 38, 39"
+    },
+    {
+      "id": 11, "type": "knowledge", "topic": "text-align",
+      "question": "איזו תכונה ממרכזת טקסט אופקית?",
+      "options": [
+        "`text-align: center;`",
+        "`align: middle;`",
+        "`text-center: true;`",
+        "`center: text;`"
+      ],
+      "correctIndex": 0,
+      "explanation": "`text-align` שולט ביישור אופקי של טקסט. הערך `center` ממרכז. ערכים נוספים: `right`, `left`, `justify`.",
+      "source": "מצגת 01, שקף 33"
+    },
+    {
+      "id": 12, "type": "output", "topic": "מספר תכונות",
+      "question": "מה יעשה הכלל הבא לפסקאות?",
+      "code": "p { color: red; text-align: center; }",
+      "lang": "css",
+      "options": [
+        "יצבע את הטקסט באדום וגם ימרכז אותו",
+        "רק יצבע באדום",
+        "רק ימרכז",
+        "כלום, כי אסור שתי תכונות בכלל אחד"
+      ],
+      "correctIndex": 0,
+      "explanation": "אפשר לכתוב כמה תכונות בכלל אחד, מופרדות בנקודה-פסיק. שתיהן יחולו: אדום וגם מרכוז.",
+      "source": "מצגת 01, שקף 28"
+    },
+    {
+      "id": 13, "type": "knowledge", "topic": "font-family",
+      "question": "מה המשמעות של רשימת גופנים ב-`font-family: Arial, sans-serif;`?",
+      "options": [
+        "הדפדפן ישתמש ב-Arial, ואם אינו קיים, בגופן sans-serif כללי",
+        "הדפדפן יציג את שני הגופנים יחד",
+        "רק ב-sans-serif תמיד",
+        "זו שגיאת תחביר"
+      ],
+      "correctIndex": 0,
+      "explanation": "font-family היא רשימת עדיפות. הדפדפן משתמש בגופן הראשון שקיים במחשב, ולכן מסיימים בגופן כללי (fallback) כמו sans-serif.",
+      "source": "מצגת 01, שקף 35"
+    },
+    {
+      "id": 14, "type": "error", "topic": "הצהרה",
+      "question": "איזו הצהרת CSS כתובה נכון?",
+      "options": [
+        "`color: blue;`",
+        "`color = blue;`",
+        "`color: blue`",
+        "`{color, blue}`"
+      ],
+      "correctIndex": 0,
+      "explanation": "הצהרת CSS היא `property: value;` עם נקודתיים בין התכונה לערך, ונקודה-פסיק בסוף. לא סימן שווה.",
+      "source": "מצגת 01, שקף 27, 28"
+    },
+    {
+      "id": 15, "type": "knowledge", "topic": "רשימות",
+      "question": "איזה ערך של `list-style-type` מסיר לגמרי את הסימון של פריטי רשימה?",
+      "options": [
+        "`none`",
+        "`disc`",
+        "`square`",
+        "`decimal`"
+      ],
+      "correctIndex": 0,
+      "explanation": "`list-style-type: none;` מסיר את הנקודות/מספרים. זה שימושי מאוד לבניית תפריטים מרשימות.",
+      "source": "מצגת 01, שקף 40"
+    },
+    {
+      "id": 16, "type": "predict", "topic": "margin auto",
+      "question": "מה עושה `margin: auto;` על אלמנט עם רוחב מוגדר?",
+      "options": [
+        "ממרכז אותו אופקית בתוך ההורה",
+        "מוחק את האלמנט",
+        "צובע אותו",
+        "הופך אותו לבלתי נראה"
+      ],
+      "correctIndex": 0,
+      "explanation": "`margin: auto;` מחלק את המרווח שווה בשני הצדדים, ולכן ממרכז אלמנט אופקית (כשיש לו רוחב מוגדר).",
+      "source": "מצגת 01, שקף 38"
+    },
+    {
+      "id": 17, "type": "knowledge", "topic": "border",
+      "question": "מה מגדיר `border: 2px solid black;`?",
+      "options": [
+        "מסגרת בעובי 2px, בסגנון קו רציף, בצבע שחור",
+        "רוחב פנימי של 2px",
+        "מרווח חיצוני שחור",
+        "צבע רקע שחור"
+      ],
+      "correctIndex": 0,
+      "explanation": "border מקבל שלושה ערכים: עובי (2px), סגנון (solid), וצבע (black). סגנונות נוספים: dashed, dotted.",
+      "source": "מצגת 01, שקף 37"
+    },
+    {
+      "id": 18, "type": "predict", "topic": "class על כמה אלמנטים",
+      "question": "מה יקרה אם נגדיר `.big { font-size: 30px; }` ונשים `class=\"big\"` על שלושה אלמנטים שונים?",
+      "options": [
+        "כל שלושת האלמנטים יקבלו גופן בגודל 30px",
+        "רק הראשון יקבל את העיצוב",
+        "תהיה שגיאה כי class חייב להיות ייחודי",
+        "אף אלמנט לא ישתנה"
+      ],
+      "correctIndex": 0,
+      "explanation": "class אפשר לשים על כמה אלמנטים שרוצים, וכולם יקבלו את אותו עיצוב. זה בדיוק היתרון של class לעומת id.",
+      "source": "מצגת 01, שקף 29, 30"
+    }
+  ]
+}

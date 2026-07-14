@@ -1,0 +1,64 @@
+/* ============================================================
+   motion.css — keyframes, reveals, page-load choreography, a11y guard
+   ============================================================ */
+
+/* ---- keyframes ---- */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes popIn { from { opacity: 0; transform: scale(.9); } to { opacity: 1; transform: scale(1); } }
+@keyframes valuePop { 0% { transform: scale(1); } 40% { transform: scale(1.22); } 100% { transform: scale(1); } }
+@keyframes frameEnter { from { opacity: 0; transform: translateY(-6px) scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes okPulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--success) 60%, transparent); } 70% { box-shadow: 0 0 0 10px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+@keyframes shake { 0%,100% { transform: translateX(0); } 20% { transform: translateX(-7px); } 40% { transform: translateX(6px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(3px); } }
+@keyframes nodePulse { 0% { box-shadow: var(--shadow-1); } 45% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent), var(--shadow-2); } 100% { box-shadow: var(--shadow-1); } }
+@keyframes floatGlow { 0%,100% { opacity: .55; } 50% { opacity: 1; } }
+@keyframes caretBlink { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+@keyframes spinIn { from { transform: rotate(-90deg) scale(.6); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes confettiFall { 0% { transform: translateY(-10px) rotate(0); opacity: 1; } 100% { transform: translateY(120px) rotate(360deg); opacity: 0; } }
+@keyframes ringGrow { from { stroke-dashoffset: var(--dash-full); } }
+
+/* ---- scroll reveals ---- */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s var(--ease-out), transform .6s var(--ease-out); will-change: opacity, transform; }
+.reveal.in-view { opacity: 1; transform: none; }
+.reveal.rd-1 { transition-delay: .06s; }
+.reveal.rd-2 { transition-delay: .12s; }
+.reveal.rd-3 { transition-delay: .18s; }
+.reveal.rd-4 { transition-delay: .24s; }
+
+/* ---- page-load stagger (applied to [data-load] container children) ---- */
+[data-load] > * { opacity: 0; animation: fadeUp .6s var(--ease-out) forwards; }
+[data-load] > *:nth-child(1) { animation-delay: .02s; }
+[data-load] > *:nth-child(2) { animation-delay: .08s; }
+[data-load] > *:nth-child(3) { animation-delay: .14s; }
+[data-load] > *:nth-child(4) { animation-delay: .20s; }
+[data-load] > *:nth-child(5) { animation-delay: .26s; }
+[data-load] > *:nth-child(6) { animation-delay: .32s; }
+[data-load] > *:nth-child(n+7) { animation-delay: .38s; }
+
+/* staggered grids (home cards) get inline --i via JS */
+.stagger-item { opacity: 0; animation: fadeUp .55s var(--ease-out) forwards; animation-delay: calc(var(--i, 0) * 55ms + 60ms); }
+
+/* typewriter caret */
+.caret::after { content: "▋"; color: var(--accent); animation: caretBlink 1s step-end infinite; margin-inline-start: 1px; }
+
+/* View Transitions API cross-fade (progressive enhancement) */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: fadeIn .3s var(--ease) reverse; }
+::view-transition-new(root) { animation: fadeUp .38s var(--ease-out); }
+
+/* confetti bits */
+.confetti { position: absolute; width: 8px; height: 12px; border-radius: 2px; top: 0; pointer-events: none; animation: confettiFall .9s var(--ease) forwards; }
+
+/* ---- reduced motion: keep it usable & calm ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  [data-load] > *, .stagger-item { opacity: 1 !important; animation: none !important; }
+  .caret::after { animation: none; }
+  @view-transition { navigation: none; }
+}

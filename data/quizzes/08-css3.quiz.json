@@ -1,0 +1,218 @@
+{
+  "slug": "08-css3",
+  "title": "תרגול: CSS3 מתקדם",
+  "questions": [
+    {
+      "id": 1, "type": "knowledge", "topic": "CSS3",
+      "question": "מה נכון בנוגע ל-CSS3?",
+      "options": [
+        "הוא נחשב חלק מ-HTML5 ומחולק למודולים (רמות 1 עד 4)",
+        "הוא מחליף את HTML",
+        "הוא שפת תכנות מלאה",
+        "הוא רץ בצד השרת"
+      ],
+      "correctIndex": 0,
+      "explanation": "CSS3 נחשב חלק מ-HTML5. הוא מחולק למודולים שקיבלו רמות (levels) 1 עד 4, שמתפתחים בנפרד.",
+      "source": "מצגת 03, שקף 2"
+    },
+    {
+      "id": 2, "type": "knowledge", "topic": "specificity",
+      "question": "לאלמנט חלים כלל לפי id וגם כלל לפי class שסותרים זה את זה. מי מנצח?",
+      "options": [
+        "הכלל של ה-id, כי ל-id יש specificity גבוה יותר מ-class",
+        "הכלל של ה-class",
+        "הכלל של ה-element",
+        "אף אחד, האלמנט נשאר בלי עיצוב"
+      ],
+      "correctIndex": 0,
+      "explanation": "סדר ה-specificity מהחלש לחזק: element, ואז class, ואז id, והכי חזק inline. id מנצח class.",
+      "source": "מצגת 03, שקף 5"
+    },
+    {
+      "id": 3, "type": "output", "topic": "specificity",
+      "question": "בהינתן ה-CSS הבא, באיזה צבע יהיה הטקסט של `<p id=\"a\" class=\"b\">`?",
+      "code": "p { color: black; }\n.b { color: green; }\n#a { color: red; }",
+      "lang": "css",
+      "options": [
+        "אדום (red), כי סלקטור ה-id הכי חזק",
+        "ירוק (green), כי סלקטור ה-class",
+        "שחור (black), כי סלקטור ה-element",
+        "בלי צבע"
+      ],
+      "correctIndex": 0,
+      "explanation": "שלושת הכללים חלים על אותו אלמנט. id (#a) מנצח את class (.b) שמנצח את element (p). לכן אדום.",
+      "source": "מצגת 03, שקף 5"
+    },
+    {
+      "id": 4, "type": "output", "topic": "cascade",
+      "question": "שני כללים עם אותו specificity קובעים צבע שונה לאותו אלמנט. מי קובע?",
+      "code": ".x { color: blue; }\n.x { color: red; }",
+      "lang": "css",
+      "options": [
+        "הכלל שמופיע אחרון בקוד (red)",
+        "הכלל הראשון (blue)",
+        "שניהם מבוטלים",
+        "צבע אקראי"
+      ],
+      "correctIndex": 0,
+      "explanation": "כשה-specificity זהה, הכלל שמופיע מאוחר יותר בקוד מנצח. כאן red גובר על blue.",
+      "source": "מצגת 03, שקף 5"
+    },
+    {
+      "id": 5, "type": "knowledge", "topic": "combinators",
+      "question": "מה בוחר הסלקטור `div p`?",
+      "options": [
+        "כל אלמנט `<p>` שנמצא בתוך `<div>` (בכל עומק)",
+        "רק `<p>` שהוא ילד ישיר של `<div>`",
+        "`<p>` שמופיע מיד אחרי `<div>`",
+        "כל `<div>` וכל `<p>`"
+      ],
+      "correctIndex": 0,
+      "explanation": "`div p` (עם רווח) הוא descendant combinator: כל p בתוך div, בכל עומק. לילד ישיר בלבד משתמשים ב-`div > p`.",
+      "source": "מצגת 03, שקף 6"
+    },
+    {
+      "id": 6, "type": "knowledge", "topic": "child combinator",
+      "question": "מה בוחר `div > p`?",
+      "options": [
+        "רק `<p>` שהם ילדים ישירים של `<div>`",
+        "כל `<p>` בתוך `<div>` בכל עומק",
+        "`<p>` שאחרי `<div>`",
+        "כל האלמנטים"
+      ],
+      "correctIndex": 0,
+      "explanation": "`>` הוא child combinator: רק ילדים ישירים. p שנמצא בתוך אלמנט אחר בתוך ה-div לא ייבחר.",
+      "source": "מצגת 03, שקף 6"
+    },
+    {
+      "id": 7, "type": "knowledge", "topic": "pseudo-class",
+      "question": "מה בוחר `a:hover`?",
+      "options": [
+        "קישור בזמן שהעכבר נמצא מעליו",
+        "קישור שכבר ביקרנו בו",
+        "הקישור הראשון בדף",
+        "כל הקישורים תמיד"
+      ],
+      "correctIndex": 0,
+      "explanation": "`:hover` הוא pseudo-class שתופס אלמנט במצב שהעכבר מעליו. pseudo-classes בוחרים לפי מצב.",
+      "source": "מצגת 03, שקף 8, 9"
+    },
+    {
+      "id": 8, "type": "knowledge", "topic": "pseudo-element",
+      "question": "מה מייצג `p::first-letter`?",
+      "options": [
+        "את האות הראשונה של כל פסקה, כדי לעצב אותה בנפרד",
+        "את הפסקה הראשונה בדף",
+        "את המילה הראשונה",
+        "את השורה האחרונה"
+      ],
+      "correctIndex": 0,
+      "explanation": "pseudo-element (עם `::`) מעצב חלק מאלמנט. `::first-letter` תופס את האות הראשונה. יש גם `::before`, `::after`, `::first-line`.",
+      "source": "מצגת 03, שקף 12"
+    },
+    {
+      "id": 9, "type": "knowledge", "topic": "position",
+      "question": "מה נכון בנוגע ל-`position: fixed`?",
+      "options": [
+        "האלמנט ממוקם יחסית לחלון התצוגה ולא זז בגלילה",
+        "האלמנט זז יחד עם הגלילה",
+        "זו ברירת המחדל של כל אלמנט",
+        "האלמנט נעלם"
+      ],
+      "correctIndex": 0,
+      "explanation": "fixed ממקם יחסית ל-viewport, והאלמנט נשאר במקומו גם כשגוללים. absolute ממקם יחסית לאב הקרוב וזז עם הגלילה.",
+      "source": "מצגת 03, שקף 15"
+    },
+    {
+      "id": 10, "type": "knowledge", "topic": "flexbox",
+      "question": "מה עושה `justify-content` ב-Flexbox?",
+      "options": [
+        "מיישר את הפריטים לאורך הציר הראשי (main axis)",
+        "מיישר לאורך הציר המשני",
+        "משנה את צבע הפריטים",
+        "קובע את מספר העמודות"
+      ],
+      "correctIndex": 0,
+      "explanation": "ב-Flexbox, justify-content מיישר על הציר הראשי (אופקי כברירת מחדל), ו-align-items מיישר על הציר המשני.",
+      "source": "מצגת 03, שקף 18"
+    },
+    {
+      "id": 11, "type": "knowledge", "topic": "grid",
+      "question": "מה עושה `grid-template-columns: repeat(3, 1fr)`?",
+      "options": [
+        "יוצר 3 עמודות ברוחב שווה",
+        "יוצר 3 שורות",
+        "יוצר עמודה אחת",
+        "מסתיר את ה-grid"
+      ],
+      "correctIndex": 0,
+      "explanation": "grid-template-columns מגדיר עמודות. `repeat(3, 1fr)` = 3 עמודות, כל אחת חלק שווה (fr = fraction) מהמקום הפנוי.",
+      "source": "מצגת 03, שקף 20"
+    },
+    {
+      "id": 12, "type": "knowledge", "topic": "responsive",
+      "question": "מה נכון בנוגע לעיצוב רספונסיבי (responsive design)?",
+      "options": [
+        "המטרה היא שהדף ייראה טוב על מגוון גדלי מסך",
+        "המטרה היא שהדף ייראה זהה בדיוק בכל מסך בפיקסלים",
+        "הוא עובד רק במחשב",
+        "הוא מיותר בימינו"
+      ],
+      "correctIndex": 0,
+      "explanation": "עיצוב רספונסיבי דואג שהדף ייראה טוב על כל גודל מסך (טלפון, טאבלט, מחשב), בעזרת media queries, יחידות גמישות ו-flex/grid.",
+      "source": "מצגת 03, שקף 22"
+    },
+    {
+      "id": 13, "type": "knowledge", "topic": "media query",
+      "question": "לשם מה משמשות Media Queries?",
+      "options": [
+        "להחיל כללי CSS שונים לפי גודל המסך (breakpoints)",
+        "לטעון נתונים מהשרת",
+        "להריץ JavaScript",
+        "ליצור טפסים"
+      ],
+      "correctIndex": 0,
+      "explanation": "Media Queries (למשל `@media (max-width: 600px)`) מאפשרות להחיל CSS שונה לפי רוחב המסך, וזה הבסיס לעיצוב רספונסיבי.",
+      "source": "מצגת 03, שקף 24"
+    },
+    {
+      "id": 14, "type": "knowledge", "topic": "viewport",
+      "question": "למה חשוב תג ה-`<meta name=\"viewport\">`?",
+      "options": [
+        "הוא מבטיח שהדף יתאים לרוחב המכשיר במובייל",
+        "הוא טוען את קובץ ה-CSS",
+        "הוא מגדיר את כותרת הדף",
+        "הוא מריץ JS"
+      ],
+      "correctIndex": 0,
+      "explanation": "תג ה-viewport (`width=device-width, initial-scale=1`) אומר לדפדפן במובייל להתאים את רוחב הדף לרוחב המכשיר. בלעדיו העיצוב הרספונסיבי לא יעבוד כמו שצריך.",
+      "source": "מצגת 03, שקף 23"
+    },
+    {
+      "id": 15, "type": "knowledge", "topic": "מרכוז",
+      "question": "איזה שילוב ממרכז תוכן גם אופקית וגם אנכית ב-Flexbox?",
+      "options": [
+        "`display: flex; justify-content: center; align-items: center;`",
+        "`text-align: center;` בלבד",
+        "`margin: 0;`",
+        "`position: fixed;`"
+      ],
+      "correctIndex": 0,
+      "explanation": "מרכוז מלא ב-flex: justify-content: center (ציר ראשי) יחד עם align-items: center (ציר משני). ב-grid אפשר place-items: center.",
+      "source": "מצגת 03, שקף 21"
+    },
+    {
+      "id": 16, "type": "knowledge", "topic": "attribute selector",
+      "question": "מה בוחר `a[href$=\".pdf\"]`?",
+      "options": [
+        "כל קישור שכתובת ה-href שלו מסתיימת ב-.pdf",
+        "כל קישור שמתחיל ב-.pdf",
+        "כל קישור בדף",
+        "קישור עם class בשם pdf"
+      ],
+      "correctIndex": 0,
+      "explanation": "`[attr$=value]` בוחר לפי סוף הערך. `a[href$=\".pdf\"]` תופס קישורים לקבצי PDF. (`^=` להתחלה, `*=` להכלה).",
+      "source": "מצגת 03, שקף 7"
+    }
+  ]
+}

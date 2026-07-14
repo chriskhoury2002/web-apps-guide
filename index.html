@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="he" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>web·apps · מדריך אינטראקטיבי לפיתוח יישומי אינטרנט</title>
+  <meta name="description" content="מדריך לימוד אינטראקטיבי בעברית לקורס פיתוח יישומי אינטרנט: HTML, CSS, JavaScript, Node.js ועוד, עם דוגמאות חיות, אנימציות ותרגולים.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/code.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/motion.css">
+  <link rel="stylesheet" href="css/home.css">
+  <script>
+    /* set theme before paint to avoid flash */
+    (function () { try { document.documentElement.setAttribute('data-theme', localStorage.getItem('wag:theme') || 'dark'); } catch (e) {} })();
+  </script>
+</head>
+<body data-slug="home">
+  <a class="skip" href="#content">דלג לתוכן</a>
+  <header data-header></header>
+
+  <main id="content" class="wrap page">
+
+    <section class="home-hero" data-load>
+      <div>
+        <span class="hero-eyebrow">✦ קורס פיתוח יישומי אינטרנט</span>
+        <h1>ללמוד לבנות אתרים, <span class="g">באמת להבין</span> איך זה עובד.</h1>
+        <p class="lead">מדריך אינטראקטיבי שמכסה את כל חומר הקורס, מ-HTML ועד Node.js. כל נושא עם הסברים ברורים, דוגמאות קוד חיות שאפשר לערוך, אנימציות שממחישות איך הקוד רץ, ותרגולים עם משוב מיידי.</p>
+        <div class="hero-cta">
+          <a class="btn primary" href="exam.html">🎓 מדריך למבחן, מועד א'</a>
+          <a class="btn ghost" id="start-btn" href="topics/02-html.html">התחל ללמוד</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><b>14</b><span>נושאים</span></div>
+          <div class="hero-stat"><b data-count="200" data-suffix="+">0</b><span>שאלות תרגול</span></div>
+          <div class="hero-stat"><b data-count="30" data-suffix="+">0</b><span>דמואים חיים</span></div>
+        </div>
+      </div>
+      <div class="hero-code reveal">
+        <div class="code-block" data-lang="js" data-file="welcome.js">
+<script type="text/plain">
+// דוגמה חיה, בדיוק כמו באתר
+const topics = ["HTML", "CSS", "JavaScript"];
+
+topics.forEach((name, i) => {
+  console.log(`${i + 1}. לומדים ${name}`);
+});
+</script>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="dashboard-sec">
+      <div id="dashboard" class="reveal"></div>
+    </section>
+
+    <section class="section">
+      <a class="exam-banner reveal" href="exam.html">
+        <span class="xb-ic">🎓</span>
+        <span class="xb-txt">
+          <b>מדריך למבחן, מועד א'</b>
+          <span>20 השאלות של המבחן, ולכל אחת כל העובדות הנכונות, המלכודות הנפוצות ותרגול. שלא תפספס כלום.</span>
+        </span>
+        <span class="xb-go">כניסה למדריך ›</span>
+      </a>
+    </section>
+
+    <section class="section" id="topics">
+      <div class="section-head">
+        <div>
+          <h2>מפת הקורס</h2>
+          <p class="dim">14 נושאים לפי סדר המצגות. התחל מההתחלה, או קפוץ לנושא שמעניין אותך.</p>
+        </div>
+      </div>
+      <div class="topics-grid" id="topics-grid"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>איך לומדים כאן</h2></div>
+      <div class="features">
+        <div class="feature reveal"><div class="fe-ic">🧪</div><h4>Playground חי</h4><p class="dim">כל דוגמה ניתנת לעריכה, והתוצאה מתעדכנת מיד. עם כפתור איפוס לחזרה למקור.</p></div>
+        <div class="feature reveal rd-1"><div class="fe-ic">🎬</div><h4>אנימציות הרצה</h4><p class="dim">רואים את הקוד רץ צעד-אחר-צעד: איזו שורה מתבצעת, אילו משתנים משתנים, ומה הפלט.</p></div>
+        <div class="feature reveal rd-2"><div class="fe-ic">🧩</div><h4>המחשות מושגים</h4><p class="dim">event loop, מודל הקופסה, בניית ה-DOM ועוד, כאנימציות שאפשר לשחק איתן.</p></div>
+        <div class="feature reveal rd-3"><div class="fe-ic">🎯</div><h4>תרגול ומבחן</h4><p class="dim">עשרות שאלות אמריקאיות לכל נושא עם משוב מיידי, ומבחן מסכם על כל החומר.</p></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>web·apps · מדריך לימוד לקורס פיתוח יישומי אינטרנט</span>
+      <span class="muted">נבנה ללמידה עצמית · עברית · RTL</span>
+    </div>
+  </footer>
+
+  <script defer src="js/site.js"></script>
+  <script defer src="js/storage.js"></script>
+  <script defer src="js/progress.js"></script>
+  <script defer src="js/motion.js"></script>
+  <script defer src="js/highlight.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      fetch('data/topics.json').then(function (r) { return r.json(); }).then(function (data) {
+        var topics = data.topics;
+        WAG.renderDashboard(document.getElementById('dashboard'), topics);
+
+        var firstReady = topics.filter(function (t) { return t.status === 'ready'; })[0];
+        if (firstReady) document.getElementById('start-btn').href = 'topics/' + firstReady.slug + '.html';
+
+        var labels = { done: 'הושלם ✓', progress: 'בתהליך', 'new': 'התחל' };
+        var grid = document.getElementById('topics-grid');
+        grid.innerHTML = topics.map(function (t) {
+          var ready = t.status === 'ready';
+          var status = ready
+            ? '<span class="tc-status ' + WAG.progress.status(t.slug) + '">' + labels[WAG.progress.status(t.slug)] + '</span>'
+            : '<span class="tc-soon">בקרוב</span>';
+          var inner =
+            '<div class="tc-top"><span class="tc-icon">' + t.icon + '</span><span class="badge-num">' + t.num + '</span></div>' +
+            '<div class="tc-title">' + t.titleHe + '</div>' +
+            '<div class="tc-sub">' + t.subtitle + '</div>' +
+            '<div class="tc-foot"><span class="src-tag">' + t.source + '</span>' + status + '</div>';
+          return ready
+            ? '<a class="topic-card" href="topics/' + t.slug + '.html" style="--accent:' + t.accent + '">' + inner + '</a>'
+            : '<div class="topic-card soon" style="--accent:' + t.accent + '">' + inner + '</div>';
+        }).join('');
+        // stagger the cards in
+        Array.prototype.forEach.call(grid.children, function (c, i) { c.style.setProperty('--i', i); c.classList.add('stagger-item'); });
+      });
+    });
+  </script>
+</body>
+</html>

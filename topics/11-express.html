@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="he" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Express.js · web·apps</title>
+  <meta name="description" content="Express.js: npm, בניית שרת, ניתובים, קבצים סטטיים והפעלה מחדש אוטומטית.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../css/theme.css"><link rel="stylesheet" href="../css/base.css"><link rel="stylesheet" href="../css/code.css">
+  <link rel="stylesheet" href="../css/components.css"><link rel="stylesheet" href="../css/widgets.css"><link rel="stylesheet" href="../css/anim.css"><link rel="stylesheet" href="../css/motion.css">
+  <script>(function () { try { document.documentElement.setAttribute('data-theme', localStorage.getItem('wag:theme') || 'dark'); } catch (e) {} })();</script>
+  <style>#content h2[id]{scroll-margin-top:84px}</style>
+</head>
+<body data-slug="11-express">
+  <a class="skip" href="#content">דלג לתוכן</a>
+  <header data-header></header>
+  <main class="wrap page">
+    <div class="layout">
+      <nav class="toc" id="toc" aria-label="תוכן העניינים"></nav>
+      <div id="content">
+
+        <div class="topic-hero" style="--accent:#68d391">
+          <span class="t-icon">🚂</span>
+          <div>
+            <div class="t-meta"><span class="badge-num">נושא 11</span><span class="src-tag">מבוסס על מצגת 06</span></div>
+            <h1>Express.js</h1>
+          </div>
+        </div>
+        <p class="lead">לבנות שרת HTTP ידני זה מסורבל. Express הוא framework פופולרי ל-Node שהופך את זה לפשוט: כמה שורות ויש לנו שרת עם ניתובים. נלמד להתקין, לבנות route ראשון, להגיש קבצים סטטיים, ולפתח בנוחות.</p>
+
+        <section class="section">
+          <h2 id="npm">npm, מנהל החבילות</h2>
+          <p><strong>npm</strong> (Node Package Manager) הוא כלי שורת פקודה להתקנת חבילות מהמאגר המקוון npmjs.org, שבו יותר ממיליון מודולים. מתקינים חבילה כך:</p>
+          <div class="code-block" data-lang="bash" data-file="terminal">
+<script type="text/plain">
+npm install express
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="express">מה זה Express</h2>
+          <p><strong>Express</strong> הוא שרת HTTP פופולרי ל-Node.js. הוא תומך במנועי תבניות (Pug, EJS) ובחיבור למסדי נתונים (mongoDB, MySQL). הוא הופך את בניית השרת לקצרה וברורה.</p>
+        </section>
+
+        <section class="section">
+          <h2 id="init">אתחול פרויקט</h2>
+          <p>כדי להתחיל פרויקט Express חדש:</p>
+          <div class="code-block" data-lang="bash" data-file="terminal">
+<script type="text/plain">
+# 1. יוצרים תיקייה חדשה ונכנסים אליה
+# 2. מאתחלים פרויקט Node
+npm init -y
+# 3. מתקינים את Express
+npm install express
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="hello">שרת ראשון: Hello World</h2>
+          <p>הנה שרת Express מלא. בוא נעבור עליו צעד אחר צעד ונבין מה כל שורה עושה מרגע ההפעלה ועד לתשובה:</p>
+          <div class="stepper" data-title="שרת Express, צעד אחר צעד">
+<script type="application/json">
+{
+  "lang": "js",
+  "code": "const express = require(\"express\");\nconst app = express();\n\napp.get(\"/\", (req, res) => {\n  res.send(\"Hello World!\");\n});\n\napp.listen(3000);",
+  "steps": [
+    { "line": 1, "output": [], "note": "טוענים את חבילת **express**." },
+    { "line": 2, "output": [], "note": "יוצרים אפליקציה עם express(). מכאן משתמשים ב-app." },
+    { "line": 4, "output": [], "note": "מגדירים **route**: כשתגיע בקשת GET לנתיב '/', הפונקציה תרוץ. היא לא רצה עכשיו." },
+    { "line": 8, "output": [], "note": "**app.listen(3000)** מפעיל את השרת על פורט 3000. השרת רץ וממתין לבקשות." },
+    { "line": 4, "output": [], "note": "בקשת GET הגיעה ל-'/'! הפונקציה רצה ומקבלת את req ו-res." },
+    { "line": 5, "output": ["→ Hello World!"], "note": "**res.send** שולח 'Hello World!' חזרה ללקוח, והדפדפן יציג אותו." }
+  ]
+}
+</script>
+          </div>
+          <p>שומרים בקובץ <code>index.js</code> ומריצים עם <code>node index.js</code>.</p>
+        </section>
+
+        <section class="section">
+          <h2 id="routes">ניתובים נוספים (Routes)</h2>
+          <p>כל <code>app.get</code> מגדיר טיפול בנתיב אחר. אפשר להוסיף כמה שרוצים:</p>
+          <div class="code-block" data-lang="js" data-file="index.js">
+<script type="text/plain">
+app.get("/", (req, res) => {
+  res.send("דף הבית");
+});
+
+app.get("/list", (req, res) => {
+  res.send("רשימה מה-DB תגיע לכאן");
+});
+</script>
+          </div>
+          <div class="callout warn">
+            <div class="callout-title"><span class="ic">⚠️</span> לא רואים שינוי?</div>
+            <p>שרת לא מרענן שינויי קוד עד שמפעילים אותו מחדש. אחרי הוספת route, צריך להריץ מחדש (או להשתמש ב---watch, ראה למטה).</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="static">קבצים סטטיים</h2>
+          <p>כדי להגיש קבצים סטטיים (HTML, תמונות, CSS), מוסיפים שורה אחת ושמים את הקבצים בתיקיית <code>public</code>:</p>
+          <div class="code-block" data-lang="js" data-file="index.js">
+<script type="text/plain">
+app.use(express.static("public"));
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="restart">הפעלה מחדש אוטומטית</h2>
+          <p>בפיתוח נוח שהשרת יופעל מחדש אוטומטית בכל שינוי. הדרך המודרנית:</p>
+          <div class="code-block" data-lang="bash" data-file="terminal">
+<script type="text/plain">
+node --watch index.js
+</script>
+          </div>
+          <p>הפתרון הישן היה הכלי nodemon (<code>npm install nodemon --global</code> ואז <code>nodemon index.js</code>).</p>
+        </section>
+
+        <section class="section">
+          <h2 id="quiz">בדיקה עצמית</h2>
+          <div class="quiz" data-quiz="11-express"></div>
+        </section>
+
+        <nav class="topic-nav" data-topic-nav aria-label="ניווט בין נושאים"></nav>
+      </div>
+    </div>
+  </main>
+  <footer class="site-footer"><div class="wrap"><span>web·apps · Express.js</span><span class="muted">מבוסס על מצגת 06</span></div></footer>
+
+  <script defer src="../js/site.js"></script>
+  <script defer src="../js/storage.js"></script>
+  <script defer src="../js/progress.js"></script>
+  <script defer src="../js/motion.js"></script>
+  <script defer src="../js/highlight.js"></script>
+  <script defer src="../js/playground.js"></script>
+  <script defer src="../js/livedemo.js"></script>
+  <script defer src="../js/stepper.js"></script>
+  <script defer src="../js/challenge.js"></script>
+  <script defer src="../js/animations.js"></script>
+  <script defer src="../js/quiz-engine.js"></script>
+  <script defer src="../js/quiz-ui.js"></script>
+</body>
+</html>

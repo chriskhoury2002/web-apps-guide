@@ -1,0 +1,188 @@
+{
+  "slug": "13-cookies-session",
+  "title": "תרגול: Cookies וניהול Session",
+  "questions": [
+    {
+      "id": 1, "type": "knowledge", "topic": "הבעיה",
+      "question": "מה הבעיה שעוגיות ו-session באות לפתור?",
+      "options": [
+        "ש-HTTP הוא פרוטוקול חסר-מצב (stateless) ולא זוכר בקשות קודמות",
+        "ש-HTTP איטי מדי",
+        "שאין דפדפנים",
+        "ש-CSS לא עובד"
+      ],
+      "correctIndex": 0,
+      "explanation": "HTTP הוא stateless: אין לו זיכרון של אירועים קודמים ואי אפשר לשייך בקשות לאותו לקוח. עוגיות ו-session נותנים פתרון של שמירת מצב מעל HTTP.",
+      "source": "מצגת 08, שקף 3, 4"
+    },
+    {
+      "id": 2, "type": "knowledge", "topic": "מה זה cookie",
+      "question": "מה נכון בנוגע ל-cookies?",
+      "options": [
+        "אלה פיסות מידע שהשרת שומר אצל הלקוח כדי 'לזכור' משהו בהמשך",
+        "אלה קבצים שרצים בשרת בלבד",
+        "אלה תמונות",
+        "אלה שאילתות SQL"
+      ],
+      "correctIndex": 0,
+      "explanation": "עוגייה היא מידע שהשרת מציב על מחשב הלקוח כדי לזכור עליו משהו בזמן מאוחר יותר. הן חלק ממנגנון ניהול המצב של HTTP.",
+      "source": "מצגת 08, שקף 6"
+    },
+    {
+      "id": 3, "type": "knowledge", "topic": "Set-Cookie",
+      "question": "באיזו כותרת HTTP השרת שולח עוגייה ללקוח?",
+      "options": [
+        "Set-Cookie (בכותרת התגובה)",
+        "Cookie (בכותרת הבקשה)",
+        "Content-Type",
+        "Authorization"
+      ],
+      "correctIndex": 0,
+      "explanation": "השרת שולח עוגייה בכותרת התגובה 'Set-Cookie'. הלקוח מחזיר אותה בכותרת הבקשה 'Cookie'.",
+      "source": "מצגת 08, שקף 8, 11"
+    },
+    {
+      "id": 4, "type": "knowledge", "topic": "Cookie header",
+      "question": "מתי הלקוח שולח עוגייה חזרה לשרת?",
+      "options": [
+        "בכל בקשה, אם יש עוגייה מתאימה, דרך כותרת הבקשה 'Cookie'",
+        "רק פעם אחת בהתחלה",
+        "אף פעם",
+        "רק כשהמשתמש מבקש"
+      ],
+      "correctIndex": 0,
+      "explanation": "בכל בקשה הלקוח בודק אם יש עוגיות מתאימות, ואם כן שולח אותן חזרה בכותרת 'Cookie'. כך השרת מזהה אותו.",
+      "source": "מצגת 08, שקף 10, 11"
+    },
+    {
+      "id": 5, "type": "knowledge", "topic": "מגבלות",
+      "question": "מה נכון בנוגע למגבלות של עוגיות?",
+      "options": [
+        "הן מאחסנות טקסט בלבד, מוגבלות בגודל (בערך 4KB) ובכמות",
+        "הן יכולות לאחסן כל סוג קובץ ובכל גודל",
+        "אין להן שום מגבלה",
+        "הן נשמרות בשרת בלבד"
+      ],
+      "correctIndex": 0,
+      "explanation": "מגבלות עוגיות: טקסט בלבד, בערך 4KB לעוגייה, ומספר מוגבל (בערך 50 לדומיין, 300 סה\"כ). המידע גם נוסע הלוך ושוב.",
+      "source": "מצגת 08, שקף 16"
+    },
+    {
+      "id": 6, "type": "knowledge", "topic": "cookie-parser",
+      "question": "איך יוצרים עוגייה ב-Node עם express?",
+      "options": [
+        "משתמשים ב-cookie-parser וקוראים ל-res.cookie('name', 'value')",
+        "עם con.query",
+        "עם res.send בלבד",
+        "אי אפשר ליצור עוגיות ב-Node"
+      ],
+      "correctIndex": 0,
+      "explanation": "מוסיפים את cookie-parser (app.use), יוצרים עוגייה עם res.cookie(name, value), וקוראים אותה עם req.cookies.",
+      "source": "מצגת 08, שקף 14, 15"
+    },
+    {
+      "id": 7, "type": "knowledge", "topic": "session",
+      "question": "מה נכון בנוגע ל-session?",
+      "options": [
+        "זו הנוכחות של משתמש יחיד באפליקציה, שנשמרת עד סוף העבודה",
+        "זה סוג של עוגייה שנשמרת לנצח בלקוח",
+        "זו שאילתת SQL",
+        "זה קובץ CSS"
+      ],
+      "correctIndex": 0,
+      "explanation": "session היא נוכחות של משתמש יחיד באפליקציה. כל משתמש שנכנס פותח session חדש, שנשמר עד שהוא מסיים.",
+      "source": "מצגת 08, שקף 19"
+    },
+    {
+      "id": 8, "type": "knowledge", "topic": "session ID",
+      "question": "איך השרת מזהה לאיזה משתמש שייכת בקשה במנגנון session?",
+      "options": [
+        "לכל חיבור מוקצה מזהה ייחודי (session ID) שחוזר בכל בקשה",
+        "לפי כתובת ה-IP בלבד",
+        "לפי שם הדפדפן",
+        "אי אפשר לזהות"
+      ],
+      "correctIndex": 0,
+      "explanation": "בעת יצירת ה-session מוקצה session ID ייחודי. הוא מועבר ללקוח (בדרך כלל בעוגייה) וחוזר בכל בקשה, כך שהשרת משייך את הבקשה למשתמש ולמידע שלו.",
+      "source": "מצגת 08, שקף 23, 24, 25"
+    },
+    {
+      "id": 9, "type": "knowledge", "topic": "session מול cookie",
+      "question": "מה היתרון של session על עוגיות?",
+      "options": [
+        "המידע נשמר בשרת (מאובטח ולא מוגבל כמו עוגייה), רק ה-ID נשמר בלקוח",
+        "session נשמר רק בלקוח",
+        "session איטי יותר",
+        "אין יתרון, הם זהים"
+      ],
+      "correctIndex": 0,
+      "explanation": "ב-session המידע נשמר בשרת, ורק מזהה קטן נשמר בלקוח. זה פותר את מגבלות העוגיות (גודל, אבטחה, טקסט בלבד).",
+      "source": "מצגת 08, שקף 17, 34"
+    },
+    {
+      "id": 10, "type": "knowledge", "topic": "express-session",
+      "question": "איך ניגשים לנתוני ה-session ב-Node עם express?",
+      "options": [
+        "דרך האובייקט req.session (אחרי הגדרת express-session)",
+        "דרך req.cookies בלבד",
+        "דרך res.send",
+        "דרך con.query"
+      ],
+      "correctIndex": 0,
+      "explanation": "עם express-session, שומרים וקוראים נתונים דרך req.session, למשל req.session.username = 'dana'.",
+      "source": "מצגת 08, שקף 27, 29, 30"
+    },
+    {
+      "id": 11, "type": "knowledge", "topic": "session use",
+      "question": "לאיזה שימוש מתאים ניהול session?",
+      "options": [
+        "אפליקציות עם התחברות, שירות שונה לפי הרשאה, ועגלת קניות",
+        "רק להצגת תמונות",
+        "רק לעיצוב",
+        "אין לו שימוש אמיתי"
+      ],
+      "correctIndex": 0,
+      "explanation": "שימושים נפוצים: מערכות עם login, שירות שמשתנה לפי הרשאה (למשל מייל), ועגלת קניות שזוכרת מה הוספת.",
+      "source": "מצגת 08, שקף 20"
+    },
+    {
+      "id": 12, "type": "knowledge", "topic": "destroy",
+      "question": "איך מסיימים session במפורש בקוד?",
+      "options": [
+        "עם req.session.destroy()",
+        "עם res.cookie()",
+        "עם con.close()",
+        "אי אפשר לסיים session"
+      ],
+      "correctIndex": 0,
+      "explanation": "מסיימים session במפורש עם req.session.destroy() (למשל בהתנתקות). דרך נוספת היא סיום לפי timeout.",
+      "source": "מצגת 08, שקף 32, 33"
+    },
+    {
+      "id": 13, "type": "knowledge", "topic": "מתי להשמיד",
+      "question": "מה האתגר בסיום session?",
+      "options": [
+        "ב-HTTP אין סימן מפורש מתי המשתמש כבר לא פעיל, ולכן קשה לדעת מתי להשמיד",
+        "אי אפשר ליצור session",
+        "session נמחק מיד תמיד",
+        "השרת קורס"
+      ],
+      "correctIndex": 0,
+      "explanation": "יצירת session פשוטה (כשהמשתמש נכנס), אבל אין ב-HTTP אינדיקציה מתי הוא עזב. לכן משתמשים בשתי דרכים: השמדה מפורשת בקוד, או timeout.",
+      "source": "מצגת 08, שקף 31, 32"
+    },
+    {
+      "id": 14, "type": "knowledge", "topic": "session tracking",
+      "question": "מהי הטכניקה הנפוצה למעקב אחרי session?",
+      "options": [
+        "עוגייה עם session ID שנשלחת בכל בקשה, בלי מאמץ מיוחד מהמתכנת",
+        "לשמור את כל המידע ב-URL",
+        "לשלוח מייל לכל בקשה",
+        "לא ניתן לעקוב"
+      ],
+      "correctIndex": 0,
+      "explanation": "הטכניקה הנפוצה: יוצרים עוגייה עם ה-session ID, והיא נשלחת אוטומטית בכל בקשה. זה מאפשר לשרת לעקוב בלי מאמץ מיוחד מהמתכנת.",
+      "source": "מצגת 08, שקף 26"
+    }
+  ]
+}

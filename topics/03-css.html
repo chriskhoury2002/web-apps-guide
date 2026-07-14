@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="he" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>יסודות CSS · web·apps</title>
+  <meta name="description" content="יסודות CSS: סלקטורים, מודל הקופסה, תכונות טקסט, גופן, מסגרת ומרווחים, עם דוגמאות חיות ואנימציות אינטראקטיביות.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../css/theme.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/code.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/widgets.css">
+  <link rel="stylesheet" href="../css/anim.css">
+  <link rel="stylesheet" href="../css/motion.css">
+  <script>(function () { try { document.documentElement.setAttribute('data-theme', localStorage.getItem('wag:theme') || 'dark'); } catch (e) {} })();</script>
+  <style>#content h2[id]{scroll-margin-top:84px}</style>
+</head>
+<body data-slug="03-css">
+  <a class="skip" href="#content">דלג לתוכן</a>
+  <header data-header></header>
+
+  <main class="wrap page">
+    <div class="layout">
+      <nav class="toc" id="toc" aria-label="תוכן העניינים"></nav>
+      <div id="content">
+
+        <div class="topic-hero" style="--accent:#5ad1e6">
+          <span class="t-icon">🎨</span>
+          <div>
+            <div class="t-meta"><span class="badge-num">נושא 3</span><span class="src-tag">מבוסס על מצגת 01</span></div>
+            <h1>יסודות CSS</h1>
+          </div>
+        </div>
+        <p class="lead">אם HTML הוא השלד, CSS הוא הלבוש. CSS קובע איך הדף נראה: צבעים, גדלים, מרווחים, מיקום. בנושא הזה נלמד לכתוב כללי עיצוב, נבין את מודל הקופסה, ונראה איך סלקטורים "תופסים" בדיוק את האלמנטים שרוצים לעצב.</p>
+
+        <section class="section">
+          <h2 id="what">מה זה CSS ולמה משתמשים בו</h2>
+          <p><strong>CSS</strong> הוא ראשי תיבות של <strong>Cascading Style Sheets</strong>, "גיליונות סגנון מדורגים". תפקידו להגדיר איך אלמנטים של HTML נראים על המסך. היתרון הגדול: אפשר לשלוט בעיצוב של דפים רבים בבת אחת, ממקום אחד.</p>
+          <div class="callout why">
+            <div class="callout-title"><span class="ic">💡</span> למה מפרידים בין תוכן לעיצוב?</div>
+            <p>כשהתוכן (HTML) נפרד מהעיצוב (CSS), אפשר לשנות את כל המראה של האתר בלי לגעת בתוכן, ולהשתמש באותו עיצוב בהרבה דפים. זה חוסך עבודה ומונע בלגן. זה הרעיון של "הפרדת אחריות".</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="where">שלושה מקומות להגדיר CSS</h2>
+          <p>אפשר לכתוב CSS בשלוש דרכים, מהגרועה לטובה:</p>
+          <ul>
+            <li><strong>בשורה (inline)</strong>, בתוך מאפיין <code>style</code> של אלמנט בודד. לא מומלץ: אין שימוש חוזר ואין הפרדה בין עיצוב לתוכן.</li>
+            <li><strong>פנימי (internal)</strong>, בתוך תגית <code>&lt;style&gt;</code> ב-<code>&lt;head&gt;</code>. טוב יותר, אבל משרת רק מסמך אחד.</li>
+            <li><strong>חיצוני (external)</strong>, קובץ <code>.css</code> נפרד שמקשרים אליו עם <code>&lt;link&gt;</code>. הכי טוב: רמה גבוהה של שימוש חוזר בין דפים.</li>
+          </ul>
+          <div class="code-block" data-lang="markup" data-file="three-ways.html">
+<script type="text/plain">
+<!-- 1. inline, לא מומלץ -->
+<div style="color:red">טקסט אדום</div>
+
+<!-- 2. internal, בתוך ה-head -->
+<style>
+  div { color: red; }
+</style>
+
+<!-- 3. external, הכי טוב -->
+<link rel="stylesheet" href="style.css">
+</script>
+          </div>
+          <div class="callout note">
+            <div class="callout-title"><span class="ic">🔀</span> סדר הקדימות (Cascade)</div>
+            <p>אם יש כמה הגדרות לאותו אלמנט, הן "נערמות" לפי סדר עדיפות, מהנמוך לגבוה: ברירת מחדל של הדפדפן, ואז חיצוני, ואז פנימי, ואז inline. כלומר inline "מנצח" את כולם. זו המשמעות של המילה Cascading.</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="syntax">תחביר של כלל CSS</h2>
+          <p>כלל CSS בנוי משלושה חלקים: <strong>selector</strong> (על מי הכלל חל), <strong>property</strong> (איזו תכונה משנים) ו-<strong>value</strong> (הערך).</p>
+          <div class="code-block" data-lang="css" data-file="rule.css">
+<script type="text/plain">
+h1 {
+  color: blue;
+  font-size: 12px;
+}
+</script>
+          </div>
+          <p>אפשר להגדיר כמה תכונות, ומפרידים ביניהן בנקודה-פסיק. כאן ה-selector הוא <code>h1</code>, ויש שתי הצהרות: צבע וגודל גופן.</p>
+        </section>
+
+        <section class="section">
+          <h2 id="selectors">סלקטורים: element, class, id</h2>
+          <p>איך אומרים ל-CSS על אילו אלמנטים לחול? עם סלקטור. שלושת הבסיסיים:</p>
+          <ul>
+            <li><strong>Element selector</strong>, שם של תגית. למשל <code>p</code> חל על כל הפסקאות.</li>
+            <li><strong>Class selector</strong>, מתחיל בנקודה. למשל <code>.center</code> חל על כל אלמנט עם <code>class="center"</code>. אפשר לשים את אותה class על הרבה אלמנטים.</li>
+            <li><strong>Id selector</strong>, מתחיל בסולמית. למשל <code>#para1</code> חל על האלמנט עם <code>id="para1"</code>. id חייב להיות ייחודי בדף, ולכן חל על אלמנט אחד בלבד.</li>
+          </ul>
+          <div class="code-block" data-lang="css" data-file="selectors.css">
+<script type="text/plain">
+p { color: gray; }            /* כל הפסקאות */
+.right { text-align: right; } /* כל אלמנט עם class="right" */
+#para1 { color: teal; }       /* רק האלמנט עם id="para1" */
+</script>
+          </div>
+          <p>הכי טוב ללמוד סלקטורים דרך ניסוי. לחץ על סלקטור וראה אילו אלמנטים הוא תופס:</p>
+          <div class="anim" data-anim="selector-match" data-title="איך סלקטור תופס אלמנטים"></div>
+          <div class="callout tip">
+            <div class="callout-title"><span class="ic">✅</span> class מול id</div>
+            <p>משתמשים ב-class כשרוצים לעצב קבוצה של אלמנטים, וב-id כשמדובר באלמנט יחיד וספציפי. בפועל class הרבה יותר נפוץ בעיצוב.</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="box-model">מודל הקופסה (Box Model)</h2>
+          <p>כל אלמנט ב-HTML הוא בעצם קופסה מלבנית, ולקופסה יש ארבע שכבות, מבפנים החוצה:</p>
+          <ul>
+            <li><strong>content</strong>, התוכן עצמו (טקסט, תמונה).</li>
+            <li><strong>padding</strong>, ריפוד, המרווח בין התוכן למסגרת.</li>
+            <li><strong>border</strong>, המסגרת סביב הריפוד.</li>
+            <li><strong>margin</strong>, המרווח החיצוני בין הקופסה לאלמנטים אחרים.</li>
+          </ul>
+          <p>הבנת המודל הזה חיונית לכל עיצוב. שחק עם המחוונים וראה איך כל שכבה משפיעה על הגודל הכולל:</p>
+          <div class="anim" data-anim="box-model" data-title="מודל הקופסה, אינטראקטיבי"></div>
+          <div class="callout note">
+            <div class="callout-title"><span class="ic">📐</span> חישוב הגודל</div>
+            <p>הרוחב הכולל של קופסה (כברירת מחדל) הוא: רוחב התוכן ועוד padding משני הצדדים ועוד border משני הצדדים. ה-margin לא נספר בתוך הקופסה, אלא מוסיף מרווח מסביבה.</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="text">תכונות טקסט</h2>
+          <p>כמה מהתכונות הנפוצות לעיצוב טקסט:</p>
+          <div class="tbl-wrap">
+            <table class="data">
+              <thead><tr><th>תכונה</th><th>מה עושה</th><th>דוגמת ערכים</th></tr></thead>
+              <tbody>
+                <tr><td><code>color</code></td><td>צבע הטקסט</td><td><code>red</code>, <code>#333</code></td></tr>
+                <tr><td><code>text-align</code></td><td>יישור אופקי</td><td><code>right</code>, <code>center</code>, <code>justify</code></td></tr>
+                <tr><td><code>text-decoration</code></td><td>קו תחתי/עליון/חוצה</td><td><code>underline</code>, <code>none</code></td></tr>
+                <tr><td><code>text-transform</code></td><td>גודל אותיות</td><td><code>uppercase</code>, <code>capitalize</code></td></tr>
+                <tr><td><code>letter-spacing</code></td><td>מרווח בין אותיות</td><td><code>2px</code></td></tr>
+                <tr><td><code>direction</code></td><td>כיוון כתיבה</td><td><code>rtl</code>, <code>ltr</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="livedemo" data-title="עיצוב טקסט" data-editable="true">
+<script type="text/plain">
+<style>
+  p {
+    color: teal;
+    text-align: center;
+    text-decoration: underline;
+    letter-spacing: 1px;
+  }
+</style>
+<p>טקסט מעוצב, נסה לשנות את הכללים</p>
+</script>
+          </div>
+
+          <div class="challenge" data-slug="03-css" data-id="ch-center"
+               data-goal="מרכז את הטקסט של הפסקה (text-align: center)"
+               data-check="style" data-sel="p" data-prop="textAlign" data-val="center"
+               data-tabs="html,css" data-active-tab="css"
+               data-hint="הוסף לכלל p את התכונה text-align: center;">
+<script type="text/plain" class="pg-html">
+<p>מרכז אותי!</p>
+</script>
+<script type="text/plain" class="pg-css">
+p {
+  color: #333;
+  /* הוסף כאן text-align */
+}
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="font">תכונות גופן</h2>
+          <ul>
+            <li><code>font-family</code>, רשימת גופנים לפי עדיפות. הדפדפן ישתמש בראשון שקיים.</li>
+            <li><code>font-size</code>, גודל (למשל <code>16px</code>, <code>large</code>, <code>120%</code>).</li>
+            <li><code>font-style</code>, נטוי (<code>italic</code>) או רגיל.</li>
+            <li><code>font-weight</code>, עובי (<code>bold</code>, <code>400</code>, <code>700</code>).</li>
+          </ul>
+          <div class="livedemo" data-title="גופן" data-editable="true">
+<script type="text/plain">
+<style>
+  h2 { font-family: Georgia, serif; font-style: italic; }
+  p  { font-size: 20px; font-weight: bold; }
+</style>
+<h2>כותרת בגופן serif נטוי</h2>
+<p>פסקה גדולה ומודגשת</p>
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="border-spacing">מסגרת, margin ו-padding</h2>
+          <p>אלה התכונות ששולטות במסגרת ובמרווחים סביב האלמנט:</p>
+          <ul>
+            <li><code>border</code>, מסגרת. למשל <code>border: 2px solid black;</code> (עובי, סגנון, צבע). סגנונות נפוצים: <code>solid</code>, <code>dashed</code>, <code>dotted</code>.</li>
+            <li><code>padding</code>, ריפוד פנימי בין התוכן למסגרת.</li>
+            <li><code>margin</code>, מרווח חיצוני. טריק שימושי: <code>margin: auto;</code> ממרכז אלמנט אופקית.</li>
+          </ul>
+          <div class="challenge" data-slug="03-css" data-id="ch-red"
+               data-goal="שנה את צבע הרקע של הכפתור לאדום (red)"
+               data-check="style" data-sel="button" data-prop="backgroundColor" data-val="rgb(255, 0, 0)"
+               data-tabs="html,css" data-active-tab="css"
+               data-hint="הוסף לכלל button את התכונה background-color: red;">
+<script type="text/plain" class="pg-html">
+<button>לחצן</button>
+</script>
+<script type="text/plain" class="pg-css">
+button {
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  /* הוסף כאן background-color */
+}
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="lists">תכונות רשימה</h2>
+          <p>אפשר לשלוט בסימון של רשימות עם <code>list-style-type</code>. למשל <code>disc</code> (נקודה), <code>circle</code>, <code>square</code>, <code>decimal</code> (מספרים) או <code>none</code> (בלי סימון בכלל, שימושי מאוד לתפריטים).</p>
+          <div class="livedemo" data-title="עיצוב רשימה" data-editable="true">
+<script type="text/plain">
+<style>
+  ul { list-style-type: square; color: teal; }
+</style>
+<ul>
+  <li>פריט עם ריבוע</li>
+  <li>עוד פריט</li>
+</ul>
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="play">מגרש משחקים: HTML + CSS</h2>
+          <p>עכשיו יש לך גם HTML וגם CSS. עבור בין הלשוניות, שנה כללים, וראה מיד את התוצאה.</p>
+          <div class="playground" data-tabs="html,css">
+<script type="text/plain" class="pg-html">
+<div class="card">
+  <h2>כרטיס</h2>
+  <p>נסה לשנות את העיצוב שלי ב-CSS.</p>
+  <button>כפתור</button>
+</div>
+</script>
+<script type="text/plain" class="pg-css">
+.card {
+  background: #f0f4ff;
+  border: 1px solid #c7d2fe;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 300px;
+}
+.card h2 { color: #4338ca; margin: 0 0 8px; }
+button {
+  background: #4338ca;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="quiz">בדיקה עצמית</h2>
+          <p>ענה על השאלות, קרא את ההסברים, ובדוק כמה הבנת.</p>
+          <div class="quiz" data-quiz="03-css"></div>
+        </section>
+
+        <nav class="topic-nav" data-topic-nav aria-label="ניווט בין נושאים"></nav>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap"><span>web·apps · יסודות CSS</span><span class="muted">מבוסס על מצגת 01</span></div>
+  </footer>
+
+  <script defer src="../js/site.js"></script>
+  <script defer src="../js/storage.js"></script>
+  <script defer src="../js/progress.js"></script>
+  <script defer src="../js/motion.js"></script>
+  <script defer src="../js/highlight.js"></script>
+  <script defer src="../js/playground.js"></script>
+  <script defer src="../js/livedemo.js"></script>
+  <script defer src="../js/stepper.js"></script>
+  <script defer src="../js/challenge.js"></script>
+  <script defer src="../js/animations.js"></script>
+  <script defer src="../js/quiz-engine.js"></script>
+  <script defer src="../js/quiz-ui.js"></script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+{
+  "slug": "12-db-rest",
+  "title": "תרגול: מסד נתונים MySQL ו-REST",
+  "questions": [
+    {
+      "id": 1, "type": "knowledge", "topic": "mysql driver",
+      "question": "מה צריך כדי להתחבר ל-MySQL מ-Node.js?",
+      "options": [
+        "להתקין את מודול mysql, לטעון אותו עם require, וליצור חיבור",
+        "אין צורך בשום מודול",
+        "להתקין דפדפן חדש",
+        "לכתוב HTML"
+      ],
+      "correctIndex": 0,
+      "explanation": "מתקינים את החבילה mysql (npm install mysql), טוענים אותה עם require, ויוצרים חיבור עם createConnection (host, user, password, database).",
+      "source": "מצגת 07, שקף 3"
+    },
+    {
+      "id": 2, "type": "knowledge", "topic": "createConnection",
+      "question": "אילו פרטים נותנים ל-`mysql.createConnection`?",
+      "options": [
+        "host, user, password, database",
+        "רק את שם הטבלה",
+        "רק את השאילתה",
+        "את כתובת הדף"
+      ],
+      "correctIndex": 0,
+      "explanation": "createConnection מקבל אובייקט עם host (שרת), user, password, ו-database (שם הסכימה).",
+      "source": "מצגת 07, שקף 3"
+    },
+    {
+      "id": 3, "type": "knowledge", "topic": "query",
+      "question": "איך מריצים שאילתת SQL ב-Node.js?",
+      "options": [
+        "עם con.query(sql, callback), וה-callback מקבל err ו-result",
+        "עם con.run(sql) בלי טיפול בשגיאות",
+        "כותבים SQL ישירות ב-HTML",
+        "אי אפשר להריץ SQL מ-Node"
+      ],
+      "correctIndex": 0,
+      "explanation": "con.query מקבל את מחרוזת ה-SQL ו-callback. ה-callback מקבל err (שגיאה) ו-result (התוצאה).",
+      "source": "מצגת 07, שקף 4, 5"
+    },
+    {
+      "id": 4, "type": "knowledge", "topic": "pool",
+      "question": "למה משתמשים ב-Pool של חיבורים?",
+      "options": [
+        "כי חיבור הוא משאב יקר, ו-pool מאפשר לעשות שימוש חוזר בחיבורים פתוחים",
+        "כי pool צובע את הנתונים",
+        "כי אסור להשתמש ב-createConnection",
+        "כדי למחוק את מסד הנתונים"
+      ],
+      "correctIndex": 0,
+      "explanation": "פתיחת חיבור היא פעולה יקרה. Pool שומר חיבורים פתוחים ומשתמש בהם מחדש, וזה יעיל יותר משרת שמטפל בהרבה בקשות.",
+      "source": "מצגת 07, שקף 6"
+    },
+    {
+      "id": 5, "type": "knowledge", "topic": "GET params",
+      "question": "בכתובת `.../abc?name=David&num=5`, איך קוראים בשרת את הערך של name?",
+      "options": [
+        "req.query.name",
+        "req.params.name",
+        "req.body.name",
+        "req.name"
+      ],
+      "correctIndex": 0,
+      "explanation": "פרמטרים של query string (אחרי ה-?) נמצאים ב-req.query. כאן req.query.name יהיה 'David'.",
+      "source": "מצגת 07, שקף 7"
+    },
+    {
+      "id": 6, "type": "knowledge", "topic": "route params",
+      "question": "בניתוב `app.get('/abc/:id', ...)` וכתובת `.../abc/123`, איפה נמצא הערך 123?",
+      "options": [
+        "req.params.id",
+        "req.query.id",
+        "req.body.id",
+        "req.url.id"
+      ],
+      "correctIndex": 0,
+      "explanation": "פרמטר בנתיב שמוגדר עם `:id` נמצא ב-req.params.id. כאן הוא יהיה '123'.",
+      "source": "מצגת 07, שקף 7"
+    },
+    {
+      "id": 7, "type": "knowledge", "topic": "POST body",
+      "question": "איפה נמצאים נתונים שנשלחו בבקשת POST?",
+      "options": [
+        "ב-req.body (אחרי שמפעילים express.json ו-express.urlencoded)",
+        "ב-req.query",
+        "ב-req.params",
+        "בכתובת ה-URL"
+      ],
+      "correctIndex": 0,
+      "explanation": "נתוני POST נמצאים ב-req.body. כדי לקרוא אותם צריך להוסיף לאפליקציה את express.json() ו-express.urlencoded().",
+      "source": "מצגת 07, שקף 8"
+    },
+    {
+      "id": 8, "type": "knowledge", "topic": "REST",
+      "question": "מה נכון בנוגע ל-REST?",
+      "options": [
+        "זהו סגנון ארכיטקטוני (architectural style) לתקשורת בין לקוח לשרת",
+        "זו שפת תכנות חדשה",
+        "זה מסד נתונים",
+        "זה סוג של CSS"
+      ],
+      "correctIndex": 0,
+      "explanation": "REST (REpresentational State Transfer) הוא סגנון ארכיטקטוני לבניית שירותים על בסיס HTTP. שירותים שמצייתים לו נקראים RESTful.",
+      "source": "מצגת 07, שקף 9, 13"
+    },
+    {
+      "id": 9, "type": "knowledge", "topic": "HTTP methods CRUD",
+      "question": "לאיזו פעולת CRUD מתאימה מתודת POST?",
+      "options": [
+        "Create (יצירה)",
+        "Read (קריאה)",
+        "Update (עדכון)",
+        "Delete (מחיקה)"
+      ],
+      "correctIndex": 0,
+      "explanation": "המיפוי: POST=Create, GET=Read, PUT=Update, DELETE=Delete. זה הבסיס של REST.",
+      "source": "מצגת 07, שקף 12"
+    },
+    {
+      "id": 10, "type": "knowledge", "topic": "GET CRUD",
+      "question": "לאיזו פעולה מתאימה מתודת GET?",
+      "options": [
+        "Read (קריאה)",
+        "Create (יצירה)",
+        "Update (עדכון)",
+        "Delete (מחיקה)"
+      ],
+      "correctIndex": 0,
+      "explanation": "GET משמש לקריאת נתונים (Read). POST ליצירה, PUT לעדכון, DELETE למחיקה.",
+      "source": "מצגת 07, שקף 12"
+    },
+    {
+      "id": 11, "type": "knowledge", "topic": "service vs site",
+      "question": "מה ההבדל בין service ל-site?",
+      "options": [
+        "service מיועד לתוכניות (למשל API), site מיועד למשתמש אנושי",
+        "service מיועד למשתמש, site לתוכניות",
+        "אין הבדל",
+        "site רץ רק בשרת"
+      ],
+      "correctIndex": 0,
+      "explanation": "service הוא ממשק לתוכניות (מחזיר נתונים, למשל JSON), ואילו site הוא לצריכה אנושית (מחזיר דפי HTML).",
+      "source": "מצגת 07, שקף 13"
+    },
+    {
+      "id": 12, "type": "knowledge", "topic": "microservices",
+      "question": "מה מאפיין ארכיטקטורת מיקרו-שירותים (microservices)?",
+      "options": [
+        "האפליקציה היא אוסף של שירותים קטנים, עצמאיים ומקושרים באופן רופף",
+        "כל האפליקציה היא קובץ אחד גדול",
+        "אין בה שרתים",
+        "היא רצה רק בדפדפן"
+      ],
+      "correctIndex": 0,
+      "explanation": "במיקרו-שירותים האפליקציה מפורקת לשירותים קטנים, ממוקדים, עצמאיים, שאפשר לפרוס כל אחד בנפרד, ומקושרים באופן רופף דרך API.",
+      "source": "מצגת 07, שקף 14, 15"
+    },
+    {
+      "id": 13, "type": "knowledge", "topic": "res.send",
+      "question": "איך מחזירים תוצאה של שאילתה ללקוח?",
+      "options": [
+        "עם res.send(result) בתוך ה-callback של con.query",
+        "עם console.log בלבד",
+        "עם return result",
+        "אי אפשר להחזיר תוצאה"
+      ],
+      "correctIndex": 0,
+      "explanation": "בתוך ה-callback של con.query בודקים שגיאות ואז שולחים את result ללקוח עם res.send.",
+      "source": "מצגת 07, שקף 5"
+    },
+    {
+      "id": 14, "type": "error", "topic": "express body",
+      "question": "רוצים לקרוא נתוני POST אבל req.body יוצא undefined. מה כנראה חסר?",
+      "options": [
+        "לא הוספנו app.use(express.json()) ו-express.urlencoded()",
+        "לא הגדרנו port",
+        "לא התקנו דפדפן",
+        "צריך להשתמש ב-req.query במקום"
+      ],
+      "correctIndex": 0,
+      "explanation": "כדי ש-req.body יאוכלס, צריך את שני ה-middleware: express.json() ו-express.urlencoded({ extended: true }).",
+      "source": "מצגת 07, שקף 8"
+    }
+  ]
+}

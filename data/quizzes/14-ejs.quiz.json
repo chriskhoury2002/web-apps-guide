@@ -1,0 +1,125 @@
+{
+  "slug": "14-ejs",
+  "title": "תרגול: EJS תבניות",
+  "questions": [
+    {
+      "id": 1, "type": "knowledge", "topic": "template engine",
+      "question": "לשם מה משמש מנוע תבניות כמו EJS?",
+      "options": [
+        "לשלב קוד בתוך HTML כדי לייצר תוכן דינמי",
+        "לעצב את הדף",
+        "להתחבר למסד נתונים",
+        "להריץ CSS"
+      ],
+      "correctIndex": 0,
+      "explanation": "מנוע תבניות מאפשר שינויים תכנותיים קטנים בתוך HTML, כלומר לייצר HTML דינמי לפי נתונים.",
+      "source": "מצגת 09, שקף 2"
+    },
+    {
+      "id": 2, "type": "knowledge", "topic": "רעיון",
+      "question": "מה הרעיון המרכזי במנועי תבניות?",
+      "options": [
+        "הקוד רץ בשרת, ורק ה-HTML עם הנתונים הדינמיים נשלח ללקוח",
+        "הקוד רץ בדפדפן של המשתמש",
+        "שולחים את כל הקוד ללקוח",
+        "אין קוד בכלל"
+      ],
+      "correctIndex": 0,
+      "explanation": "הקוד של התבנית רץ בשרת. הלקוח מקבל רק את ה-HTML המוגמר עם הנתונים, לא את הקוד עצמו.",
+      "source": "מצגת 09, שקף 3"
+    },
+    {
+      "id": 3, "type": "knowledge", "topic": "scriptlet",
+      "question": "מה ההבדל בין `<% %>` ל-`<%= %>` ב-EJS?",
+      "options": [
+        "`<% %>` מריץ קוד JS בלי פלט, `<%= %>` מדפיס את הערך",
+        "`<% %>` מדפיס, `<%= %>` לא",
+        "הם זהים",
+        "שניהם רק להערות"
+      ],
+      "correctIndex": 0,
+      "explanation": "`<% %>` הוא scriptlet: JS בלי פלט (למשל if, לולאה). `<%= %>` מדפיס את הערך לתוך ה-HTML.",
+      "source": "מצגת 09, שקף 5"
+    },
+    {
+      "id": 4, "type": "knowledge", "topic": "render",
+      "question": "איך מוציאים תבנית EJS ללקוח מהשרת?",
+      "options": [
+        "עם res.render('list', { list: list })",
+        "עם res.send בלבד",
+        "עם con.query",
+        "עם res.cookie"
+      ],
+      "correctIndex": 0,
+      "explanation": "res.render מקבל את שם קובץ ה-ejs (מתיקיית views) ואובייקט נתונים, שאותו התבנית תשתמש בתוך ה-scriptlets.",
+      "source": "מצגת 09, שקף 6"
+    },
+    {
+      "id": 5, "type": "knowledge", "topic": "setup",
+      "question": "מה צריך כדי להשתמש ב-EJS?",
+      "options": [
+        "npm install ejs, להגדיר view engine ל-ejs, ותיקיית views לקבצי .ejs",
+        "רק לכתוב HTML",
+        "להתקין מסד נתונים",
+        "להתקין דפדפן"
+      ],
+      "correctIndex": 0,
+      "explanation": "מתקינים ejs, מגדירים app.set('view engine', 'ejs'), ושמים את קבצי ה-.ejs בתיקיית views.",
+      "source": "מצגת 09, שקף 4"
+    },
+    {
+      "id": 6, "type": "knowledge", "topic": "include",
+      "question": "מה עושה `<%- include('header') %>`?",
+      "options": [
+        "מכניס קובץ ejs אחר (למשל header) בתוך התבנית הנוכחית",
+        "מדפיס את המילה header",
+        "מוחק את ה-header",
+        "טוען CSS"
+      ],
+      "correctIndex": 0,
+      "explanation": "include מאפשר להרכיב תבנית מחלקים, למשל header ו-footer משותפים, כדי לא לחזור על אותו קוד.",
+      "source": "מצגת 09, שקף 7, 8"
+    },
+    {
+      "id": 7, "type": "output", "topic": "scriptlet if",
+      "question": "מה ידפיס קטע ה-EJS הבא אם user.name הוא 'דנה'?",
+      "code": "<% if (user) { %>\n  <h2><%= user.name %></h2>\n<% } %>",
+      "lang": "markup",
+      "options": [
+        "<h2>דנה</h2>",
+        "<h2>user.name</h2>",
+        "כלום",
+        "<% user.name %>"
+      ],
+      "correctIndex": 0,
+      "explanation": "ה-if (ב-`<% %>`) בודק שיש user, וה-`<%= user.name %>` מדפיס את הערך 'דנה' לתוך ה-h2.",
+      "source": "מצגת 09, שקף 5"
+    },
+    {
+      "id": 8, "type": "knowledge", "topic": "loop include",
+      "question": "איך מציגים רשימת פריטים ב-EJS?",
+      "options": [
+        "עם לולאה ב-`<% %>` (למשל forEach) שמייצרת אלמנט לכל פריט",
+        "אי אפשר להציג רשימות ב-EJS",
+        "רק עם CSS",
+        "עם res.cookie"
+      ],
+      "correctIndex": 0,
+      "explanation": "משלבים לולאת forEach בתוך `<% %>`, ובכל סבב מדפיסים אלמנט (או include) עם `<%= %>` / `<%- %>`.",
+      "source": "מצגת 09, שקף 8"
+    },
+    {
+      "id": 9, "type": "knowledge", "topic": "server side",
+      "question": "האם קוד ה-EJS נשלח ללקוח?",
+      "options": [
+        "לא, הוא רץ בשרת. הלקוח מקבל רק את ה-HTML המוגמר",
+        "כן, הלקוח מריץ את ה-EJS",
+        "כן, יחד עם הנתונים הגולמיים",
+        "רק בדפדפן Chrome"
+      ],
+      "correctIndex": 0,
+      "explanation": "קוד ה-EJS מעובד בשרת, והלקוח מקבל רק את תוצאת ה-HTML. זה הרעיון של עיבוד בצד שרת.",
+      "source": "מצגת 09, שקף 3"
+    }
+  ]
+}

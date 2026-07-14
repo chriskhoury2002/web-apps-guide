@@ -1,0 +1,194 @@
+{
+  "slug": "05-vscode",
+  "title": "תרגול: VS Code, תוספים ו-Emmet",
+  "questions": [
+    {
+      "id": 1, "type": "knowledge", "topic": "עורך",
+      "question": "מהו VS Code?",
+      "options": [
+        "עורך קוד חינמי ופופולרי של מיקרוסופט, ניתן להרחבה בתוספים",
+        "דפדפן אינטרנט",
+        "שפת תכנות",
+        "מסד נתונים"
+      ],
+      "correctIndex": 0,
+      "explanation": "Visual Studio Code הוא עורך הקוד הנפוץ ביותר לפיתוח ואב. חינמי, מהיר, וניתן להרחבה בעזרת extensions.",
+      "source": "מצגת 01-b, שקף 2, 3"
+    },
+    {
+      "id": 2, "type": "knowledge", "topic": "Live Server",
+      "question": "מה עושה התוסף Live Server?",
+      "options": [
+        "מריץ שרת מקומי עם רענון אוטומטי של הדף בכל שמירה",
+        "מעצב את הקוד",
+        "משלים קוד עם AI",
+        "צובע סוגריים"
+      ],
+      "correctIndex": 0,
+      "explanation": "Live Server מרים שרת מקומי ומרענן את הדפדפן אוטומטית בכל פעם ששומרים קובץ. חוסך רענון ידני.",
+      "source": "מצגת 01-b, שקף 3"
+    },
+    {
+      "id": 3, "type": "knowledge", "topic": "Prettier",
+      "question": "מה תפקידו של Prettier (עם Format on Save)?",
+      "options": [
+        "מסדר ומעצב את הקוד אוטומטית בכל שמירה",
+        "מריץ את הקוד",
+        "מוחק קבצים ישנים",
+        "מתרגם קוד לשפה אחרת"
+      ],
+      "correctIndex": 0,
+      "explanation": "Prettier מסדר הזחות, רווחים ומבנה. עם 'Format on Save' זה קורה אוטומטית בכל שמירה.",
+      "source": "מצגת 01-b, שקף 4"
+    },
+    {
+      "id": 4, "type": "knowledge", "topic": "AI",
+      "question": "איזה מהבאים הוא כלי AI להשלמת קוד?",
+      "options": [
+        "GitHub Copilot",
+        "Live Server",
+        "Prettier",
+        "Emmet"
+      ],
+      "correctIndex": 0,
+      "explanation": "GitHub Copilot ו-Tabnine הם כלי AI שמשלימים קוד ומציעים פתרונות תוך כדי כתיבה.",
+      "source": "מצגת 01-b, שקף 5"
+    },
+    {
+      "id": 5, "type": "output", "topic": "Emmet child",
+      "question": "לאיזה HTML יתרחב הקיצור `ul>li`?",
+      "code": "ul>li",
+      "lang": "css",
+      "options": [
+        "רשימה `<ul>` עם `<li>` בתוכה",
+        "שני אלמנטים נפרדים `<ul>` ו-`<li>`",
+        "רשימה `<ul>` עם `<ul>` בתוכה",
+        "כלום, זה לא קיצור תקין"
+      ],
+      "correctIndex": 0,
+      "explanation": "הסימן `>` ב-Emmet יוצר אלמנט בן. `ul>li` נותן `<ul>` שבתוכו `<li>`.",
+      "source": "מצגת 01-b, שקף 6"
+    },
+    {
+      "id": 6, "type": "output", "topic": "Emmet multiply",
+      "question": "כמה `<li>` ייווצרו מהקיצור `ul>li*3`?",
+      "code": "ul>li*3",
+      "lang": "css",
+      "options": [
+        "שלושה `<li>` בתוך `<ul>`",
+        "`<li>` אחד",
+        "שלושה `<ul>`",
+        "שישה `<li>`"
+      ],
+      "correctIndex": 0,
+      "explanation": "הסימן `*` משכפל. `li*3` יוצר שלושה `<li>`, וכולם בתוך ה-`<ul>` בזכות ה-`>`.",
+      "source": "מצגת 01-b, שקף 6"
+    },
+    {
+      "id": 7, "type": "knowledge", "topic": "Emmet class/id",
+      "question": "לאיזה HTML יתרחב `div#app.box`?",
+      "options": [
+        "`<div id=\"app\" class=\"box\"></div>`",
+        "`<div class=\"app\" id=\"box\"></div>`",
+        "שלושה div נפרדים",
+        "`<app><box></box></app>`"
+      ],
+      "correctIndex": 0,
+      "explanation": "`#` נותן id ו-`.` נותן class. `div#app.box` יוצר div עם id=app ו-class=box.",
+      "source": "מצגת 01-b, שקף 6"
+    },
+    {
+      "id": 8, "type": "knowledge", "topic": "Emmet siblings",
+      "question": "מה עושה הסימן `+` ב-Emmet, למשל `input+button`?",
+      "options": [
+        "יוצר שני אלמנטים באותה רמה (siblings): input ואחריו button",
+        "יוצר button בתוך input",
+        "מכפיל את input",
+        "מוחק את button"
+      ],
+      "correctIndex": 0,
+      "explanation": "`+` יוצר אלמנטים אחים (siblings) באותה רמה. `input+button` נותן input ואחריו button.",
+      "source": "מצגת 01-b, שקף 6"
+    },
+    {
+      "id": 9, "type": "knowledge", "topic": "Emmet $",
+      "question": "מה תפקיד הסימן `$` ב-Emmet, למשל `li#item$*3`?",
+      "options": [
+        "ממספר כל שכפול: item1, item2, item3",
+        "מוסיף סימן דולר לטקסט",
+        "מוחק את המספור",
+        "משכפל אינסוף פעמים"
+      ],
+      "correctIndex": 0,
+      "explanation": "`$` מוחלף במספר סידורי בכל שכפול. `li#item$*3` נותן li עם id item1, item2, item3.",
+      "source": "מצגת 01-b, שקף 6"
+    },
+    {
+      "id": 10, "type": "knowledge", "topic": "קיצור הערה",
+      "question": "איזה קיצור הופך שורות להערה וחזרה ב-VS Code?",
+      "options": [
+        "Ctrl + /",
+        "Ctrl + S",
+        "F12",
+        "Alt + Z"
+      ],
+      "correctIndex": 0,
+      "explanation": "Ctrl + / מוסיף או מסיר הערה מהשורות המסומנות.",
+      "source": "מצגת 01-b, שקף 7"
+    },
+    {
+      "id": 11, "type": "knowledge", "topic": "קיצור שינוי שם",
+      "question": "איזה קיצור משנה שם של משתנה בכל המקומות בבת אחת?",
+      "options": [
+        "F2",
+        "Ctrl + /",
+        "Alt + Shift + ↓",
+        "F12"
+      ],
+      "correctIndex": 0,
+      "explanation": "F2 מבצע rename חכם: משנה את שם המשתנה בכל המקומות שבהם הוא מופיע.",
+      "source": "מצגת 01-b, שקף 7"
+    },
+    {
+      "id": 12, "type": "knowledge", "topic": "קיצור קפיצה",
+      "question": "מה עושה F12 ב-VS Code?",
+      "options": [
+        "קופץ להגדרת המשתנה או הפונקציה",
+        "שומר את הקובץ",
+        "פותח את הדפדפן",
+        "מוחק שורה"
+      ],
+      "correctIndex": 0,
+      "explanation": "F12 קופץ למקום שבו המשתנה או הפונקציה הוגדרו, שימושי מאוד בקוד גדול.",
+      "source": "מצגת 01-b, שקף 7"
+    },
+    {
+      "id": 13, "type": "output", "topic": "Emmet table",
+      "question": "לאיזה מבנה יתרחב `table>tr*2>td*3`?",
+      "code": "table>tr*2>td*3",
+      "lang": "css",
+      "options": [
+        "טבלה עם 2 שורות, בכל שורה 3 תאים",
+        "טבלה עם 3 שורות, בכל שורה 2 תאים",
+        "טבלה עם 6 שורות",
+        "טבלה ריקה"
+      ],
+      "correctIndex": 0,
+      "explanation": "`tr*2` יוצר 2 שורות, ולכל אחת מהן `td*3` מוסיף 3 תאים. סה\"כ 2 שורות עם 3 תאים כל אחת.",
+      "source": "מצגת 01-b, שקף 6"
+    },
+    {
+      "id": 14, "type": "knowledge", "topic": "Auto Rename Tag",
+      "question": "מה עושה התוסף Auto Rename Tag?",
+      "options": [
+        "כשמשנים תגית פתיחה, הוא משנה אוטומטית גם את תגית הסגירה התואמת",
+        "משנה את שם הקובץ",
+        "מוחק תגיות ריקות",
+        "צובע את הקוד"
+      ],
+      "correctIndex": 0,
+      "explanation": "Auto Rename Tag שומר על סנכרון: שינוי בתגית הפתיחה מתעדכן מיד גם בתגית הסגירה.",
+      "source": "מצגת 01-b, שקף 3"
+    }
+  ]
+}

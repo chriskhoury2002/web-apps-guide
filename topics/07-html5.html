@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="he" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HTML5 מתקדם · web·apps</title>
+  <meta name="description" content="HTML5: אלמנטים סמנטיים, טפסים, סוגי input, ולידציה, מדיה, details/summary וטבלאות.">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../css/theme.css"><link rel="stylesheet" href="../css/base.css"><link rel="stylesheet" href="../css/code.css">
+  <link rel="stylesheet" href="../css/components.css"><link rel="stylesheet" href="../css/widgets.css"><link rel="stylesheet" href="../css/anim.css"><link rel="stylesheet" href="../css/motion.css">
+  <script>(function () { try { document.documentElement.setAttribute('data-theme', localStorage.getItem('wag:theme') || 'dark'); } catch (e) {} })();</script>
+  <style>#content h2[id]{scroll-margin-top:84px}</style>
+</head>
+<body data-slug="07-html5">
+  <a class="skip" href="#content">דלג לתוכן</a>
+  <header data-header></header>
+  <main class="wrap page">
+    <div class="layout">
+      <nav class="toc" id="toc" aria-label="תוכן העניינים"></nav>
+      <div id="content">
+
+        <div class="topic-hero" style="--accent:#ff7a90">
+          <span class="t-icon">🧩</span>
+          <div>
+            <div class="t-meta"><span class="badge-num">נושא 7</span><span class="src-tag">מבוסס על מצגת 02</span></div>
+            <h1>HTML5 מתקדם</h1>
+          </div>
+        </div>
+        <p class="lead">HTML5 הוא הגרסה המודרנית של HTML, שהפכה את הדפדפן לפלטפורמה שלמה ליישומים. נכיר את האלמנטים הסמנטיים, את הטפסים המשופרים, את סוגי הקלט החדשים ואת מנגנוני הוולידציה, ואת תמיכת המדיה המובנית.</p>
+
+        <section class="section">
+          <h2 id="intro">מה זה HTML5</h2>
+          <p><strong>HTML5</strong> פורסם כתקן רשמי על ידי W3C ב-2014. מטרתו המרכזית: להשתמש בדפדפן כפלטפורמת הרצה ליישומי ואב מלאים, לא רק להצגת מסמכים.</p>
+          <p>אחד השינויים הבולטים הוא הפשטות ביחס ל-HTML4. הצהרת סוג המסמך והקידוד התקצרו מאוד:</p>
+          <div class="code-block" data-lang="markup" data-file="html5-head.html">
+<script type="text/plain">
+<!DOCTYPE html>
+<meta charset="utf-8">
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="semantic">אלמנטים סמנטיים למבנה</h2>
+          <p>ב-HTML5 יש אלמנטים שנותנים <strong>משמעות</strong> למבנה הדף, במקום להשתמש ב-div לכל דבר. האלמנטים המרכזיים:</p>
+          <ul>
+            <li><code>&lt;header&gt;</code>, ראש הדף או המקטע.</li>
+            <li><code>&lt;nav&gt;</code>, תפריט ניווט.</li>
+            <li><code>&lt;main&gt;</code>, התוכן הראשי. מותר אחד בלבד בדף.</li>
+            <li><code>&lt;article&gt;</code>, תוכן שעומד בפני עצמו (כתבה, פוסט).</li>
+            <li><code>&lt;section&gt;</code>, חלק לוגי במסמך.</li>
+            <li><code>&lt;aside&gt;</code>, תוכן צדדי.</li>
+            <li><code>&lt;footer&gt;</code>, תחתית הדף.</li>
+          </ul>
+          <p>הנה מבנה טיפוסי של דף. שים לב איך כל אזור מקבל אלמנט משלו:</p>
+          <div class="livedemo" data-title="מבנה סמנטי של דף" data-editable="true">
+<script type="text/plain">
+<style>
+  .l { font-family: system-ui, sans-serif; }
+  .l header, .l nav, .l main, .l aside, .l footer { padding: 10px; margin: 4px 0; border-radius: 8px; color: #fff; font-weight: bold; text-align: center; }
+  .l header { background: #d9852a; }
+  .l nav { background: #2f9e5f; }
+  .l main { background: #1489a0; }
+  .l aside { background: #7c5cd6; }
+  .l footer { background: #555; }
+  .l .row { display: flex; gap: 4px; }
+  .l main { flex: 3; } .l aside { flex: 1; }
+</style>
+<div class="l">
+  <header>header</header>
+  <nav>nav</nav>
+  <div class="row">
+    <main>main (התוכן הראשי)</main>
+    <aside>aside</aside>
+  </div>
+  <footer>footer</footer>
+</div>
+</script>
+          </div>
+          <div class="callout note">
+            <div class="callout-title"><span class="ic">🔎</span> article מול section</div>
+            <p>article מיועד לתוכן שאפשר להשתמש בו לבדו (כמו כתבה שאפשר לשתף). section הוא חלק לוגי במסמך. שניהם יכולים להכיל זה את זה.</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="inline">אלמנטים סמנטיים בתוך שורה</h2>
+          <p>מלבד המבנה, יש אלמנטים סמנטיים לטקסט: <code>&lt;em&gt;</code> (הדגשה), <code>&lt;strong&gt;</code> (חשיבות), <code>&lt;small&gt;</code> (טקסט קטן), <code>&lt;mark&gt;</code> (הדגשה צהובה). ההבדל מ-<code>&lt;b&gt;</code> ו-<code>&lt;i&gt;</code> הוא שהאלמנטים הסמנטיים אומרים <em>למה</em> הטקסט מודגש, לא רק איך הוא נראה.</p>
+        </section>
+
+        <section class="section">
+          <h2 id="forms">טפסים</h2>
+          <p>טופס (<code>&lt;form&gt;</code>) נועד לשלוח נתונים לשרת. המאפיין <code>action</code> קובע את כתובת התוכנית בשרת שתקבל את הנתונים, ו-<code>method</code> את שיטת השליחה (GET או POST). כל שדה עם <code>name</code> יישלח.</p>
+          <div class="code-block" data-lang="markup" data-file="form.html">
+<script type="text/plain">
+<form action="/save" method="post">
+  <label for="shem">שם:</label>
+  <input type="text" id="shem" name="shem">
+  <button type="submit">שלח</button>
+</form>
+</script>
+          </div>
+          <div class="callout tip">
+            <div class="callout-title"><span class="ic">✅</span> נגישות</div>
+            <p>תמיד השתמש ב-<code>&lt;label&gt;</code> עם <code>for</code> שמצביע ל-id של השדה. זה עוזר לקוראי מסך ומגדיל את אזור הלחיצה.</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="inputs">סוגי input ו-placeholder</h2>
+          <p>HTML5 הוסיף סוגי קלט חדשים שנותנים חוויית משתמש טובה יותר: <code>email</code>, <code>number</code>, <code>date</code>, <code>color</code>, <code>range</code>, <code>url</code>, <code>tel</code> ועוד. המאפיין <code>placeholder</code> מציג רמז בשדה, ו-<code>required</code> הופך אותו לחובה. נסה:</p>
+          <div class="livedemo" data-title="סוגי קלט של HTML5" data-editable="true">
+<script type="text/plain">
+<style> label { display:block; margin: 8px 0 2px; font-family: sans-serif; font-size: 14px; } input { padding: 6px; } </style>
+<label>אימייל</label>
+<input type="email" placeholder="name@example.com">
+<label>מספר</label>
+<input type="number" min="0" max="10">
+<label>תאריך</label>
+<input type="date">
+<label>צבע</label>
+<input type="color" value="#d9852a">
+<label>טווח</label>
+<input type="range" min="0" max="100">
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="validation">ולידציה (בדיקת תקינות)</h2>
+          <p>HTML5 מאפשר לבדוק תקינות של שדות אוטומטית. עם <code>required</code>, <code>pattern</code> (ביטוי רגולרי) ו-CSS pseudo-classes כמו <code>:valid</code> ו-<code>:invalid</code>, מקבלים משוב חזותי בזמן ההקלדה, בלי JavaScript. הקלד אימייל וראה איך הצבע משתנה:</p>
+          <div class="playground" data-tabs="html,css">
+<script type="text/plain" class="pg-html">
+<form>
+  <p>אימייל (חובה):</p>
+  <input type="email" required placeholder="הקלד אימייל">
+  <p>קוד מדינה (3 אותיות):</p>
+  <input type="text" pattern="[A-Za-z]{3}" placeholder="ISR" title="שלוש אותיות">
+</form>
+</script>
+<script type="text/plain" class="pg-css">
+input { padding: 8px; font-size: 16px; border: 2px solid #ccc; border-radius: 6px; }
+input:valid { border-color: #2f9e5f; background: #eafaf0; }
+input:invalid { border-color: #cf3a3a; background: #fdeeee; }
+</script>
+          </div>
+          <p>לוולידציה מורכבת יותר (למשל התאמת שתי סיסמאות) משתמשים ב-JavaScript עם המתודה <code>setCustomValidity</code>: מחרוזת ריקה מסמנת שהשדה תקין, ומחרוזת עם טקסט מסמנת שגיאה.</p>
+          <div class="code-block" data-lang="js" data-file="validate.js">
+<script type="text/plain">
+function checkPasswords() {
+  const p1 = document.getElementById("password1");
+  const p2 = document.getElementById("password2");
+  if (p1.value != p2.value) {
+    p2.setCustomValidity("הסיסמאות לא תואמות!");
+  } else {
+    p2.setCustomValidity(""); // ריק = תקין
+  }
+}
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="details">details, summary ומדיה</h2>
+          <p>האלמנטים <code>&lt;details&gt;</code> ו-<code>&lt;summary&gt;</code> יוצרים אזור מתקפל בלי JavaScript. לחץ:</p>
+          <div class="livedemo" data-title="details ו-summary">
+<script type="text/plain">
+<details style="font-family:sans-serif">
+  <summary style="cursor:pointer;font-weight:bold">איך מנצחים את הבוס? (ספוילר)</summary>
+  <p>כוון לנקודות האדומות ליד העיניים, ואז ירה במהירות.</p>
+</details>
+</script>
+          </div>
+          <p>למדיה יש אלמנטים מובנים: <code>&lt;video&gt;</code> ו-<code>&lt;audio&gt;</code>, שמכילים <code>&lt;source&gt;</code> לפורמטים שונים. שים לב: אי אפשר להטמיע ישירות סרטוני יוטיוב עם video, ולכן משתמשים ב-<code>&lt;iframe&gt;</code>.</p>
+          <div class="code-block" data-lang="markup" data-file="video.html">
+<script type="text/plain">
+<video width="320" height="240" controls>
+  <source src="movie.mp4" type="video/mp4">
+  <source src="movie.ogg" type="video/ogg">
+</video>
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="tables">טבלאות</h2>
+          <p>טבלה נבנית מ-<code>&lt;table&gt;</code>, שורות <code>&lt;tr&gt;</code> ותאים <code>&lt;td&gt;</code>. אפשר לאחד תאים עם <code>rowspan</code> ו-<code>colspan</code>.</p>
+          <div class="livedemo" data-title="טבלה פשוטה">
+<script type="text/plain">
+<table border="1" style="border-collapse:collapse;font-family:sans-serif">
+  <tr><th>שם</th><th>גיל</th></tr>
+  <tr><td>דנה</td><td>24</td></tr>
+  <tr><td>יוסי</td><td>30</td></tr>
+</table>
+</script>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 id="quiz">בדיקה עצמית</h2>
+          <div class="quiz" data-quiz="07-html5"></div>
+        </section>
+
+        <nav class="topic-nav" data-topic-nav aria-label="ניווט בין נושאים"></nav>
+      </div>
+    </div>
+  </main>
+  <footer class="site-footer"><div class="wrap"><span>web·apps · HTML5 מתקדם</span><span class="muted">מבוסס על מצגת 02</span></div></footer>
+
+  <script defer src="../js/site.js"></script>
+  <script defer src="../js/storage.js"></script>
+  <script defer src="../js/progress.js"></script>
+  <script defer src="../js/motion.js"></script>
+  <script defer src="../js/highlight.js"></script>
+  <script defer src="../js/playground.js"></script>
+  <script defer src="../js/livedemo.js"></script>
+  <script defer src="../js/stepper.js"></script>
+  <script defer src="../js/challenge.js"></script>
+  <script defer src="../js/animations.js"></script>
+  <script defer src="../js/quiz-engine.js"></script>
+  <script defer src="../js/quiz-ui.js"></script>
+</body>
+</html>

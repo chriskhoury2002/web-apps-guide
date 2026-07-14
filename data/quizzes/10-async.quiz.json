@@ -1,0 +1,250 @@
+{
+  "slug": "10-async",
+  "title": "תרגול: אסינכרוניות, Fetch ו-JSON",
+  "questions": [
+    {
+      "id": 1, "type": "knowledge", "topic": "single thread",
+      "question": "מה נכון לגבי JavaScript?",
+      "options": [
+        "הוא single-threaded, כלומר רק דבר אחד קורה בכל רגע",
+        "הוא מריץ פעולות רבות במקביל בכמה threads",
+        "הוא לא תומך בקוד אסינכרוני",
+        "הוא רץ רק בצד השרת"
+      ],
+      "correctIndex": 0,
+      "explanation": "JS הוא single-threaded. כדי לא להיתקע בפעולות איטיות, הוא משתמש בקוד אסינכרוני ו-Event Loop.",
+      "source": "מצגת 05, שקף 12"
+    },
+    {
+      "id": 2, "type": "output", "topic": "סדר הרצה",
+      "question": "מה סדר ההדפסות?",
+      "code": "console.log(\"A\");\nsetTimeout(() => console.log(\"B\"), 0);\nconsole.log(\"C\");",
+      "lang": "js",
+      "options": [
+        "A, C, B",
+        "A, B, C",
+        "B, A, C",
+        "C, B, A"
+      ],
+      "correctIndex": 0,
+      "explanation": "setTimeout, גם עם 0ms, מעביר את ה-callback ל-Callback Queue. הוא ירוץ רק אחרי שהקוד הסינכרוני (A ו-C) הסתיים. לכן: A, C, ואז B.",
+      "source": "מצגת 05, שקף 8, 13"
+    },
+    {
+      "id": 3, "type": "output", "topic": "microtask מול callback",
+      "question": "מה סדר ההדפסות?",
+      "code": "console.log(\"1\");\nsetTimeout(() => console.log(\"2\"), 0);\nPromise.resolve().then(() => console.log(\"3\"));\nconsole.log(\"4\");",
+      "lang": "js",
+      "options": [
+        "1, 4, 3, 2",
+        "1, 2, 3, 4",
+        "1, 4, 2, 3",
+        "1, 3, 4, 2"
+      ],
+      "correctIndex": 0,
+      "explanation": "קודם הסינכרוני: 1 ו-4. אחר כך ה-Event Loop מרוקן קודם את ה-Microtask Queue (ה-Promise, שזה 3) ורק אז את ה-Callback Queue (ה-setTimeout, שזה 2). לכן: 1, 4, 3, 2.",
+      "source": "מצגת 05, שקף 8"
+    },
+    {
+      "id": 4, "type": "knowledge", "topic": "event loop",
+      "question": "מה עושה ה-Event Loop?",
+      "options": [
+        "בודק מתי המחסנית ריקה ומכניס אליה את ה-callback הבא מהתור",
+        "יוצר thread חדש לכל בקשה",
+        "מהדר את קוד ה-JavaScript",
+        "שומר נתונים במסד הנתונים"
+      ],
+      "correctIndex": 0,
+      "explanation": "ה-Event Loop מנהל את זרימת הביצוע: כשהמחסנית מתרוקנת, הוא לוקח את הפעולה הבאה מהתור ומכניס אותה לביצוע.",
+      "source": "מצגת 05, שקף 8"
+    },
+    {
+      "id": 5, "type": "knowledge", "topic": "blocking",
+      "question": "מה ההבדל בין `readFileSync` ל-`readFile`?",
+      "options": [
+        "readFileSync חוסם וממתין עד סיום, readFile לא חוסם ומקבל callback",
+        "readFile חוסם, readFileSync לא חוסם",
+        "שניהם חוסמים באותה מידה",
+        "readFileSync מהיר יותר תמיד ולכן עדיף"
+      ],
+      "correctIndex": 0,
+      "explanation": "הסיומת Sync מציינת פעולה סינכרונית (חוסמת) שממתינה עד הסוף. readFile הוא אסינכרוני ולא חוסם, ומקבל callback שירוץ כשהקובץ מוכן.",
+      "source": "מצגת 05, שקף 10"
+    },
+    {
+      "id": 6, "type": "output", "topic": "non-blocking",
+      "question": "מה יודפס קודם?",
+      "code": "fs.readFile(\"a.txt\", (err, data) => {\n  console.log(\"הקובץ נקרא\");\n});\nconsole.log(\"אחרי\");",
+      "lang": "js",
+      "options": [
+        "'אחרי' יודפס קודם, ורק אחר כך 'הקובץ נקרא'",
+        "'הקובץ נקרא' יודפס קודם",
+        "שניהם יודפסו בו-זמנית",
+        "כלום לא יודפס"
+      ],
+      "correctIndex": 0,
+      "explanation": "readFile לא חוסם. הקוד ממשיך מיד לשורה הבאה ומדפיס 'אחרי'. ה-callback ('הקובץ נקרא') ירוץ מאוחר יותר, כשהקריאה הסתיימה.",
+      "source": "מצגת 05, שקף 11"
+    },
+    {
+      "id": 7, "type": "knowledge", "topic": "callback hell",
+      "question": "מהו 'Callback Hell'?",
+      "options": [
+        "קוד עם callbacks מקוננים עמוק זה בתוך זה, שהופך לקשה לקריאה",
+        "callback שרץ לנצח בלולאה אינסופית",
+        "callback שמחזיר שגיאה",
+        "callback בלי שם"
+      ],
+      "correctIndex": 0,
+      "explanation": "כשפעולות אסינכרוניות תלויות זו בזו, נכנסים callbacks בתוך callbacks ונוצרות 'מדרגות' קשות לקריאה ולתחזוקה. הפתרון: Promises ו-async/await.",
+      "source": "מצגת 05, שקף 14"
+    },
+    {
+      "id": 8, "type": "knowledge", "topic": "promise",
+      "question": "מה מחזירה פונקציית `async`?",
+      "options": [
+        "אובייקט Promise",
+        "מחרוזת",
+        "מספר",
+        "כלום (undefined תמיד)"
+      ],
+      "correctIndex": 0,
+      "explanation": "פונקציית async תמיד מחזירה Promise. הערך שמוחזר מהפונקציה הופך לערך שה-Promise 'מתקיים' איתו, וניגשים אליו עם then או await.",
+      "source": "מצגת 05, שקף 15, 16"
+    },
+    {
+      "id": 9, "type": "knowledge", "topic": "then",
+      "question": "מה מקבלת הפונקציה שמעבירים ל-`.then`?",
+      "options": [
+        "את הערך שהוחזר מהפעולה האסינכרונית הקודמת",
+        "את השגיאה בלבד",
+        "את ה-Promise עצמו",
+        "כלום"
+      ],
+      "correctIndex": 0,
+      "explanation": "ה-callback של then מקבל כפרמטר את הערך שההבטחה התקיימה איתו (מה שהוחזר מהפונקציה הקודמת). אפשר לשרשר then נוסף.",
+      "source": "מצגת 05, שקף 16"
+    },
+    {
+      "id": 10, "type": "knowledge", "topic": "await",
+      "question": "היכן מותר להשתמש ב-`await`?",
+      "options": [
+        "רק בתוך פונקציית async",
+        "בכל מקום בקוד",
+        "רק בצד הלקוח",
+        "רק בתוך לולאה"
+      ],
+      "correctIndex": 0,
+      "explanation": "await אפשר להשתמש רק בתוך פונקציה שמוגדרת async. הוא 'עוצר' את הפונקציה עד שהפעולה האסינכרונית שאחריו מסתיימת.",
+      "source": "מצגת 05, שקף 17"
+    },
+    {
+      "id": 11, "type": "output", "topic": "await ordering",
+      "question": "מה סדר ההדפסות?",
+      "code": "async function f() {\n  console.log(\"A\");\n  await g();\n  console.log(\"C\");\n}\nconsole.log(\"start\");\nf();\nconsole.log(\"B\");",
+      "lang": "js",
+      "options": [
+        "start, A, B, C",
+        "start, A, C, B",
+        "A, B, C, start",
+        "start, B, A, C"
+      ],
+      "correctIndex": 0,
+      "explanation": "start מודפס, אז f רצה ומדפיסה A, מגיעה ל-await ונעצרת ומחזירה שליטה. B מודפס. כשההמתנה נגמרת f ממשיכה ומדפיסה C. סדר: start, A, B, C.",
+      "source": "מצגת 05, שקף 17"
+    },
+    {
+      "id": 12, "type": "knowledge", "topic": "fetch",
+      "question": "לשם מה משמש `fetch`?",
+      "options": [
+        "לשלוח ולקבל נתונים מהשרת בעזרת JavaScript, בלי לטעון מחדש את הדף",
+        "לעצב אלמנטים בדף",
+        "ליצור מסד נתונים",
+        "להריץ Node.js בדפדפן"
+      ],
+      "correctIndex": 0,
+      "explanation": "fetch מאפשר תקשורת עם השרת מ-JavaScript. הוא מחליף שיטות ישנות כמו AJAX ו-XMLHttpRequest ומאפשר לעדכן חלקים בדף בלי רענון מלא.",
+      "source": "מצגת 05, שקף 22"
+    },
+    {
+      "id": 13, "type": "knowledge", "topic": "response.json",
+      "question": "מה עושה `response.json()` בשרשרת של fetch?",
+      "options": [
+        "מפענח את גוף התשובה ומחזיר אותו כאובייקט JavaScript",
+        "שולח את הבקשה לשרת",
+        "בודק את קוד הסטטוס",
+        "ממיר אובייקט למחרוזת"
+      ],
+      "correctIndex": 0,
+      "explanation": "`response.json()` קורא את גוף התשובה ומפענח אותו מ-JSON לאובייקט JS. הוא עצמו אסינכרוני ולכן משרשרים אחריו then נוסף.",
+      "source": "מצגת 05, שקף 25"
+    },
+    {
+      "id": 14, "type": "predict", "topic": "fetch error",
+      "question": "מה קורה ב-fetch כשהשרת מחזיר סטטוס 404?",
+      "options": [
+        "fetch לא זורק שגיאה מעצמו, צריך לבדוק את response.ok",
+        "fetch זורק שגיאה אוטומטית ונכנס ל-catch",
+        "fetch מנסה שוב לבד",
+        "הדף קורס"
+      ],
+      "correctIndex": 0,
+      "explanation": "fetch נחשב 'הצליח' גם על 404, כי הבקשה עצמה הגיעה לשרת. צריך לבדוק בעצמנו את `response.ok` (או את status) ולזרוק שגיאה אם צריך.",
+      "source": "מצגת 05, שקף 26"
+    },
+    {
+      "id": 15, "type": "error", "topic": "POST",
+      "question": "בבקשת POST עם fetch, איך שולחים את הנתונים בגוף הבקשה?",
+      "options": [
+        "בתוך `body`, כמחרוזת שנוצרה עם `JSON.stringify(...)`",
+        "בתוך `headers`",
+        "כפרמטר ב-URL בלבד",
+        "אי אפשר לשלוח נתונים ב-POST"
+      ],
+      "correctIndex": 0,
+      "explanation": "ב-POST מוסיפים אובייקט הגדרות עם method, headers ו-body. את ה-body הופכים למחרוזת JSON עם JSON.stringify, ומגדירים Content-Type: application/json.",
+      "source": "מצגת 05, שקף 27"
+    },
+    {
+      "id": 16, "type": "knowledge", "topic": "JSON",
+      "question": "מה נכון לגבי JSON?",
+      "options": [
+        "פורמט טקסט קליל להעברת נתונים, עצמאי משפה, שהחליף במידה רבה את XML",
+        "שפת תכנות מלאה",
+        "פורמט של תמונות",
+        "מסד נתונים"
+      ],
+      "correctIndex": 0,
+      "explanation": "JSON (JavaScript Object Notation) הוא פורמט טקסט קליל להחלפת נתונים. הוא קריא, עצמאי משפה, והפך לפורמט הנפוץ ביותר, במקום XML.",
+      "source": "מצגת 05, שקף 29"
+    },
+    {
+      "id": 17, "type": "error", "topic": "JSON מול JS",
+      "question": "איזה מהבאים הוא JSON תקין?",
+      "code": "// אפשרות א\n{ \"name\": \"דנה\", \"age\": 24 }\n\n// אפשרות ב\n{ name: 'דנה', age: 24 }",
+      "lang": "js",
+      "options": [
+        "אפשרות א, כי גם השמות וגם המחרוזות במרכאות כפולות",
+        "אפשרות ב, כי מותר בלי מרכאות על השמות",
+        "שתיהן תקינות ב-JSON",
+        "אף אחת לא תקינה"
+      ],
+      "correctIndex": 0,
+      "explanation": "ב-JSON, בניגוד ל-JS, גם שמות השדות וגם המחרוזות חייבים מרכאות כפולות. אפשרות ב (מרכאות בודדות ובלי מרכאות על השם) תקינה ב-JS אבל לא ב-JSON.",
+      "source": "מצגת 05, שקף 30"
+    },
+    {
+      "id": 18, "type": "knowledge", "topic": "parse/stringify",
+      "question": "מה ההבדל בין `JSON.parse` ל-`JSON.stringify`?",
+      "options": [
+        "parse ממחרוזת לאובייקט, stringify מאובייקט למחרוזת",
+        "parse מאובייקט למחרוזת, stringify ממחרוזת לאובייקט",
+        "שניהם ממירים מחרוזת לאובייקט",
+        "שניהם שולחים בקשה לשרת"
+      ],
+      "correctIndex": 0,
+      "explanation": "`JSON.parse` מקבל מחרוזת JSON ומחזיר אובייקט. `JSON.stringify` מקבל אובייקט ומחזיר מחרוזת JSON. שימושי לשליחה וקבלה של נתונים.",
+      "source": "מצגת 05, שקף 33"
+    }
+  ]
+}
