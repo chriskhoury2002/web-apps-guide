@@ -78,23 +78,8 @@
     if (instant === undefined) instant = true;
     var mode = instant ? 'practice' : 'exam';
     var qs = guide.questions.slice().sort(function (a, b) { return a.n - b.n; });
-    var items = qs.map(function (q) {
-      var v = pickVersion(q);
-      var cc = pickCode(q);
-      var correct = v.options[v.correctIndex];
-      return {
-        n: q.n,
-        question: q.q,
-        code: cc.code,
-        lang: cc.lang,
-        options: v.options.slice(),
-        correctIndex: v.correctIndex,
-        topics: q.topics || [],
-        explanation: 'התשובה הנכונה: ' + correct + (q.explain ? ' — ' + q.explain : '')
-      };
-    });
-    var total = items.length;
-    var state = items.map(function () { return { answered: false, correct: false }; });
+    var total = qs.length;
+    var state = qs.map(function () { return { answered: false, correct: false }; });
     var idx = 0, finished = false, remaining = DURATION, timer = null;
 
     mount.innerHTML =
@@ -122,23 +107,56 @@
     var progEl = mount.querySelector('.fe-progress > span');
     var timerEl = mount.querySelector('#fe-timer');
 
-    // build all cards up front (so answers persist across navigation)
-    var cards = items.map(function (q, i) {
-      var card = WAG.buildQuestionCard(q, {
+    // each question lives in a wrapper: its card + a "another version" button.
+    var cards = [], wraps = [];
+    function updateDone() { doneB.textContent = state.filter(function (s) { return s.answered; }).length; }
+
+    function mountCard(i) {
+      var src = qs[i];
+      var v = pickVersion(src);
+      var cc = pickCode(src);
+      var correct = v.options[v.correctIndex];
+      var qobj = {
+        question: src.q, code: cc.code, lang: cc.lang,
+        options: v.options.slice(), correctIndex: v.correctIndex,
+        explanation: 'התשובה הנכונה: ' + correct + (src.explain ? ' — ' + src.explain : '')
+      };
+      var card = WAG.buildQuestionCard(qobj, {
         index: i, total: total, mode: mode,
-        onAnswer: function (correct) {
-          state[i].answered = true; state[i].correct = correct;
-          doneB.textContent = state.filter(function (s) { return s.answered; }).length;
+        onAnswer: function (ok) {
+          state[i].answered = true; state[i].correct = ok;
+          updateDone();
           nav.children[i].classList.add('done');
         }
       });
-      card.el.style.display = 'none';
-      stage.appendChild(card.el);
-      return card;
+      cards[i] = card;
+      var wrap = wraps[i];
+      wrap.innerHTML = '';
+      wrap.appendChild(card.el);
+      var more = document.createElement('button');
+      more.type = 'button'; more.className = 'btn ghost sm fe-qmore';
+      more.textContent = '🔄 גרסה נוספת של השאלה הזו';
+      more.title = 'תשובות אחרות לאותה שאלה, כדי להתאמן עליה שוב';
+      more.addEventListener('click', function () {
+        state[i] = { answered: false, correct: false };
+        nav.children[i].classList.remove('done');
+        updateDone();
+        mountCard(i);
+      });
+      wrap.appendChild(more);
+    }
+
+    // build wrappers + initial cards
+    qs.forEach(function (q, i) {
+      var wrap = document.createElement('div');
+      wrap.className = 'fe-qwrap'; wrap.style.display = 'none';
+      wraps[i] = wrap;
+      stage.appendChild(wrap);
+      mountCard(i);
     });
 
     // navigator dots
-    items.forEach(function (q, i) {
+    qs.forEach(function (q, i) {
       var b = document.createElement('button');
       b.type = 'button'; b.className = 'fe-dot'; b.textContent = (i + 1);
       b.addEventListener('click', function () { go(i); });
@@ -148,7 +166,7 @@
     function go(i) {
       if (finished) return;
       idx = Math.max(0, Math.min(total - 1, i));
-      cards.forEach(function (c, k) { c.el.style.display = k === idx ? '' : 'none'; });
+      wraps.forEach(function (w, k) { w.style.display = k === idx ? '' : 'none'; });
       Array.prototype.forEach.call(nav.children, function (d, k) { d.classList.toggle('current', k === idx); });
       countB.textContent = idx + 1;
       progEl.style.width = ((idx + 1) / total * 100) + '%';
@@ -177,12 +195,12 @@
       if (timer) clearInterval(timer);
       var correct = state.filter(function (s) { return s.correct; }).length;
       var pct = Math.round(correct / total * 100);
-      if (mode === 'exam') cards.forEach(function (c) { c.reveal(); });
-      cards.forEach(function (c) { c.el.style.display = 'none'; });
+      if (mode === 'exam') cards.forEach(function (c) { if (c) c.reveal(); });
+      wraps.forEach(function (w) { w.style.display = 'none'; });
 
       // per-topic breakdown (by primary topic)
       var byTopic = {};
-      items.forEach(function (q, i) {
+      qs.forEach(function (q, i) {
         var slug = (q.topics && q.topics[0]) || 'other';
         byTopic[slug] = byTopic[slug] || { correct: 0, total: 0 };
         byTopic[slug].total++;
@@ -231,7 +249,7 @@
       var reviewShown = false;
       results.querySelector('.fe-review').addEventListener('click', function () {
         reviewShown = !reviewShown;
-        cards.forEach(function (c) { c.el.style.display = reviewShown ? '' : 'none'; });
+        wraps.forEach(function (w) { w.style.display = reviewShown ? '' : 'none'; });
         if (reviewShown) stage.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     }
