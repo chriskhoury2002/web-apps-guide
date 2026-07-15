@@ -10,6 +10,8 @@
 .fe-rules li { color: var(--text-dim); font-size: .95rem; background: var(--panel-2); border: 1px solid var(--border); border-radius: 100px; padding: 7px 16px; }
 .fe-rules b { color: var(--accent); font-size: 1.05rem; }
 .btn.lg { font-size: 1.05rem; padding: 13px 28px; }
+.fe-toggle { display: inline-flex; align-items: center; gap: 9px; margin: 0 auto var(--sp-5); font-size: .95rem; font-weight: 600; color: var(--text-dim); cursor: pointer; padding: 9px 15px; border: 1px dashed var(--border-strong); border-radius: var(--r-sm); max-width: 100%; }
+.fe-toggle input { accent-color: var(--accent); width: 17px; height: 17px; flex: none; }
 
 /* ---- exam bar ---- */
 .fe-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; position: sticky; top: 66px; z-index: 20;

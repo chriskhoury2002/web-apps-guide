@@ -65,18 +65,23 @@
           '<li>תשובה אחת נכונה לכל שאלה</li>' +
           '<li>כל התשובות באותו אורך</li>' +
         '</ul>' +
+        '<label class="fe-toggle"><input type="checkbox" id="fe-instant" checked> הצג את התשובה הנכונה מיד אחרי כל שאלה, עם הסבר</label>' +
         '<button class="btn primary lg fe-begin" type="button">התחל מבחן ›</button>' +
       '</div>';
     mount.querySelector('.fe-begin').addEventListener('click', function () {
-      startExam(mount, guide, topicsMap);
+      var instant = mount.querySelector('#fe-instant').checked;
+      startExam(mount, guide, topicsMap, instant);
     });
   }
 
-  function startExam(mount, guide, topicsMap) {
+  function startExam(mount, guide, topicsMap, instant) {
+    if (instant === undefined) instant = true;
+    var mode = instant ? 'practice' : 'exam';
     var qs = guide.questions.slice().sort(function (a, b) { return a.n - b.n; });
     var items = qs.map(function (q) {
       var v = pickVersion(q);
       var cc = pickCode(q);
+      var correct = v.options[v.correctIndex];
       return {
         n: q.n,
         question: q.q,
@@ -85,7 +90,7 @@
         options: v.options.slice(),
         correctIndex: v.correctIndex,
         topics: q.topics || [],
-        explanation: 'התשובה הנכונה: ' + v.options[v.correctIndex]
+        explanation: 'התשובה הנכונה: ' + correct + (q.explain ? ' — ' + q.explain : '')
       };
     });
     var total = items.length;
@@ -120,7 +125,7 @@
     // build all cards up front (so answers persist across navigation)
     var cards = items.map(function (q, i) {
       var card = WAG.buildQuestionCard(q, {
-        index: i, total: total, mode: 'exam',
+        index: i, total: total, mode: mode,
         onAnswer: function (correct) {
           state[i].answered = true; state[i].correct = correct;
           doneB.textContent = state.filter(function (s) { return s.answered; }).length;
@@ -172,7 +177,8 @@
       if (timer) clearInterval(timer);
       var correct = state.filter(function (s) { return s.correct; }).length;
       var pct = Math.round(correct / total * 100);
-      cards.forEach(function (c) { c.reveal(); });
+      if (mode === 'exam') cards.forEach(function (c) { c.reveal(); });
+      cards.forEach(function (c) { c.el.style.display = 'none'; });
 
       // per-topic breakdown (by primary topic)
       var byTopic = {};
@@ -220,7 +226,7 @@
       results.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
       results.querySelector('.fe-again').addEventListener('click', function () {
-        startExam(mount, guide, topicsMap);
+        startExam(mount, guide, topicsMap, instant);
       });
       var reviewShown = false;
       results.querySelector('.fe-review').addEventListener('click', function () {
