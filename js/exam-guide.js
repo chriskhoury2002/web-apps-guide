@@ -40,6 +40,15 @@
     return '<div class="eg-examples"><h4 class="eg-fh code">📄 קוד לדוגמה</h4>' + blocks + '</div>';
   }
 
+  /* pick the code snippet to show; some questions rotate the element between <> */
+  function pickCode(q) {
+    if (q.codeVariants && q.codeVariants.length) {
+      var c = WAG.quiz.shuffle(q.codeVariants)[0];
+      return { code: c.code, lang: c.codeLang || 'markup' };
+    }
+    return { code: q.code || null, lang: q.codeLang || 'js' };
+  }
+
   /* Build 10 exam-style MCQ items for one question.
      - stem is always the exam question (q.q)
      - correct answer rotates through the (shuffled) facts
@@ -49,10 +58,11 @@
     // Prefer the authored equal-length version bank (same options as the final exam).
     if (entry.versions && entry.versions.length) {
       return WAG.quiz.shuffle(entry.versions).map(function (v) {
+        var cc = pickCode(entry);
         return {
           question: entry.q,
-          code: entry.code || null,
-          lang: entry.codeLang || 'js',
+          code: cc.code,
+          lang: cc.lang,
           options: v.options.slice(),
           correctIndex: v.correctIndex,
           explanation: 'הטענה הנכונה: ' + v.options[v.correctIndex]

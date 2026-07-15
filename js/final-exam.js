@@ -38,6 +38,15 @@
     return { options: opts, correctIndex: 0 };
   }
 
+  /* pick the code snippet to show; some questions (e.g. Q2) rotate the element between <> */
+  function pickCode(q) {
+    if (q.codeVariants && q.codeVariants.length) {
+      var c = WAG.quiz.shuffle(q.codeVariants)[0];
+      return { code: c.code, lang: c.codeLang || 'markup' };
+    }
+    return { code: q.code || null, lang: q.codeLang || 'js' };
+  }
+
   function mmss(s) {
     var m = Math.floor(s / 60), r = s % 60;
     return m + ':' + (r < 10 ? '0' : '') + r;
@@ -67,11 +76,12 @@
     var qs = guide.questions.slice().sort(function (a, b) { return a.n - b.n; });
     var items = qs.map(function (q) {
       var v = pickVersion(q);
+      var cc = pickCode(q);
       return {
         n: q.n,
         question: q.q,
-        code: q.code || null,
-        lang: q.codeLang || 'js',
+        code: cc.code,
+        lang: cc.lang,
         options: v.options.slice(),
         correctIndex: v.correctIndex,
         topics: q.topics || [],
