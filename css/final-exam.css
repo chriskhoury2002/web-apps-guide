@@ -1,0 +1,65 @@
+/* ============================================================
+   final-exam.css — "מבחן מסכם" runner UI
+   ============================================================ */
+
+/* ---- start screen ---- */
+.fe-start { text-align: center; max-width: 620px; margin: 0 auto; padding: var(--sp-7) var(--sp-5); }
+.fe-start-icon { font-size: 3rem; margin-bottom: 8px; }
+.fe-start h2 { font-size: 1.9rem; }
+.fe-rules { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 22px; padding: 0; margin: var(--sp-5) 0; }
+.fe-rules li { color: var(--text-dim); font-size: .95rem; background: var(--panel-2); border: 1px solid var(--border); border-radius: 100px; padding: 7px 16px; }
+.fe-rules b { color: var(--accent); font-size: 1.05rem; }
+.btn.lg { font-size: 1.05rem; padding: 13px 28px; }
+
+/* ---- exam bar ---- */
+.fe-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; position: sticky; top: 66px; z-index: 20;
+  background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border); border-radius: var(--r); padding: 10px 16px; margin-bottom: 12px; }
+.fe-count, .fe-answered { font-size: .92rem; color: var(--text-dim); font-weight: 600; }
+.fe-count b, .fe-answered b { color: var(--text); }
+.fe-timer { font-family: var(--font-mono, monospace); font-size: 1.15rem; font-weight: 800; color: var(--accent);
+  background: var(--panel-2); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 3px 14px; letter-spacing: .5px; }
+.fe-timer.low { color: var(--error); border-color: var(--error); animation: fePulse 1s var(--ease) infinite; }
+@keyframes fePulse { 50% { opacity: .55; } }
+
+.fe-progress { height: 5px; background: var(--panel-2); border-radius: 100px; overflow: hidden; margin-bottom: 14px; }
+.fe-progress > span { display: block; height: 100%; width: 5%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width var(--t) var(--ease); }
+
+/* ---- question navigator ---- */
+.fe-nav { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 16px; }
+.fe-dot { width: 34px; height: 34px; border-radius: var(--r-sm); border: 1px solid var(--border); background: var(--panel);
+  color: var(--text-mute); font-weight: 700; font-size: .85rem; cursor: pointer; transition: all var(--t-fast) var(--ease); }
+.fe-dot:hover { color: var(--text); border-color: var(--border-strong); }
+.fe-dot.done { background: color-mix(in srgb, var(--accent) 22%, var(--panel)); color: var(--text); border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); }
+.fe-dot.current { outline: 2px solid var(--accent); outline-offset: 1px; color: var(--text); }
+
+.fe-stage { min-height: 200px; }
+
+/* ---- footer controls ---- */
+.fe-foot { display: flex; gap: 10px; align-items: center; margin-top: 16px; flex-wrap: wrap; }
+.fe-foot .fe-submit { margin-inline-start: auto; }
+.fe-foot .btn:disabled { opacity: .4; cursor: not-allowed; }
+
+/* ---- results ---- */
+.fe-results { margin-top: var(--sp-6); }
+.fe-res-card { text-align: center; padding: var(--sp-6) var(--sp-5); max-width: 640px; margin: 0 auto; }
+.fe-ring { display: block; margin: 0 auto 6px; }
+.fe-res-score { font-size: 2.4rem; font-weight: 800; }
+.fe-res-score span { color: var(--text-mute); font-size: 1.4rem; }
+.fe-res-msg { font-size: 1.15rem; font-weight: 700; margin: 4px 0 6px; }
+.fe-breakdown { text-align: start; margin: var(--sp-5) 0; }
+.fe-breakdown h3 { font-size: 1rem; margin-bottom: 12px; }
+.fe-trow { display: grid; grid-template-columns: minmax(0,1fr) 2fr auto; align-items: center; gap: 10px; margin-bottom: 9px; font-size: .9rem; }
+.fe-tname { color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fe-tbar { height: 8px; background: var(--panel-2); border-radius: 100px; overflow: hidden; }
+.fe-tbar i { display: block; height: 100%; border-radius: 100px; transition: width .6s var(--ease-out); }
+.fe-tscore { font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
+.fe-res-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 6px; }
+
+@media (max-width: 600px) {
+  .fe-bar { flex-wrap: wrap; gap: 8px; top: 60px; }
+  .fe-timer { order: -1; }
+  .fe-dot { width: 30px; height: 30px; font-size: .8rem; }
+  .fe-foot .fe-submit { margin-inline-start: 0; width: 100%; order: 3; }
+  .fe-foot .fe-prev, .fe-foot .fe-next { flex: 1; }
+}

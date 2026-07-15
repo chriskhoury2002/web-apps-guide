@@ -65,6 +65,7 @@
           '<a href="' + ROOT + 'index.html"' + (CUR_SLUG === 'home' ? ' class="active"' : '') + '>בית</a>' +
           '<a href="' + ROOT + 'index.html#topics">כל הנושאים</a>' +
           '<a class="nav-exam' + (CUR_SLUG === 'exam' ? ' active' : '') + '" href="' + ROOT + 'exam.html">🎓 מדריך למבחן</a>' +
+          '<a class="nav-exam' + (CUR_SLUG === 'final-exam' ? ' active' : '') + '" href="' + ROOT + 'final-exam.html">📝 מבחן מסכם</a>' +
           '<button class="icon-btn" id="theme-toggle" type="button" aria-label="החלף ערכת נושא"></button>' +
         '</div>' +
       '</nav></div>';

@@ -46,6 +46,20 @@
      - 3 distractors are distinct traps, different from the correct one
      Fresh randomness on every call (works in the browser). */
   function makeExamItems(entry) {
+    // Prefer the authored equal-length version bank (same options as the final exam).
+    if (entry.versions && entry.versions.length) {
+      return WAG.quiz.shuffle(entry.versions).map(function (v) {
+        return {
+          question: entry.q,
+          code: entry.code || null,
+          lang: entry.codeLang || 'js',
+          options: v.options.slice(),
+          correctIndex: v.correctIndex,
+          explanation: 'הטענה הנכונה: ' + v.options[v.correctIndex]
+        };
+      });
+    }
+    // fallback: generate rounds from facts/traps
     var facts = WAG.quiz.shuffle(entry.facts || []);
     var trapsRaw = (entry.traps || []);
     var items = [];
